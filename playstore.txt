@@ -1,0 +1,11 @@
+1. ionic cordova build --prod
+2.chnage version.
+
+3. ionic cordova build android --prod --release
+4. after building release app, goto to that place and cut from there and come to main folder of gravity app where you will find 2 files 1.gravity-unsigned.apk 2.gravity.apk delete them and paste your new release app here.   
+
+5. C:\Users\Admin\AppData\Local\Android\Sdk\tools\build-tools\30.0.3\zipalign -v 4 gravity-unsigned.apk gravity.apk
+
+
+6. C:\Users\Admin\AppData\Local\Android\Sdk\tools\build-tools\30.0.3\apksigner sign --ks gravityApp.keystore gravity.apk
+

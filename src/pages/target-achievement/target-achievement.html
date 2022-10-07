@@ -1,0 +1,237 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>
+            <h1  *ngIf="from=='executive'" >Executive Achievement LOG</h1>
+            <h1 *ngIf="from=='distributor'" >Target V/S Achievement Log</h1>
+            
+        </ion-title>
+    </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>  
+    
+    <span *ngIf="from=='executive'">
+        
+        
+        <div class="cs-heading1 pl0 pr0 mb10">
+            <p>Upcoming Target</p>
+        </div>
+        
+        
+        <div class="list-box" *ngFor="let row of target_list_next_months">
+            <div class="mid mt0">
+                <div class="content-info">
+                    <div class="left-info"> 
+                        <div class="circle">{{row.sale_type.substring(0,1).toUpperCase()}}</div>
+                    </div>
+                    
+                    <div class="right-info">
+                        <p>{{row.month}} <strong> - </strong>{{row.year}} ({{row.sale_type}})</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="three_boxes"> 
+                <div class="lower">
+                    <p>Target</p> 
+                    <p>&#8377;{{row.target}}</p>
+                </div>
+                <div class="lower">
+                    <p>Achievement</p>
+                    <p>&#8377;{{row.achievement == null ? '0' : row.achievement }}</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="cs-heading1 pl0 pr0 mb10">
+            <p>Previous Target & Achievement</p>
+        </div>
+        
+        
+        <div class="list-box" *ngFor="let row of target_list_previous_months">
+            <div class="mid mt0">
+                <div class="content-info">
+                    <div class="left-info"> 
+                        <div class="circle">{{row.sale_type.substring(0,1).toUpperCase()}}</div>
+                    </div>
+                    
+                    <div class="right-info">
+                        <p>{{row.month}} <strong> - </strong>{{row.year}} ({{row.sale_type}})</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="three_boxes"> 
+                <div class="lower">
+                    <p>Target</p> 
+                    <p>&#8377;{{row.target}}</p>
+                </div>
+                <div class="lower">
+                    <p>Achievement</p>
+                    <p>&#8377;{{row.achievement == null ? '0' : row.achievement }}</p>
+                </div>
+            </div>
+        </div>  
+        
+        
+        
+        <!-- <div class="scroll_in_modal">
+            <div class="list-box">
+                <div class="mid mt0">
+                    <div class="content-info">
+                        <div class="left-info"> 
+                            <div class="circle">xyz</div>
+                        </div>
+                        
+                        <div class="right-info">
+                            <p>product name <strong> - </strong>25kg</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="three_boxes"> 
+                    <div class="lower">
+                        <p>Target</p> 
+                        <p>&#8377;1000000</p>
+                    </div>
+                    <div class="lower">
+                        <p>Achievement</p>
+                        <p>&#8377;1000</p>
+                    </div>
+                </div>
+            </div>  
+        </div> -->
+        
+        
+        
+    </span>
+    
+    <span *ngIf="from=='distributor'">
+        <!-- <div class="cs-heading1 pl0 pr0 mb10">
+            <p>Upcoming Target</p>
+        </div> -->
+        <div class="round-tab pt0 pr0 pl0 pb20">
+            <ul>
+                <li [ngClass]="{'active' : tab_active=='Upcoming'} "  (click)="tab_active='Upcoming'">
+                    <p>Upcoming Target</p>
+                </li>
+                <li [ngClass]="{'active' : tab_active=='History'} " (click)="tab_active='History'">
+                    <p>History</p>
+                </li>
+            </ul>
+        </div>
+        
+        <span *ngIf="tab_active=='Upcoming'">
+            <div class="list-box" *ngFor="let list of dr_upcoming_target">
+                <div class="mid mt0">
+                    <div class="content-info">
+                        <div class="left-info"> 
+                            <div class="circle">{{list.month.substring(0,1).toUpperCase()}}</div>
+                        </div>
+                        
+                        <div class="right-info">
+                            <p>{{list.month}} <strong> - </strong>{{list.year}}</p>
+                        </div>
+                        
+                        
+                        
+                    </div>
+                </div>
+                
+                <div class="three_boxes"> 
+                    <div class="lower">
+                        <p>Target</p> 
+                        <p>&#8377;{{list.upcoming_target}}</p>
+                    </div>
+                    <!-- <div class="lower">
+                        <p>Achievement</p>
+                        <p>&#8377;{{list.upcoming_achievement == null ? '0' : list.upcoming_achievement }}</p>
+                    </div>
+                    <div class="lower">
+                        <p>Achievement %</p>
+                        <p>&#8377;{{list.upcoming_achievement_in_percentage == null ? '0' : list.upcoming_achievement_in_percentage }}</p>
+                    </div> -->
+                    
+                </div>
+            </div>
+            
+            <div class="target-box" *ngIf="assigned_area_data.length">
+                <div class="target-head">
+                    <span>Assign Areas</span>
+                </div>
+                <div class="padding10">
+                    <span *ngFor="let area_data of assigned_area_data">
+                        <ion-badge class="mb5" >{{area_data.area_name}} - &#8377; {{area_data.monthly_target}}</ion-badge>
+                    </span>
+                </div>
+            </div>
+            
+            
+        </span>
+        
+        <!-- <div class="cs-heading1 pl0 pr0 mb10">
+            <p>Previous Target & Achievement</p>
+        </div> -->
+        
+        <span *ngIf="tab_active=='History'">
+            <div class="list-box" *ngFor="let list of dr_target_list" >
+                <div class="mid mt0">
+                    <div class="content-info">
+                        <div class="left-info"> 
+                            <div class="circle">{{list.month.substring(0,1).toUpperCase()}}</div>
+                        </div>
+                        
+                        <div class="right-info">
+                            <p>{{list.month}} <strong> - </strong>{{list.year}}</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="three_boxes"> 
+                    <div class="lower">
+                        <p>Target</p> 
+                        <p>&#8377;{{list.target}}</p>
+                    </div>
+                    <div class="lower">
+                        <p>Achievement</p>
+                        <p>&#8377;{{list.achievement == null ? '0' : list.achievement }}</p>
+                    </div>
+                    <div class="lower">
+                        <p>Achievement %</p>
+                        <p>&#8377;{{list.achievement_in_percentage == null ? '0' : list.achievement_in_percentage }}</p>
+                    </div>
+                </div>
+            </div>  
+        </span>
+        
+        
+        <!-- <div class="scroll_in_modal">
+            <div class="list-box">
+                <div class="mid mt0">
+                    <div class="content-info">
+                        <div class="left-info"> 
+                            <div class="circle">xyz</div>
+                        </div>
+                        
+                        <div class="right-info">
+                            <p>product name <strong> - </strong>25kg</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="three_boxes"> 
+                    <div class="lower">
+                        <p>Target</p> 
+                        <p>&#8377;1000000</p>
+                    </div>
+                    <div class="lower">
+                        <p>Achievement</p>
+                        <p>&#8377;1000</p>
+                    </div>
+                </div>
+            </div>  
+        </div> -->
+    </span>
+    
+</ion-content>

@@ -1,0 +1,404 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Expense Detail</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content *ngIf="expense_detail != {}">
+  
+  <div class="pd-left-right16 af_bg">
+    <div class="list-box mb0">
+      
+      <div class="upper">
+        <div class="left-date">
+          <div class="date-section">
+            <p>{{expense_detail.dateCreated | date:'d MMM y'}}</p>
+            <p>Date Created</p>
+          </div>
+          <div class="date-section">
+            <p>{{expense_detail.expenseType}}</p>
+            <p>Expense Type</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="mid">
+        <div class="content-info" >
+          <div class="left-info" >
+            <div class="circle">{{expense_detail.createdByName && expense_detail.createdByName!=''?expense_detail.createdByName.substring(0,1).toUpperCase() : '-'}}</div>
+          </div>
+          <div class="right-info" >
+            <p> {{expense_detail.createdByName}}</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="lower">
+        <div class="three_boxes"> 
+          <div class="lower" [ngClass]="expense_detail.seniorStatus == 'Pending' ? 'pending': expense_detail.seniorStatus == 'Approved' ? 'approved' : expense_detail.seniorStatus == 'Reject'? 'reject':''">
+            <p>Senior Status</p> 
+            <p>{{expense_detail.seniorStatus}}</p>
+            <button *ngIf="enable_status_change == false && (expense_detail.seniorStatus == 'Pending') && userStorageData.id != expense_detail.createdBy" ion-button color="secondary" small class="edit_item" (click)="enable_status_change = true;" ><i class="material-icons">edit</i></button>
+          </div>
+          <div class="lower" [ngClass]="expense_detail.acStatus == 'Pending' ? 'pending': expense_detail.acStatus == 'Approved' ? 'approved' : expense_detail.acStatus == 'Reject'? 'reject':''">
+            <p>Account Status</p>
+            <p>{{expense_detail.acStatus}}</p>
+          </div>
+        </div>
+
+        <div class="three_boxes"> 
+          <div class="lower" *ngIf="expense_detail.seniorStatus != 'Pending' &&  expense_detail.seniorRemark && expense_detail.seniorRemark != ''">
+            <p>Senior Status Remark</p> 
+            <p>{{expense_detail.seniorRemark}}</p>
+             </div>
+          <div class="lower" *ngIf=" expense_detail.acStatus != 'Pending' && expense_detail.acRemark && expense_detail.acRemark != ''">
+            <p>Account Status Remark</p>
+            <p>{{expense_detail.acRemark}}</p>
+          </div>
+        </div>
+
+      </div>
+      
+    </div>  
+  </div>
+  
+  
+  <div class="edit" *ngIf="enable_status_change == true">
+    <ion-list>
+      
+      <ion-item class="mb10 cs-textarea1">
+        <ion-label floating><span>Status Remark</span></ion-label>
+        <ion-textarea name="seniorRemark" #seniorRemark="ngModel" [(ngModel)]="expense_detail.seniorRemark"  placeholder="Enter Remark" ></ion-textarea>
+      </ion-item>
+      
+      <ion-item class="cs-normal-select mb0">
+        <ion-label><span>Status</span></ion-label>
+        <ion-select name="discount_type" [(ngModel)]="expense_detail.seniorStatus">
+          <ion-option value="Pending">Pending</ion-option>
+          <ion-option value="Approved">Approved</ion-option>
+          <ion-option value="Reject">Reject</ion-option>
+        </ion-select>
+      </ion-item>
+
+    </ion-list>
+    <button  ion-button block class="h40 green-color mt15" style="letter-spacing: 1px;" [disabled]="expense_detail.seniorStatus == 'Pending'" (click)="expense_detail.seniorStatus == 'Approved' || expense_detail.seniorStatus == 'Reject'? change_expense_status():''">Update</button>
+  </div>
+  
+  <div class="padding16">
+    <div class="cs-accordion">
+      
+      <div class="accordion expand" *ngIf="expense_detail.travel && expense_detail.travel.length > 0 ? true : false" [ngClass]="{'expand':expand_travel == true}" >
+        <div class="accordion-head" (click)="expand_travel = !expand_travel; expand_food = false ;expand_hotel = false ;expand_local = false ;expand_misc = false;" >TRAVEL ENTITLEMENT </div>
+        <div class="accordion-body">
+          <div class="edit m0">
+            
+            <!-- list loop start -->
+            <div class="cs-list-item" *ngFor="let travel_data of expense_detail.travel ;let i = index">
+              <div class="cs-top">
+                <div class="list-content">
+                  <p>{{travel_data.depatureDate | date:'d MMM y'}} & {{travel_data.depatureTime}}</p>
+                  <span>Date & Time</span>
+                </div>
+                <div class="list-content af-none">
+                  <p>{{travel_data.depatureStation | titlecase}}</p>
+                  <span>Station</span>
+                </div>
+                
+                <div class="left-auto">
+                  <div class="type-bg">Depature</div>
+                </div>
+              </div>
+              <div class="cs-top pt10">
+                <div class="list-content">
+                  <p>{{travel_data.arrivalDate | date:'d MMM y'}} & {{travel_data.arrivalTime}}</p>
+                  <span>Date & Time</span>
+                </div>
+                <div class="list-content af-none">
+                  <p>{{travel_data.arrivalStation | titlecase}}</p>
+                  <span>Station</span>
+                </div>
+                
+                <div class="left-auto">
+                  <div class="type-bg">Arrival</div>
+                </div>
+              </div>
+              <div class="middle-content one-column">
+                <div class="col-box">
+                  <p>Class & Mode Of Travel </p>
+                  <span>{{travel_data.modeOfTravel}}/{{travel_data.travelClass}}</span>
+                </div>
+              </div>
+              
+              <div class="box-column">
+                <!-- <h2>Arrival </h2> -->
+                <div class="middle-content">
+                  <div class="col-box">
+                    <p>Ticket No</p>
+                    <span>{{travel_data.ticket}}</span>
+                  </div>
+                  <div class="col-box">
+                    <p>Amount</p>
+                    <span>&#8377; {{travel_data.ticket_amount}}</span>
+                  </div>
+                  <div class="col-box">
+                    <p>Distance</p>
+                    <span>{{travel_data.distance}} Km</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- list loop end -->
+            
+            
+            <div class="summary-table">
+              <table>
+                <tr>
+                  <td class="text-right" >Total</td>
+                  <td class="text-right w120" >&#8377; {{expense_detail.travelEntitlementAmt}}</td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="accordion" *ngIf="expense_detail.localConv && expense_detail.localConv.length > 0 ? true : false" [ngClass]="{'expand':expand_local == true}">
+        <div class="accordion-head" (click)="expand_local = !expand_local; expand_food = false ;expand_hotel = false ;expand_travel = false ;expand_misc = false;" >LOCAL CONVEYANCE</div>
+        <div class="accordion-body">
+          <div class="edit m0">
+            <!-- list loop start -->
+            <div class="cs-list-item" *ngFor="let data of expense_detail.localConv;let i = index">
+              <div class="cs-top">
+                <div class="list-content">
+                  <p>{{data.modeOfTravel}}</p>
+                  <span>Mode Of Travel</span>
+                </div>
+                <div class="list-content">
+                  <p>{{data.travelClass}}</p>
+                  <span>Class</span>
+                </div>
+                <div class="list-content af-none">
+                  <p>{{data.date | date:'d MMM y'}}</p>
+                  <span>Date</span>
+                </div>
+                
+              </div>
+              
+              
+              <div class="middle-content">
+                <div class="col-box">
+                  <p>Distance (KM)</p>
+                  <span>{{data.distance}}</span>
+                </div>
+                
+                <div class="col-box">
+                  <p>Amount</p>
+                  <span>&#8377; {{data.amount}} /-</span>
+                </div>
+                <div class="col-box">
+                  <p>Food Amount</p>
+                  <span>&#8377;{{data.food_amount}}</span>
+                </div>
+              </div>
+              
+              <div class="middle-content one-column">
+                <div class="col-box">
+                  <span class="remark"><strong>Remark: </strong>{{data.remark && data.remark!=''?data.remark:'--'}}</span>
+                </div>
+              </div>
+            </div>
+            <div class="summary-table">
+              <table>
+                <tr>
+                  <td class="text-right" >Total</td>
+                  <td class="text-right w120" >&#8377; {{expense_detail.local_conveyance_expense_total_amount}}</td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="accordion " *ngIf="expense_detail.hotel && expense_detail.hotel.length > 0 ? true : false" [ngClass]="{'expand':expand_hotel == true}">
+        <div class="accordion-head" (click)="expand_hotel = !expand_hotel ; expand_food = false ;expand_misc = false ;expand_local = false ;expand_travel = false;">HOTEL</div>
+        <div class="accordion-body">
+          <div class="edit m0">
+            <!-- list loop start -->
+            <div class="cs-list-item" *ngFor="let hotel_data of expense_detail.hotel ; let i = index;">
+              <div class="cs-top">
+                <div class="list-content">
+                  <p>{{hotel_data.checkOutDate | date:'d MMM y'}}</p>
+                  <span>Check Out Date</span>
+                </div>
+                <div class="list-content af-none">
+                  <p>{{hotel_data.checkInDate | date:'d MMM y'}}</p>
+                  <span>Check In Date</span>
+                </div>
+              </div>
+              
+              <div class="middle-content one-column">
+                <div class="col-box">
+                  <p>Remark</p>
+                  <span>{{hotel_data.remark}}</span>
+                </div>
+              </div>
+              <div class="middle-content">
+                <div class="col-box">
+                  <p>City</p>
+                  <span>{{hotel_data.city | titlecase}}</span>
+                </div>
+                <div class="col-box">
+                  <p>Hotel</p>
+                  <span>{{hotel_data.hotelName | titlecase}}</span>
+                </div>
+                <div class="col-box">
+                  <p>Amount</p>
+                  <span>&#8377; {{hotel_data.amount}}</span>
+                </div>
+              </div>
+            </div>
+            <!-- list loop end -->
+            
+            
+            <div class="summary-table">
+              <table>
+                <tr>
+                  <td class="text-right" >Total</td>
+                  <td class="text-right w120" >&#8377;{{expense_detail.hotel_expense_total_amount}}</td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="accordion " *ngIf="expense_detail.food && expense_detail.food.length > 0 ? true : false" [ngClass]="{'expand':expand_food == true}">
+        <div class="accordion-head" (click)="expand_food = !expand_food ;expand_misc = false ;expand_hotel = false ;expand_local = false ;expand_travel = false;">FOOD</div>
+        <div class="accordion-body">
+          <div class="edit m0">
+            <!-- list loop start -->
+            <div class="cs-list-item" *ngFor="let food_data of expense_detail.food;let i = index;">
+              <div class="cs-top">
+                <div class="list-content">
+                  <p>{{food_data.date | date:'d MMM y'}}</p>
+                  <span>Date</span>
+                </div>
+                <div class="list-content af-none">
+                  <p>{{food_data.city | titlecase}}</p>
+                  <span>City</span>
+                </div>
+              </div>
+              <div class="middle-content two-column">
+                <div class="col-box">
+                  <p>Amount</p>
+                  <span>&#8377; {{food_data.amount}}</span>
+                </div>
+              </div>
+              <div class="middle-content one-column">
+                <div class="col-box">
+                  <span class="remark"><strong>Remark: </strong>{{food_data.remark}}</span>
+                </div>
+              </div>
+            </div>
+            <!-- list loop end -->
+            
+            
+            <div class="summary-table">
+              <table>
+                <tr>
+                  <td class="text-right" >Total</td>
+                  <td class="text-right w120" >&#8377; {{expense_detail.food_expense_total_amount}}</td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="accordion" *ngIf="expense_detail.miscExp && expense_detail.miscExp.length > 0 ? true : false" [ngClass]="{'expand':expand_misc == true}" >
+        <div class="accordion-head" (click)="expand_misc = !expand_misc ;expand_food = false ;expand_hotel = false ;expand_local = false ;expand_travel = false;" >MISC EXPENSE INFORMATION</div>
+        <div class="accordion-body">
+          <div class="edit m0">
+            <!-- list loop start -->
+            <div class="cs-list-item" *ngFor="let misc_data of expense_detail.miscExp;let i = index;">
+              <div class="cs-top">
+                <div class="list-content">
+                  <p>{{misc_data.date | date:'d MMM y'}}</p>
+                  <span>Date</span>
+                </div>
+                <div class="list-content af-none">
+                  <p>{{misc_data.expName | titlecase}}</p>
+                  <span>Nature Of Expense</span>
+                </div>
+              </div>
+              
+              
+              <div class="middle-content">
+                <div class="col-box">
+                  <p>Place of Expense</p>
+                  <span>{{misc_data.placeOfExp | titlecase}}</span>
+                </div>
+                <div class="col-box">
+                  <p>Amount</p>
+                  <span>&#8377; {{misc_data.amount}}</span>
+                </div>
+              </div>
+              <div class="middle-content one-column">
+                <div class="col-box">
+                  <span class="remark"><strong>Remark: </strong>{{misc_data.remark}}</span>
+                </div>
+              </div>
+            </div>
+            <!-- list loop end -->
+            
+            
+            <div class="summary-table">
+              <table>
+                <tr>
+                  <td class="text-right" >Total</td>
+                  <td class="text-right w120" >&#8377; {{expense_detail.misc_expense_total_amount}}</td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+    
+    <div>
+      
+      <div class="upload-doc" *ngIf="expense_detail.expBills && expense_detail.expBills.length > 0 ? true : false">
+        <p class="">Upload Bill</p>
+        <ul class="no-padding">
+          
+          <li class="image-upload" *ngFor="let pic of expense_detail.expBills;let i = index;">
+            <img (click)="view_image(pic.image)" src="{{pic.image}}">
+          </li>
+        </ul>
+      </div>
+      <div class="summary-table">
+        <table>
+          <tr *ngIf="expense_detail.acStatus == 'Approved'">
+            <td class="text-right" >Total Approved Amount</td>
+            <td class="text-right w120" >&#8377; {{expense_detail.total_approved_amount && expense_detail.total_approved_amount != '' && expense_detail.total_approved_amount != '0' ? expense_detail.total_approved_amount : '--'}}</td>
+          </tr>
+      
+          <tr>
+            <td class="text-right" >Total Claim Amount</td>
+            <td class="text-right w120" >&#8377; {{expense_detail.expense_total_amount}}</td>
+          </tr>
+
+
+        </table>
+      </div>
+      
+    </div>
+    
+    
+  </div>
+  
+  
+  
+  
+</ion-content>

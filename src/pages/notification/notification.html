@@ -1,0 +1,130 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>Activity List</ion-title>
+    </ion-navbar>
+    <!-- <ion-toolbar>
+      <ion-searchbar (keyup.enter)="get_activity()" [(ngModel)]="filter.master" name="filter" placeholder ="Company Name/Mobile No."></ion-searchbar>
+    </ion-toolbar> -->
+
+    <!-- <ion-toolbar>
+      <div class="filter-search">
+          <ion-searchbar type='text' name="filter" placeholder ="Company Name/Mobile No." [(ngModel)]="filter.master" (keyup.enter)="get_activity()"></ion-searchbar>
+          <a class="date-pick">
+              <label class="chedate">
+                  <input type="date" name="date" [(ngModel)]="filter.date" (ngModelChange)="get_activity()">
+                  <i class="material-icons">date_range</i>
+              </label>
+          </a>
+
+      </div>
+  </ion-toolbar> -->
+
+  <ion-navbar>
+    <div class="search add-search">
+        <div class="filter">
+            <ion-searchbar type='text' name="filter" placeholder ="Company Name/Mobile No." [(ngModel)]="filter.master" (keyup.enter)="get_activity()"></ion-searchbar>
+            <!-- <a class="date-pick">
+                <label class="chedate">
+                    <input type="date" name="date"  [max]="date" [(ngModel)]="filter.date" (ngModelChange)="get_activity()" />
+                    <i class="material-icons" (click)="open_filter_modal()">date_range</i>
+                </label>
+            </a> -->
+            <ion-buttons end>
+              <button ion-button icon-only (click)="open_filter_modal()" >
+                <ion-icon name="funnel"></ion-icon>
+              </button>
+            </ion-buttons>
+        </div>
+    </div>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content>
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content  pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingSpinner="circles" refreshingText="Refreshing...">
+        </ion-refresher-content>
+    </ion-refresher>
+
+    <div class="pd-left-right16 pt16">
+        <div class="list-box" *ngFor="let row of activity_list">
+            <div class="upper">
+                <div class="left-date">
+                    <div class="date-section" (click)="go_to_activity_detail(row.id)">
+                        <p>{{row.date_created | date:'d MMM y hh:mm a '}}</p>
+                        <p>Date Created</p>
+                    </div>
+                    <div class="date-section" (click)="go_to_activity_detail(row.id)">
+                        <p>{{row.created_by_name ? row.created_by_name : 'N/A'}}</p>
+                        <p>Created by</p>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="mid">
+                <div class="content-info">
+                    <div class="left-info" >
+                        <div class="circle" >{{row.company_name.substring(0,1).toUpperCase()}}</div>
+                    </div>
+
+                    <div class="right-info">
+                        <p *ngIf = "row.type == 1">{{row.company_name.toUpperCase()  ? row.company_name : 'N/A'}} - ({{ row.company_name.toUpperCase() ? 'Channel Partner' : '' }})</p>
+                        <p *ngIf = "row.type == 3">{{row.company_name.toUpperCase()  ? row.company_name : 'N/A'}} - ({{ row.company_name.toUpperCase() ? 'Retail Partner' : '' }})</p>
+                        <p *ngIf = "row.type == 7">{{row.company_name.toUpperCase()  ? row.company_name : 'N/A'}}- ({{ row.company_name.toUpperCase() ? 'Direct Dealer' : '' }})</p>
+                        <p *ngIf = "row.type == 10">{{row.company_name.toUpperCase()  ? row.company_name : 'N/A'}}- ({{ row.company_name.toUpperCase() ? 'Social Media Lead' : '' }})</p>
+                        <p *ngIf="row.mobile">{{row.mobile}}</p>
+                    </div>
+                </div>
+                <div class="tag-info">
+                    <a href="tel:{{row.mobile}}"><i class="material-icons">phone</i></a>
+                </div>
+            </div>
+
+            <div class="three_boxes">
+                <!-- <div class="lower">
+                    <p>Activity Date</p>
+                    <p>{{row.activity_date}}</p>
+                </div> -->
+                <div class="lower">
+                    <p>Activity Type</p>
+                    <p>{{row.activity_type}}</p>
+                </div>
+
+                <div class="lower" *ngIf ="row.activity_type=='Call'">
+                  <p>Disposition Type</p>
+                  <p>{{row.disposition_type_value}}</p>
+                </div>
+
+                <div class="lower" *ngIf ="row.activity_type=='Call'">
+                  <p>Disposition Name</p>
+                  <p>{{row.disposition_name}}</p>
+                </div>
+
+            </div>
+
+            <div class="lower">
+                <p>Activity Remark</p>
+                <p>{{row.remark  ? row.remark : 'N/A'}}</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="nothing-here" *ngIf="activity_list == 0">
+
+        <div class="outer">
+            <div class="innear">
+                <img src="assets/imgs/no_found.svg" alt="">
+                <p>Data not Available</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="h50"></div>
+
+    <ion-fab right bottom>
+        <button ion-fab color="danger" (click)="add_activity()"><ion-icon name="add"></ion-icon></button>
+    </ion-fab>
+
+
+</ion-content>

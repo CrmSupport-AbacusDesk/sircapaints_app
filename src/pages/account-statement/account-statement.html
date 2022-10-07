@@ -1,0 +1,82 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      <h1>Account Statement</h1>
+    </ion-title>
+    
+    <ion-buttons end>
+      <button ion-button icon-only (click)="open_filter_modal()" >
+        <ion-icon name="funnel"></ion-icon>
+      </button>
+    </ion-buttons>
+    
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  
+  <div class="pd-left-right16 af_bg">
+    <div class="list-box"  >
+      <div class="mid mt0">
+        <div class="content-info" >
+          <div class="left-info" >
+            <div class="circle"> <i class="material-icons">
+              account_balance
+            </i></div>
+          </div>
+          <div class="right-info" >
+            <p>CURRENT BALANCE</p>
+            <p>&#8377; {{final_pending_balance}}</p>
+          </div>
+        </div>
+      </div>
+    </div>  
+  </div>
+  
+  <!-- <ion-refresher >
+    <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingSpinner="circles" refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher> -->
+  
+  <div class="pd-left-right16 mb80">
+    <div class="list-box mt16" *ngFor="let account_data of account_statement_list">
+      
+      <div class="upper">
+        <div class="left-date">
+          <div class="date-section">
+            <p>{{account_data.billing_date | date:'d MMM y '}}</p>
+          </div>
+        </div>
+      </div>
+      <div class="mid">
+        <div class="content-info" >
+          <div class="left-info" >
+            <div *ngIf="account_data.bill_number" class="circle reject-color"> <i class="material-icons">account_balance</i></div>
+            <div *ngIf="account_data.payment_id" class="circle approved-color"> <i class="material-icons">account_balance</i></div>
+            
+          </div>
+          <div class="right-info">
+            <p>{{account_data.bill_number?'Bill No. : ':'Receipt No. : ' }} {{account_data.bill_number?account_data.bill_number:account_data.payment_id }}</p>
+          </div>
+        </div>
+        
+        <div class="tag-info amount-view">
+          <p>&#8377; {{account_data.bill_number ? account_data.total_billing_amount+' Cr' : account_data.payment_amount+' Dr'}}</p>
+          <p class="font_size">&#8377; {{account_data.continue_opening_balance+' Bal'}} </p>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+  
+  <div class="nothing-here" style="height: 50%;" *ngIf="account_statement_list.length == 0">
+    <div class="outer">
+      <div class="innear">
+        <img src="assets/imgs/no_found.svg" alt="">
+        <p>Data not Available</p>
+      </div>
+    </div>
+  </div>
+  
+  
+</ion-content>

@@ -1,0 +1,148 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>{{order_detail.order_no && order_detail.order_no!='' ?order_detail.order_no : ''}}</ion-title>
+    
+    <ion-buttons end>
+      <button ion-button icon-only (click)="add_remove_master_card_datas_from_order()">
+        <i class="material-icons">qr_code_scanner</i>
+      </button>
+    </ion-buttons>
+    
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <div class="mb20">
+    <ng-container>
+      <div class="list-box mb0">
+        
+        <ng-container>
+          <div class="upper">
+            <div class="left-date">
+              <div class="date-section">
+                <p> {{order_detail.created_by_user_name && order_detail.created_by_user_name!= null && order_detail.created_by_user_name!= '' ? order_detail.created_by_user_name : (order_detail.created_by_dr_name && order_detail.created_by_dr_name!= null && order_detail.created_by_dr_name!= '' ? order_detail.created_by_dr_name : '--')}}</p>
+                <p>Created By</p>
+              </div>
+              <div class="date-section">
+                <p>{{order_detail.date_created | date : 'd MMM, y'}}</p>
+                <p>Date Created</p>
+              </div>
+            </div>
+            
+          </div>
+          
+          <div class="mid ">
+            <div class="content-info">
+              <div class="left-info">
+                <div class="circle">D</div>
+              </div>
+              <div class="right-info">
+                <p>{{order_detail.dr_company_name && order_detail.dr_company_name!= null && order_detail.dr_company_name!= '' ? order_detail.dr_company_name : '--'}}</p>
+                <p>Party Name</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="three_boxes">
+            <div class=" lower pending">
+              <p>Status</p>
+              <p>{{order_detail.order_status && order_detail.order_status!= null && order_detail.order_status!= '' ? (order_detail.order_status == 'readyToDispatch' ? 'Ready To Dispatch' : (order_detail.order_status == 'PDispatch' ? 'Partial Dispatch' : '--')):'--'}}</p>
+              
+            </div>
+            
+            <div class="lower">
+              <p>Action On</p>
+              <p>{{order_detail.action_on && order_detail.action_on!= null && order_detail.action_on!= '' ? (order_detail.action_on):'--'}}</p>
+            </div>
+          </div>
+        </ng-container>
+        
+        
+        <div class="lower">
+          <p>Remark</p>
+          <p>{{order_detail.order_remark && order_detail.order_remark!= null && order_detail.order_remark!= '' ? order_detail.order_remark : '--'}}</p>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+  
+  <div class="" *ngIf="order_item_detail.length">
+    <div class="list-box mt16">
+      
+      <div class="lower one-line mt5 mb10">
+        <p><span>Order Items Data : </span></p>
+      </div>
+      
+      <div class="lower mt0">
+        <div class="data-table padding0">
+          <table>
+            <tr>
+              <th>Product Description</th>
+              <th class="w63">Pending Qty.</th>
+            </tr>
+            <tr *ngFor="let item_detail of order_item_detail;let i = index">
+              <td *ngIf="item_detail.pending_qty && item_detail.pending_qty!='' && item_detail.pending_qty!= 0" >{{item_detail.category+' - '+item_detail.sub_category+' - '+item_detail.product_name + ' - '+ item_detail.product_code}}</td>
+              <td class="w63" *ngIf="item_detail.pending_qty && item_detail.pending_qty!='' && item_detail.pending_qty!= 0">{{ item_detail.pending_qty }}</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      
+      
+      
+    </div>  
+    
+    
+  </div>
+  
+  <div class="list-box mt16" *ngIf="assigned_product_detail_list.length">
+    
+    <div class="lower one-line mt5 mb10">
+      <p><span>Scanned Master Box Data : </span></p>
+    </div>
+    
+    
+    <ng-container *ngFor="let master_box_data of assigned_product_detail_list;let i = index">
+      <div class="accordion"  [ngClass]="{'expand':expand_master_detail == master_box_data.id}">
+        <div class="accordion-head" (click)="expand_master_detail == 0?expand_master_detail = master_box_data.id : expand_master_detail = 0">Master Box - {{i+1}}
+          <ion-badge *ngIf="master_box_data.dispatch_status_flag =='1'" class="mb5" style="font-size: 12px;">DISPATCHED</ion-badge>
+          <!-- <ion-badge *ngIf="master_box_data.dispatch_status_flag =='0'  && show_dipatch_button()" class="mb5" style="font-size: 12px;"></ion-badge> -->
+
+        </div>
+        <div class="accordion-body">
+          <div class="common_form">
+            <div>
+              <div class="box complete">
+                <div class="data-table padding0">
+                  <table>
+                    <tr>
+                      <th class="w25"></th>
+                      <th>Product Description</th>
+                      <th class="w35">Qty.</th>
+                    </tr>
+                    <tr *ngFor="let product_data of master_box_data.secondary_coupon_product_list;let secondary_index = index">
+                      <td class="w25">{{secondary_index+1}}</td>
+                      <td>{{product_data.category +' - ' +product_data.sub_category+' - '+product_data.product_name +' - ' +product_data.product_code}}</td>
+                      <td class="w35">{{product_data.total_primary_box_qty}}</td>
+                    </tr>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </ng-container>
+  </div>
+  
+</ion-content>
+
+
+<ion-footer class="csm-footer-tabs">
+  <div class="ftabs">
+    <button *ngIf="show_dispatch" class="active" ion-item (click)="dispatch_master_cart_data()"><p>Dispatch</p></button>
+    <!-- <button ion-item (click)="assign_master_cart_to_order()"><p>Master Box</p></button> -->
+  </div>
+</ion-footer> 
+

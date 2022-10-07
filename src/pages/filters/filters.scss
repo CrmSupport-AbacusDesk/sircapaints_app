@@ -1,0 +1,76 @@
+page-filters {
+    
+    .transprant-bg
+    {
+        background: rgba(0, 0, 0, 0.5);
+    }
+    
+    .work-modal
+    {
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        flex-direction: column;
+    }
+    
+    .work-modal-bg
+    {
+        width: 100%;
+        background: #fff;
+        padding: 16px;
+        box-shadow: 0px 3px 6px 0px rgba(0, 0, 0, 0.5);
+        
+        .head
+        {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin: -16px -16px 0px -16px;
+            border-bottom: 1px solid #cccccc;
+            padding: 10px 16px;
+            background-color: #9b2450;
+            
+            h2
+            {
+                font-size: 16px;
+                color: #ffffff;
+            }
+            
+            a
+            {
+                
+
+                &.close
+                {
+                    color: #ffffff;
+                    line-height: 0px;
+                    
+                    i
+                    {
+                        font-size: 20px;
+                        color: #ffffff;
+                    }
+                }
+            }
+        }
+
+        ion-item
+        {
+            padding-left: 0px;
+        }
+    }
+    
+    ion-label 
+    {
+        font-size: 14px !important;
+    }
+
+    .round-tab{
+        margin: 0px -16px;
+    }
+    .edit{
+        margin: 0px;
+    }
+    
+}

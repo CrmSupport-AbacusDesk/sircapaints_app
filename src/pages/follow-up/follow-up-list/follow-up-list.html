@@ -1,0 +1,137 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Follow Up</ion-title>
+  </ion-navbar>
+  <!-- <ion-toolbar *ngIf="false">
+    <div class="search add-search">
+      <div class="filter">
+        <ion-searchbar type='text' name="master" [(ngModel)]="filter.master" (ngModelChange)="get_followup()"></ion-searchbar>
+        <a class="date-pick">
+          <label class="chedate">
+            <input type="date" name="date" [(ngModel)]="filter.date" (ngModelChange)="get_followup()" />
+            <i class="material-icons">date_range</i>
+          </label>
+        </a>
+      </div>
+    </div>
+  </ion-toolbar>  -->
+  <ion-toolbar>
+    <div class="search add-search">
+        <div class="filter">
+            <ion-searchbar type='text' name="master" [(ngModel)]="filter.master" (keyup.enter)="get_followup()"></ion-searchbar>
+            <a class="date-pick">
+                <label class="chedate">
+                    <input type="date" name="date" [(ngModel)]="filter.date" (ngModelChange)="get_followup()" />
+                    <i class="material-icons">date_range</i>
+                </label>
+            </a>
+        </div>
+    </div>
+</ion-toolbar>
+
+</ion-header>
+
+<div class="text-line" *ngIf="filter.date">
+  <div class="lf-text">
+    <p>Date</p>
+    <p>{{filter.date | date:'d MMM y'}}</p>
+  </div>
+  <div class="rf-text">
+    <i class="material-icons" (click)="filter.date='';get_followup()">cancel</i>
+  </div>
+</div>
+
+
+<ion-content>
+
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingSpinner="circles" refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
+
+  <div class="capsule-tabs">
+    <ul>
+      <li [ngClass]="{'active' : filter.status=='Pending'}" (click)="filter.date='';start=0;filter.status='Pending' ;get_followup()">
+        <p>Pending<span>{{pending_count}}</span></p>
+      </li>
+      <li [ngClass]="{'active' : filter.status=='Upcoming'}" (click)="filter.date='';start=0;filter.status='Upcoming' ;get_followup()">
+        <p>Upcoming<span>{{upcoming_count}}</span></p>
+      </li>
+      <li [ngClass]="{'active' : filter.status=='Done'}" (click)="filter.date='';start=0;filter.status='Done' ;get_followup()">
+        <p>Complete<span>{{complete_count}}</span></p>
+      </li>
+    </ul>
+  </div>
+
+  <div class="pd-left-right16">
+    <div class="list-box mt16" *ngFor="let row of followup_list">
+      <div class="upper">
+
+        <div class="left-date">
+          <div class="date-section" (click)="go_to_followup_detail(row.id)">
+            <p>{{row.date_created | date:'d MMM y hh:mm a '}}</p>
+            <p>Date Created</p>
+          </div>
+          <div class="date-section" (click)="go_to_followup_detail(row.id)">
+            <p>{{row.follow_up_date | date:'d MMM y '}}</p>
+            <p>Follow Up Date</p>
+          </div>
+
+          <div class="date-section" (click)="go_to_followup_detail(row.id)">
+            <p>{{row.created_by_name}}</p>
+            <p>Created By</p>
+          </div>
+
+        </div>
+
+        <div class="left-auto" *ngIf="(filter.status=='Pending' || filter.status=='Upcoming') && row.status =='Pending'">
+          <ion-buttons end (click)="delete_followup(row.id)" *ngIf="row.status =='Pending'">
+            <button ion-button icon-only small >
+              <ion-icon name="trash"></ion-icon>
+            </button>
+          </ion-buttons>
+        </div>
+      </div>
+      <div class="mid" (click)="go_to_followup_detail(row.id)">
+        <div class="content-info w250" >
+          <div class="left-info" >
+            <div class="circle" >{{row.dr_name.substring(0,1).toUpperCase()}}</div>
+          </div>
+
+          <div class="right-info">
+            <p>{{row.dr_name | titlecase}} {{  row.dr_city && row.dr_city!=''? '('+ row.dr_city +')':''}}</p>
+            <p *ngIf="row.type == '1'">Channel Partner</p>
+            <p *ngIf="row.type == '7'">Direct Dealers</p>
+            <p *ngIf="row.type == '3'">Retail Partner</p>
+          </div>
+        </div>
+        <div class="tag-info amount-view">
+          <p>{{row.follow_up_type}}</p>
+          <p>Follow Type</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="nothing-here" style="height: 50%;" *ngIf="!followup_list.length">
+    <div class="outer">
+      <div class="innear">
+        <img src="assets/imgs/no_found.svg" alt="">
+        <p>Data not Available</p>
+      </div>
+    </div>
+  </div>
+  <!-- <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)" *ngIf="flag!=1">
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll> -->
+
+
+</ion-content>
+
+<div class="cus-fab" >
+  <button (click)="add_followup()">
+    <i class="material-icons">add</i>
+  </button>
+</div>

@@ -1,0 +1,196 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title *ngIf="tab_active == 'Ready2Dispatch' && login_user_data.role_id == '16'">Ready To Dispatch Order List</ion-title>
+    <ion-title *ngIf="tab_active != 'Ready2Dispatch'">Stock</ion-title>
+  </ion-navbar>
+
+  <ion-toolbar>
+    <div class="search add-search">
+      <div class="filter">
+        <ion-searchbar type='text' name="master" [(ngModel)]="filter.master" (keyup.enter)="tab_active == 'Ready2Dispatch' ? get_order_list_for_dispatch_order() :get_stock_qty_list()"></ion-searchbar>
+      </div>
+    </div>
+  </ion-toolbar>
+
+</ion-header>
+
+<!-- <div class="header-logo" *ngIf="login_user_data.role_id == '17'">
+  <img src="">
+  <div class="btn-head mb20 mr10">
+    <button ion-button class="hs-menu cs-hdr-icons" color="light" (click)="scan_QR_code_for_master_packing()">
+      <img src="assets/imgs/qr-code.svg">
+    </button>
+  </div>
+</div> -->
+
+<ion-content>
+
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingSpinner="circles" refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
+
+  <div class="round-tab" *ngIf="login_user_data.role_id == '16'">
+    <ul>
+      <li [ngClass]="{'active' : tab_active == 'Ready2Dispatch'} " *ngIf="login_user_data.role_id == '16'" (click)="tab_active='Ready2Dispatch';start = 0 ;get_order_list_for_dispatch_order()">
+        <p>Ready to Dispatch</p>
+      </li>
+      <li [ngClass]="{'active' : tab_active == 'Stock'} " (click)="tab_active='Stock';start = 0 ;get_stock_qty_list()">
+        <p>Stock Qty</p>
+      </li>
+    </ul>
+  </div>
+
+  <div  class="pd-left-right16" *ngIf="tab_active == 'Ready2Dispatch'">
+    <div class="list-box mt16" *ngFor="let order_list_data of order_list_for_dispatch_order;let i = index">
+      <span (click)="go_to('generate_master_cart',order_list_data.id)">
+
+
+        <div class="upper">
+          <div class="left-date">
+            <div class="date-section">
+              <p>{{order_list_data.date_created | date : 'd MMM, y'}}</p>
+              <p>Date Created</p>
+            </div>
+
+          </div>
+          <div class="right-date">
+            <button><p > {{order_list_data.order_no}}</p></button>
+          </div>
+        </div>
+
+
+        <div class="mid">
+          <div class="content-info">
+            <div class="left-info">
+              <div class="circle">{{order_list_data.company_name.substring(0,1).toUpperCase()}}</div>
+            </div>
+            <div class="right-info">
+              <p>{{order_list_data.company_name}}</p>
+            </div>
+          </div>
+          <!-- <div class="tag-info amount-view">
+            <p>&#8377; {{order_list_data.order_grand_total}}</p>
+            <p>Amount</p>
+          </div> -->
+        </div>
+
+        <div class="three_boxes">
+          <div class="lower">
+            <p>Total Qty.</p>
+            <p>{{order_list_data.total_qty}}</p>
+          </div>
+          <div class="lower">
+            <p>Dispatch Qty.</p>
+            <p>{{order_list_data.total_dispatch_qty && order_list_data.total_dispatch_qty!='' && order_list_data.total_dispatch_qty != null ? order_list_data.total_dispatch_qty : '--'}}</p>
+          </div>
+          <div class="lower">
+            <p>Pending Qty.</p>
+            <p>{{order_list_data.total_pending_qty && order_list_data.total_pending_qty!='' && order_list_data.total_pending_qty != null ? order_list_data.total_pending_qty : '--'}}</p>
+          </div>
+        </div>
+
+      </span>
+    </div>
+  </div>
+
+  <div class="pd-left-right16"  *ngIf="tab_active == 'Stock'">
+    <div class="list-box mt16" *ngFor="let stock_data of product_stock_qty_list;let i = index">
+      <span (click)="go_to('generate_master_cart')">
+
+
+        <div class="mid mt0">
+          <div class="content-info">
+            <div class="left-info">
+              <div class="circle">{{i+1}}</div>
+            </div>
+            <div class="right-info">
+              <p>{{stock_data.category+' - '+ stock_data.sub_category+' - '+stock_data.product_name +'-'+ stock_data.product_code}}</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="three_boxes">
+          <div class="lower">
+            <p>Master Carton</p>
+            <p>{{stock_data.total_master_box_qty}}</p>
+          </div>
+          <div class="lower">
+            <p>Secondary Box</p>
+            <p>{{stock_data.total_secondary_box_qty}}</p>
+          </div>
+        </div>
+
+
+        <div class="three_boxes">
+          <div class="lower">
+            <p>Item Qty.</p>
+            <p>{{stock_data.total_primary_box_qty}}</p>
+          </div>
+          <div class="lower" *ngIf="login_user_data.role_id == '16'">
+            <p>InTransit Qty.</p>
+            <p>{{stock_data.in_transit_total_primary_box_qty}}</p>
+          </div>
+
+        </div>
+
+      </span>
+    </div>
+  </div>
+
+  <div class="nothing-here" style="height: 50%;" *ngIf="tab_active == 'Stock' && product_stock_qty_list.length == 0 ? true : (tab_active == 'Ready2Dispatch' && order_list_for_dispatch_order.length == 0 ? true : false)">
+    <div class="outer">
+      <div class="innear">
+        <img src="assets/imgs/no_found.svg" alt="">
+        <p>Data not Available</p>
+      </div>
+    </div>
+  </div>
+
+  <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)" *ngIf="stop_pagination == false">
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
+</ion-content>
+
+<div class="cus-fab" >
+  <button *ngIf="dbService.userStorageData.token && login_user_data.role_id == '17'" menuClose  (click)="onLogoutHandler()">
+    <i class="material-icons">logout</i>
+  </button>
+</div>
+
+<ion-footer class="af-none" padding *ngIf="dbService.userStorageData.token">
+  <ion-fab #fab right bottom >
+    <button ion-fab color="primary" ><ion-icon name="add"></ion-icon></button>
+    <ion-fab-list side="top">
+
+      <button *ngIf="true" color="secondary" ion-fab class="mb15 tooltip" (click)="scan_QR_code_for_master_packing();fab.close()">
+      <!-- <button *ngIf="true" color="secondary" ion-fab class="mb15 tooltip" (click)="scan_QR_code_for_master_packing_test();fab.close()"> -->
+        <ion-icon name="qr-scanner">
+          <ion-label *ngIf="login_user_data.role_id == '16'">Stock Receiving</ion-label>
+          <ion-label *ngIf="login_user_data.role_id == '17'">Pack/Scan Master Box</ion-label>
+        </ion-icon>
+      </button>
+
+      <button *ngIf="login_user_data.role_id == '16'" color="secondary" ion-fab class="mb15 tooltip" (click)="open_warehouse_list_modal();fab.close()">
+        <ion-icon name="swap">
+          <ion-label>Stock Transfer</ion-label>
+        </ion-icon>
+      </button>
+
+      <button *ngIf="login_user_data.role_id == '16'" color="secondary" ion-fab class="mb15 tooltip" (click)="go_to('stock_calculation')">
+        <ion-icon name="calculator">
+          <ion-label>Stock Calculation</ion-label>
+        </ion-icon>
+      </button>
+
+      <button menuClose color="secondary" ion-fab class="mb15 tooltip" (click)="onLogoutHandler();fab.close()">
+        <ion-icon name="power">
+          <ion-label>Log Out</ion-label>
+        </ion-icon>
+      </button>
+
+    </ion-fab-list>
+  </ion-fab>
+</ion-footer>

@@ -1,0 +1,78 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>
+            <h1 *ngIf="show_multiple_dealer_discunt_update_section == false">Discount in Price List</h1>
+            <h1 *ngIf="show_multiple_dealer_discunt_update_section == true">Update Dealers Discount</h1>
+        </ion-title>
+    </ion-navbar>
+    <ion-toolbar *ngIf="show_multiple_dealer_discunt_update_section == false">
+        <div class="search add-search">
+            <div class="filter">
+                <ion-searchbar type='text' name="master" [(ngModel)]="filter.master" (ngModelChange)="get_all_checkin()"></ion-searchbar>
+            </div>
+        </div>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="show_multiple_dealer_discunt_update_section == false">
+    <div >
+        <div class="nothing-here" *ngIf="!discount_list?.length && norec">
+            <div class="outer">
+                <div class="innear">
+                    <img src="assets/imgs/nothing.svg" alt="">
+                    <p>Data not Available</p>
+                </div>
+            </div>
+        </div>
+        <div class="normal-list">
+            <a *ngFor="let row of discount_list;let i=index;">
+                <div class="nr-left">
+                    <p>{{row.category}}</p>
+                </div>
+                <div class="nr-right">
+                    <p>{{row.discount}}%</p>
+                    <p>Discount in Price List</p>
+                </div>
+            </a>
+            
+            <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)"  *ngIf="flag!=1">
+                <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
+                </ion-infinite-scroll-content>
+            </ion-infinite-scroll>
+        </div>    
+        <div class="h80"></div>
+    </div>
+    
+  
+</ion-content>
+
+<ion-content  *ngIf="show_multiple_dealer_discunt_update_section == true">
+    <div class="from-block">
+        <ion-item>
+            <ion-label> Select Category</ion-label>
+            <ion-select name="selected_category_list" [(ngModel)]="selected_category_list" (ngModelChange)="updated_discount = '0';discount_type = 'not_select_anything'" multiple="true"  >
+                <ion-option *ngFor="let category of category_list" [value]="category.category">{{category.category}}</ion-option>
+            </ion-select>
+        </ion-item>
+        <ng-container *ngIf="selected_category_list.length">
+            
+            <ion-item>
+                <ion-label> Select Discount Type</ion-label>
+                <ion-select name="discount_type" [(ngModel)]="discount_type" (ngModelChange)="updated_discount = '0'">
+                    <ion-option value="Increment">Increment</ion-option>
+                    <ion-option value="Decrement">Decrement</ion-option>
+                </ion-select>
+            </ion-item>
+            
+            <ion-item>
+                <ion-label fixed>Discount</ion-label>
+                <ion-input type="tel" name="updated_discount" (keypress)="MobileNumber($event)" [(ngModel)]="updated_discount" class="text-right"></ion-input>
+            </ion-item>
+            
+        </ng-container>
+    </div>
+</ion-content>
+<div class="cus-fab btn-group">
+    <button *ngIf="show_multiple_dealer_discunt_update_section == false" ion-button color="secondary" round (click)="show_multiple_dealer_discunt_update_section = !show_multiple_dealer_discunt_update_section ;">Update Dealer Discount</button>
+    <button *ngIf="show_multiple_dealer_discunt_update_section == true" [disabled]="!(discount_type != 'not_select_anything' && updated_discount != '0')" ion-button color="secondary" round (click)="update_multiple_discount()">Update Discount</button>
+</div>

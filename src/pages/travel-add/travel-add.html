@@ -1,0 +1,145 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>Add Travel Plan</ion-title>
+    </ion-navbar>
+</ion-header>
+
+
+<ion-content>
+    <div class="edit mt10">
+        <ion-list>
+            <div>
+                <ion-item>
+                    <ion-label floating><span>Select From <strong>*</strong></span></ion-label>
+                    <ion-datetime display-format="MMM DD, YYYY"  placeholder="Select Date" [min]="today_date" type="text" name="date_from" #date_from="ngModel" [(ngModel)]="travel_data.date_from" (ngModelChange)="travel_data.date_to = ''" class="calander" required ></ion-datetime>
+                </ion-item>
+                
+                <ion-item *ngIf="travel_data.date_from">
+                    <ion-label floating><span>Select To <strong>*</strong></span></ion-label>
+                    <ion-datetime display-format="MMM DD, YYYY"  placeholder="Select Date" [min]="travel_data.date_from" type="text" name="date_to" #date_to="ngModel" [(ngModel)]="travel_data.date_to" (ngModelChange)="getTravelPlan(travel_data.date_from,travel_data.date_to)" class="calander" required ></ion-datetime>
+                </ion-item>
+                
+                <ion-item class="cs-normal-select mt16" *ngIf="userType=='OFFICE'">
+                    <ion-label>Select Type <strong>*</strong></ion-label>
+                    <ion-select [(ngModel)]="travel_data.travel_type" required>
+                        <ion-option value="Area Visit">Area Visit</ion-option>
+                        <ion-option value="Channel Partner Visit">Channel Partner Visit</ion-option>
+                    </ion-select>
+                </ion-item>
+                <ion-item class="cs-normal-select mt16" *ngIf="userType!='OFFICE'">
+                    <ion-label>Select Type <strong>*</strong></ion-label>
+                    <ion-select [(ngModel)]="travel_data.travel_type" required>
+                        <ion-option value="Area Visit">Area Visit</ion-option>
+                        <ion-option value="Channel Partner Visit">Channel Partner Visit</ion-option>
+                    </ion-select>
+                </ion-item>
+                
+                <ion-item class="cs-normal-select" *ngIf="travel_data.travel_type=='Area Visit'" >
+                    <ion-label class="select-label">Select State <strong>*</strong></ion-label>
+                    <ion-select name="state" [(ngModel)]="travel_data.state" (ngModelChange)="getDstrictList();" required>
+                        <ion-option *ngFor="let list of state_list" [value]="list.state_name">{{list.state_name}}</ion-option>
+                        <!-- <ion-option value="two">Punjab</ion-option> -->
+                    </ion-select>
+                </ion-item>
+                
+                <!-- <ion-item class="cs-normal-select" *ngIf="travel_data.travel_type=='Area Visit' && travel_data.state" (ngModelChange)="getCityList();">
+                    <ion-label> Select District <strong>*</strong></ion-label>
+                    <ion-select name="district" [(ngModel)]="travel_data.district" required>
+                        <ion-option *ngFor="let list of district_list" [value]="list.district_name">{{list.district_name}}</ion-option>
+                    </ion-select>
+                </ion-item> -->
+
+                <ion-item class="cs-selectable mt16 " *ngIf="travel_data.travel_type=='Area Visit' && travel_data.state">
+                    <ion-label><span>Select District</span></ion-label>
+                    <ionic-selectable item-content #district_Selectable [(ngModel)]="travel_data.district" [isMultiple]="true" [items]="district_list" itemValueField="district_name" itemTextField="district_name"  [canSearch]="true" (onChange)="test($event,'district_list')"></ionic-selectable>
+                </ion-item>
+
+                <ion-item class="cs-selectable mt16 " *ngIf="travel_data.travel_type=='Area Visit' && travel_data.state && travel_data.district.length">
+                    <ion-label><span>Select City</span></ion-label>
+                    <ionic-selectable item-content #district_Selectable [(ngModel)]="travel_data.city" [isMultiple]="true" [items]="city_list" itemValueField="city" itemTextField="city"  [canSearch]="true" (onChange)="test($event,'city_list')"></ionic-selectable>
+                </ion-item>
+                
+                <ion-item class="cs-normal-select" *ngIf="travel_data.travel_type=='Channel Partner Visit' && travel_id == '0'">
+                    <ion-label>Select Channel Partner <strong>*</strong></ion-label>
+                    <ion-select [(ngModel)]="travel_data.dr_id" multiple="true" required>
+                        <ion-option *ngFor="let list of channel_partners" [value]="list.id">{{list.company_name}}</ion-option>
+                    </ion-select>
+                </ion-item>
+                
+                <ion-item class="cs-selectable mt16 " *ngIf="travel_data.travel_type=='Channel Partner Visit' && travel_id != '0'">
+                    <ion-label><span>Select Company Name</span></ion-label>
+                    <ionic-selectable item-content #distributorSelectable [(ngModel)]="travel_data.dr_id" [isMultiple]="true" [items]="channel_partners" itemValueField="id" itemTextField="company_name"  [canSearch]="true" (onChange)="test($event,'company_name')"></ionic-selectable>
+                </ion-item>
+                
+            </div>
+        </ion-list>
+        
+        <button ion-button block class="h35 green-color mt20" style="letter-spacing: 1px;"  [disabled]="!travel_data.date_to || !travel_data.travel_type || (travel_data.travel_type=='Channel Partner Visit' && !travel_data.dr_id.length) || (travel_data.travel_type=='Area Visit' && !travel_data.state) || (travel_data.travel_type=='Area Visit' && !travel_data.district)" (click)="travel_id == '0' ? addTravelPlan() : update_travel_plan()">Save</button>
+    </div>
+    
+    <div class="pd-left-right16">
+        <ng-container *ngIf="travel_list.length">
+            <div class="cs-heading1 pl0 mb5 pt30" *ngIf="areaVisitExist">
+                <p>Area Wise Visit</p>
+            </div>
+            
+            <div *ngFor="let row of travel_list;let i=index">
+                
+                <div class="cs-list-item" *ngIf="row.travel_type == 'Area Visit'">
+                    <div class="type-body" *ngFor="let area_data of row.selected_data ;let i=index">
+                        <p>AREA {{i+1}}</p> 
+                        <ul>
+                            <li>
+                                <span>{{area_data.state}}</span>
+                            </li>
+                            <li>
+                                <span>{{area_data.district}}</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                
+            </div>
+            
+            
+        </ng-container>
+        
+        
+        <ng-container *ngIf="travel_list.length">
+            <div class="cs-heading1 pl0 mb5" *ngIf="cpVisitExist">
+                <p>Channel Partner</p>
+            </div>
+            
+            <div *ngFor="let row of travel_list;let i=index">
+                <!-- <div class="list-box expand-box border-remove" *ngIf="row.travel_type=='Channel Partner Visit'">
+                    <div class="mid mt0">
+                        <div class="content-info">
+                            <div class="left-info">
+                                <div class="circle">{{row.company_name.substring(0,1).toUpperCase()}}</div>
+                            </div>
+                            <div class="right-info">
+                                <p>{{row.company_name}}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="lower one-line" *ngIf="row.address!='     '">
+                        <p>Address : <span>{{row.address | titlecase}}</span></p>
+                    </div>
+                </div> -->
+                
+                <div class="cs-list-item" *ngIf="row.travel_type == 'Channel Partner Visit'">
+                    <div class="type-body" *ngFor="let dr_data of row.selected_data ;let i=index">
+                        <p>Channel Partner {{i+1}}</p> 
+                        <ul>
+                            <li>
+                                <span>{{dr_data.company_name}}</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                
+                
+            </div>
+        </ng-container>
+    </div>
+</ion-content>

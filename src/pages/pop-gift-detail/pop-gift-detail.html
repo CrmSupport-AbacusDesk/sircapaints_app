@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>POP & Gift Detail</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <div class="detais mt10">
+    
+    <div class="product-pic">
+      <img class="single-image" src="{{gift_detail.image}}">
+      
+      <!-- <ion-slides pager>
+        <ion-slide>
+          <img src="assets/imgs/no-thumbnail.jpg">
+        </ion-slide>
+      </ion-slides> -->
+      
+    </div>
+    
+    <div class="table-capsule">
+      <div class="box1">
+        <h4>Name</h4>
+        <p>{{gift_detail.gift_name}}</p>
+      </div>
+      <div class="box1">
+        <h4>GIFT POINTS</h4>
+        <p>{{gift_detail.gift_points}} per {{gift_detail.u_o_m}}</p>
+      </div>
+    </div>
+    
+    <div class="product-descr">
+      <h3>Description</h3>
+      <p>{{gift_detail.gift_description}}</p>
+    </div>
+    
+  </div>
+</ion-content>

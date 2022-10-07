@@ -1,0 +1,9 @@
+<ion-list class="popover_list" *ngIf="page_from != '' && this.page_from !='Plumber Meet Detail' && this.page_from !='Plumber Meet Gallery'">
+  <button ion-item (click)="close('My')">My {{page_from}}</button>
+  <button ion-item (click)="close('Team')">Team {{page_from}}</button>
+</ion-list>
+
+<ion-list class="popover_list" *ngIf="page_from != '' && this.page_from == ('Plumber Meet Detail') || ('Plumber Meet Gallery')">
+  <button ion-item (click)="close('Detail')">Plumber Meet Detail</button>
+  <button ion-item (click)="close('Gallery')">Plumber Meet Gallery</button>
+</ion-list>

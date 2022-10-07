@@ -1,0 +1,155 @@
+
+<ion-header>
+  <ion-navbar>
+    <ion-title>Travel Detail</ion-title>
+    <ion-buttons end *ngIf="travel_plan_detail.status!= '' && travel_plan_detail.status != 'Approved' && userStorageData.id == travel_plan_detail.created_by">
+      <button ion-button icon-only color="light" (click)="edit_travel_plan_detail(travel_plan_detail.id)">
+        <ion-icon name="md-create"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <div class="pd-left-right16 af_bg">
+    <div class="list-box mb0">
+      
+      <div class="upper">
+        <div class="left-date">
+          <div class="date-section">
+            <p>{{travel_plan_detail.date_created | date:'d MMM y'}}</p>
+            <p>Date Created</p>
+          </div>
+          <div class="date-section">
+            <p>{{(travel_plan_detail.travel_date_from | date:'d MMM y') +'/'+ (travel_plan_detail.travel_date_to | date:'d MMM y')}}</p>
+            <p>Travel Date</p>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="lower">
+        <div class="three_boxes"> 
+          <div class="lower">
+            <p>Visit Type</p> 
+            <p>{{travel_plan_detail.travel_type | titlecase}}</p>
+          </div>
+
+          <div class="lower" [ngClass]="travel_plan_detail.status == 'Pending' ? 'pending': travel_plan_detail.status == 'Approved' ? 'approved' : travel_plan_detail.status == 'Reject'? 'reject':''">
+            <p>Status</p>
+            <p>{{travel_plan_detail.status}}</p>
+            <button *ngIf="enable_status_change == false && (travel_plan_detail.status == 'Pending') && userStorageData.id != travel_plan_detail.created_by" ion-button color="secondary" small class="edit_item" (click)="enable_status_change = true;" ><i class="material-icons">edit</i></button>
+          </div>
+
+        </div>
+      </div>          
+
+
+
+      <div class="flex-column one-column" >
+        <div class="lower one-column mt0">
+          <p><span>{{travel_plan_detail.reason && travel_plan_detail.reason != '' ? 'Remark: '+ travel_plan_detail.reason : ''}}</span></p>
+        </div>
+      </div>
+      
+    </div>  
+  </div>
+  
+  
+  
+  <div class="edit" *ngIf="enable_status_change == true">
+    <ion-list>
+      
+      <ion-item class="mb10 cs-textarea1">
+        <ion-label floating><span>Status Remark</span></ion-label>
+        <ion-textarea name="seniorRemark" #seniorRemark="ngModel" [(ngModel)]="travel_plan_detail.reason"  placeholder="Enter Remark" required ></ion-textarea>
+      </ion-item>
+      
+      <ion-item class="cs-normal-select mb0">
+        <ion-label><span>Status</span></ion-label>
+        <ion-select name="discount_type" [(ngModel)]="travel_plan_detail.status">
+          <ion-option value="Pending">Pending</ion-option>
+          <ion-option value="Approved">Approved</ion-option>
+          <ion-option value="Reject">Reject</ion-option>
+        </ion-select>
+      </ion-item>
+      
+    </ion-list>
+    <button  ion-button block class="h40 green-color mt15" style="letter-spacing: 1px;" [disabled]="travel_plan_detail.status == 'Pending'" (click)="travel_plan_detail.status == 'Approved' || travel_plan_detail.status == 'Reject' && travel_plan_detail.reason != '' ? change_travel_plan_status():''">Update</button>
+  </div>
+  
+  <div class="padding16">
+    <div class="cs-list-item" *ngIf="travel_plan_detail.travel_type == 'Area Visit'">
+      
+      <div class="type-body" *ngFor="let area_data of travel_plan_detail.selected_data ;let i=index">
+        <p>AREA {{i+1}}</p> 
+        <ul>
+          <li>
+            <span>{{area_data.state}}</span>
+          </li>
+          <li>
+            <span>{{area_data.district}}</span>
+          </li>
+          <li>
+            <span>{{area_data.city}}</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="cs-heading1 heading-right pl0 pr0">
+      <p class="font12">Channel Partner Information</p>
+      <p class="font14">{{travel_plan_detail.district_wise_assign_dr.length}}</p>
+    </div>
+    
+    <div class="list-box mt16" *ngFor="let channel_parner_data of travel_plan_detail.district_wise_assign_dr">
+      
+      <div class="upper upr-verified">
+
+        <div class="verify-section">
+          <i *ngIf="channel_parner_data.checkin_verification_flag == 1" class="material-icons verify-button">verified</i>
+          <i *ngIf="channel_parner_data.checkin_verification_flag == 0" class="material-icons cancel-button">cancel</i>
+        </div>
+       
+        <div class="left-date">
+        </div>
+
+        <div class="right-date" [ngClass]="channel_parner_data.checkin_verification_flag == 0 ? 'mt10':''">
+          <button class="date-info">
+            <p *ngIf="channel_parner_data.checkin_verification_flag == 1">{{channel_parner_data.checkin_date | date : 'd MMM y'}}</p>
+            <p *ngIf="channel_parner_data.checkin_verification_flag == 0">Not Yet Visit</p>
+            <p *ngIf="channel_parner_data.checkin_verification_flag == 1">CheckIn Date</p>
+          </button>
+        </div>
+
+      </div>
+
+
+      <div class="mid">
+
+        <div class="content-info">
+
+          <div class="left-info">
+            <div class="circle">T</div>
+          </div>
+          
+          <div class="right-info">
+            <p>{{channel_parner_data.company_name}}</p>
+            <p>{{channel_parner_data.contact_person}} {{channel_parner_data.mobile && channel_parner_data.mobile!=''?'('+channel_parner_data.mobile+')' : ''}}</p>
+          </div>
+
+        </div>
+
+        <div class="tag-info" *ngIf="channel_parner_data.mobile && channel_parner_data.mobile!=''">
+          <a href="tel:{{channel_parner_data.mobile}}"><i class="material-icons">phone</i></a>
+        </div>
+
+      </div>
+      <div class="lower">
+        <p>Address</p>
+        <p>{{channel_parner_data.assigned_dr_state && channel_parner_data.assigned_dr_state!=''?  channel_parner_data.assigned_dr_state+', ' : ''}}{{channel_parner_data.assigned_dr_district && channel_parner_data.assigned_dr_district!=''?channel_parner_data.assigned_dr_district+', ': ''}}{{channel_parner_data.address && channel_parner_data.address!=''?channel_parner_data.address : ''}}</p>
+      </div>
+    </div>  
+  </div>
+  
+</ion-content>

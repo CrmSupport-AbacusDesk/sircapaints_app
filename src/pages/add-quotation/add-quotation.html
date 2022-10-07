@@ -1,0 +1,329 @@
+<!--
+  Generated template for the AddQuotationPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <ion-title>Add Quotation</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <div class="edit mt16">
+    <!-- <ion-list>
+      <ion-item class="cs-normal-select mt16" *ngIf="this.from!='quotation_details'">
+        <ion-label>Select Dealer</ion-label>
+
+        <ionic-selectable item-content [(ngModel)]="user_data.dealer" [items]="dealerListArray" itemValueField="id"  (onChange)="openCategory2(); cart_array=[]; product.qty=0;totalQty=0;sub_total=0; dis_amt=0; net_total=0; grand_total=0; user_data.category=''; user_data.sub_category=''; user_data.cat_no=''  "
+          name="dealer" value="dealer" [canSearch]="true" itemTextField="name" #selectComponent >
+        </ionic-selectable>
+
+
+      </ion-item>
+      <ion-item class="cs-normal-select mt16" *ngIf="this.from=='quotation_details'">
+        <ion-label>Select Dealer</ion-label>
+
+        <ionic-selectable item-content [(ngModel)]="user_data.dealer" [items]="dealerListArray" itemValueField="id"  (onChange)="openCategory2(); cart_array=[]; product.qty=0;totalQty=0;sub_total=0; dis_amt=0; net_total=0; grand_total=0; user_data.category=''; user_data.sub_category=''; user_data.cat_no=''  "
+          name="dealer" value="dealer" [canSearch]="true" itemTextField="name" #selectComponent  [disabled]="this.from=='quotation_details'">
+        </ionic-selectable>
+
+
+      </ion-item>
+    </ion-list> -->
+    <ion-list>
+      <!-- <ion-item [ngClass]="{'cs-error':company_name?.invalid}">  -->
+        <ion-item [ngClass]="className"> 
+        <ion-label floating><span>Company Name<strong>*</strong></span></ion-label>
+        <ion-input type="text" name="company_name" (keyup)="focusError(user_data.company_name)"  #company_name="ngModel" [(ngModel)]="user_data.company_name" [disabled]="this.from=='quotation_details'" required></ion-input>
+      </ion-item>
+      <ion-item [ngClass]="className2">
+        <ion-label floating><span>Contact Person<strong>*</strong> </span></ion-label>
+        <ion-input type="text" name="name" #name="ngModel" (keyup)="focusError2(user_data.name)" [(ngModel)]="user_data.name" [disabled]="this.from=='quotation_details'" required></ion-input>
+      </ion-item>
+      
+      <ion-item [ngClass]="className3">
+        <ion-label floating><span>Mobile No.<strong>*</strong></span></ion-label>
+        <ion-input type="tel" name="contact_no" (keyup)="focusError3(user_data.contact_no)" #contact_no="ngModel"  minlength="10" maxlength="10" (keypress)="mobileNumber($event)"  [(ngModel)]="user_data.contact_no" [disabled]="this.from=='quotation_details'" required></ion-input>
+        <!-- -->
+      </ion-item>
+      <ion-item>
+        <ion-label floating><span>Email<strong>*</strong></span></ion-label>
+        <ion-input type="email" name="email" (blur)="email_id?.invalid ? errorShowEmail(user_data.email_id):''"  pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,3}$" #email_id="ngModel" [(ngModel)]="user_data.email_id" [disabled]="this.from=='quotation_details'" required></ion-input>
+        <!-- pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,3}$" -->
+        <p *ngIf="email_id?.invalid" class="error-line">Email Is Required</p>
+
+      </ion-item>
+     
+      <ion-item>
+        <ion-label floating><span>GST</span></ion-label>
+        <ion-input type="text" name="gst" #gst="ngModel"  [disabled]="this.from=='quotation_details'" [(ngModel)]="user_data.gst"></ion-input>
+      </ion-item>
+      
+    </ion-list>
+    <ion-list>
+      <ion-item class="cs-textarea1">
+        <ion-label floating><span>Customer Shipping Address</span></ion-label>
+        <ion-textarea type="text" name="customer_shipping_address" [(ngModel)]="user_data.customer_shipping_address">
+        </ion-textarea>
+      </ion-item>
+    </ion-list>
+
+    <ion-list>
+      <ion-item class="cs-textarea1" [ngClass]="className4" >
+        <ion-label floating><span>Customer Billing Address<strong>*</strong></span></ion-label>
+        <ion-textarea type="text" name="customer_billing_address"  (keyup)="focusError4(user_data.customer_billing_address)"  [(ngModel)]="user_data.customer_billing_address">
+        </ion-textarea>
+      </ion-item>
+    </ion-list>
+    <ion-list>
+      <ion-item class="cs-normal-select mt16">
+        <ion-label>Select Category For Order</ion-label>
+
+        <ionic-selectable item-content [(ngModel)]="user_data.category" [items]="categoryList" itemValueField="category" #category
+          (onChange)="getSubCategoryListFunction(user_data.category);user_data.sub_category='';user_data.cat_no='';" name="category" value="category"
+          [canSearch]="true" itemTextField="category" #selectComponent>
+        </ionic-selectable>
+      </ion-item>
+    </ion-list>
+    <ion-list>
+      <ion-item class="cs-normal-select mt16"  *ngIf="user_data.category">
+        <ion-label>Select Sub Category</ion-label>
+        <ionic-selectable item-content [(ngModel)]="user_data.sub_category" [items]="subCategoryList"
+          (onChange)="getProductCode(user_data.sub_category);user_data.cat_no=''" itemValueField="sub_category" name="sub_category"
+          value="sub_category" [canSearch]="true" itemTextField="sub_category" #selectComponent>
+        </ionic-selectable>
+      </ion-item>
+    </ion-list>
+    <ion-list>
+      <ion-item class="cs-normal-select mt16" *ngIf="user_data.category && user_data.sub_category">
+        <ion-label><span>Item Name</span></ion-label>
+        <select-searchable #productCode item-content [(ngModel)]="user_data.cat_no" [items]="itemNameList"
+          (onChange)="get_product_data(user_data.cat_no);" itemValueField="cat_no" itemTextField="product_name"
+          name="cat_no" value="cat_no" [canSearch]="true" [hasVirtualScroll]="true">
+        </select-searchable>
+      </ion-item>
+    </ion-list>
+    <div class="edit">
+
+      <ion-list class="dflex1" *ngIf="user_data.category && user_data.sub_category && user_data.cat_no" >
+        <ion-item class="mr8 mb0">
+          <ion-label floating><span>Code</span></ion-label>
+          <ion-input type="text" name="cat_no" [(ngModel)]="product.cat_no" readonly></ion-input>
+        </ion-item>
+
+
+        <ion-item class="ml8 input-bg">
+          <ion-label floating><span>Carton QTY</span></ion-label>
+          <ion-input type="tel" name="cartoon_qty" (keypress)="mobileNumber($event)" (keyup)="calculate_amt1('cartoon_qty')" [(ngModel)]="product.cartoon_qty"></ion-input>
+        </ion-item>
+
+        <ion-item class="ml8 input-bg">
+          <ion-label floating><span>QTY</span></ion-label>
+          <ion-input type="tel" name="qty" (keypress)="mobileNumber($event)" (keyup)="product.cartoon_qty=''; calculate_amt1('qty')"  [(ngModel)]="product.qty"></ion-input>
+        </ion-item>
+      </ion-list>
+    </div>
+    <div class="edit">
+      <ion-list class="dflex1" *ngIf="user_data.category && user_data.sub_category && user_data.cat_no" >
+        <ion-item class="mr2 mb0">
+          <ion-label floating><span>Price</span></ion-label>
+          <ion-input type="text" name="price" [(ngModel)]="product.price" readonly></ion-input>
+        </ion-item>
+
+
+        <ion-item class="ml3 mb0 input-bg">
+          <ion-label floating><span>Discount in Price List (%)</span></ion-label>
+          <ion-input type="tel" name="discount" (keypress)="mobileNumber($event)" (keyup)="product.discount <= 100 ? calculate_amt1('qty'):presentAlert(product.discount)"  [(ngModel)]="product.discount"></ion-input>
+        </ion-item>
+
+        <ion-item class="ml5">
+          <ion-label floating><span>Amount</span></ion-label>
+          <ion-input type="text" name="amount" [(ngModel)]="product.subtotal_discounted" readonly></ion-input>
+        </ion-item>
+      </ion-list>
+    </div>
+    <div class="edit">
+      <ion-list class="dflex1" *ngIf="user_data.category && user_data.sub_category && user_data.cat_no" >
+        <ion-item class="mr2 mb0">
+          <ion-label class="noOverflow" floating><span>Unit</span></ion-label>
+          <ion-input type="text" name="price" [(ngModel)]="product.master_packing" readonly></ion-input>
+        </ion-item>
+
+        <ion-item class="ml5">
+          <ion-label floating><span>Box Packing</span></ion-label>
+          <ion-input type="text" name="amount" [(ngModel)]="product.std_packing" readonly></ion-input>
+        </ion-item>
+        <ion-item class="ml5">
+          <ion-label class="noOverflow" floating><span>Carton Packing</span></ion-label>
+          <ion-input type="text" name="amount" [(ngModel)]="product.cartoon_packing" readonly></ion-input>
+        </ion-item>
+      </ion-list>
+    </div>
+    <div class="pd-left-right16" *ngIf="show_price && product.qty>0">
+      <button class="cs-button border-btn mt20" (click)="addToCart(product.qty);user_data.cat_no=''; " [disabled]="!product.cartoon_qty && !product.qty">ADD TO LIST</button>
+    </div>
+    <div class="pd-left-right16">
+
+           <!-- //------ADD TO LIST FINISHED------// -->
+           <div class="dummycnt mt16" *ngIf="user_data.category && user_data.sub_category">
+            * To Add New Item in Order, Select Item Name Again.
+        </div>
+
+      <div class="cs-heading1 pl0" *ngIf="cart_array.length">
+          <p>PRODUCT INFORMATION</p>
+      </div>
+
+
+      <div class="list-box mt10" *ngFor="let row of cart_array;let i=index;">
+          <div class="mid mt0">
+              <div class="content-info">
+                  <!-- <div class="left-info">
+                      <div class="circle numbers">{{row.qty}}</div>
+                  </div> -->
+                  <div class="right-info">
+                      <p> {{row.category}} / {{row.cat_no}} / {{row.sub_category}}</p>
+                      <p> {{row.product_name}}</p>
+                  </div>
+              </div>
+              <div class="tag-info amount-view">
+                  <p>₹ {{row.price | number:'1.2-2'}}</p>
+                  <p>Price</p>
+              </div>
+              <div class="tag-info ml8" (click)="deleteItemFromCartAlertMessage(i,row.qty)">
+                  <a><i class="material-icons red-clr">delete_sweep</i></a>
+              </div>
+          </div>
+
+          <div class="three_boxes">
+              <div class="lower">
+                  <p>Discount in Price List (%)</p>
+                  <p>{{row.discount | number:'1.2-2'}}</p>
+              </div>
+              <div class="lower">
+                  <p>Price After Disc.</p>
+                  <p>{{row.discountedAmount | number:'1.2-2'}}</p>
+              </div>
+              <div class="lower">
+                  <p>Quantity</p>
+                  <p>{{row.qty}}</p>
+              </div>
+          </div>
+          <div class="three_boxes">
+              <div class="lower">
+                  <p>Unit</p>
+                  <p>{{row.master_packing}}</p>
+              </div>
+              <div class="lower">
+                  <p>Box Packing</p>
+                  <p>{{row.std_packing}}</p>
+              </div>
+              <div class="lower">
+                  <p>Carton Packing</p>
+                  <p>{{row.cartoon_packing}}</p>
+              </div>
+          </div>
+          <!-- <div class="three_boxes" *ngIf="row.stock_status== 'Out Of Stock' && row.stock_incoming_days && row.stock_incoming_days != '' && row.stock_incoming_days != '0000-00-00'">
+              
+              <div class="stock-alert mt10 mb10" ngClass="{{row.stock_status == 'Out Of Stock' ? 'red' : 'green'}}" *ngIf="row.stock_status == 'Out Of Stock'">
+                  <p>STOCK AVAILABLE</p>
+                  <p>{{'on '+ row.stock_incoming_days | date:' d MMM , y'}}  {{date_diff(today_date,row.stock_incoming_days) != -1 ? '('+date_diff(today_date,row.stock_incoming_days)+' Days)' :''}}</p>
+              </div>
+          </div> -->
+
+          <div class="time_show amount-listing pb5 border-none">
+              <p>Amount</p>
+              <p>₹ {{row.subtotal_discounted | number:'1.2-2'}}</p>
+          </div>
+      </div>
+
+      <div *ngIf="sub_total" class="time_show amount-listing">
+          <p>Total Quantity</p>
+          <p>{{totalQty}}</p>
+      </div>
+      <div *ngIf="sub_total" class="time_show amount-listing">
+          <p>Sub Total</p>
+          <p>₹ {{sub_total | number:'1.2-2'}} /-</p>
+      </div>
+      <div *ngIf="dis_amt" class="time_show amount-listing">
+          <p>Discount in Price List</p>
+          <p>₹ {{dis_amt | number:'1.2-2'}} /-</p>
+      </div>
+
+      <div  *ngIf="grand_total" class="time_show amount-listing border-none">
+          <p>Grand Total</p>
+          <p>₹ {{net_total | number:'1.0-0'}} /-</p>
+      </div>
+      
+      <div  *ngIf="grand_total" class="time_show amount-listing border-none">
+          <p>Net Total</p>
+          <p>₹ {{grand_total | number:'1.0-0'}} /-</p>
+      </div>
+      <div class="edit m0">
+          <ion-list>
+             
+          </ion-list>
+          <ion-list>
+              <ion-item class="cs-textarea1" *ngIf="cart_array.length">
+                  <ion-label floating><span>Remark </span></ion-label>
+                  <ion-textarea type="text" name="order_remark" [(ngModel)]="user_data.quotation_remark"></ion-textarea>
+              </ion-item>
+          </ion-list>
+      </div>
+      <div class="edit m0">
+        <ion-list>
+           
+        </ion-list>
+        <ion-list>
+            <ion-item class="cs-textarea1" *ngIf="cart_array.length && edit_terms">
+  
+                <!-- <div style="-webkit-user-select:text; user-select:text;" contenteditable="true"></div> -->
+            
+                    <ion-label floating><span>Term and Condition <strong>*</strong></span></ion-label>
+                    <ion-textarea type="text" name="term_condition" #term_condition="ngModel" [(ngModel)]="user_data.term_condition" required></ion-textarea>
+                
+                <!-- <p  *ngIf=" term_condition?.invalid && !user_data.term_condition" class="error-line">Term & Condition Is Required</p> -->
+               
+
+                <!-- <ion-textarea type="text" name="term_and_condition" [(ngModel)]="user_data.term_and_condition"  required> -->
+               
+                <!-- </ion-textarea> -->
+            </ion-item>
+        </ion-list>
+        <div class="lower mt20 cs-textarea1" *ngIf="cart_array.length && !edit_terms">
+          <p>
+          
+          <!-- <ion-checkbox color="secondary"(ionChange)="changeTermAndCondtion($event)"></ion-checkbox> -->
+           <span style="font-size:15px;">
+            Term And Condition
+           </span> 
+           <a class="edit" style="font-size:15px;"  (click)="changeTermAndCondtion($event)">
+            Edit
+            <i class="material-icons create" style="font-size:15px; color:green">create</i>
+           </a>
+          </p>
+          <!-- <p [innerHTML]="row.term_condition">{{row.term_condition}}</p> -->
+          <p class="two-line-ellipse"  [innerHTML]="user_data.term_condition"></p>
+          
+      </div>
+    </div>
+
+  </div>
+
+  <div class="dummycnt mt16" *ngIf="!this.user_data.name || !this.user_data.company_name || !this.user_data.contact_no || !this.user_data.email_id || !this.user_data.customer_billing_address">
+    Please Fill * Required Fields
+</div>
+<div class="dummycnt mt16" *ngIf="!net_total|| !grand_total">
+  Grand Total Or Net Total Can't Be Zero
+</div>
+  
+ 
+
+  <div class="align-btn">
+  
+    <button class="cs-button " *ngIf="cart_array.length > 0 && this.from!='quotation_details'" (click)="user_data.quotation_status='Pending';save_orderalert('submit')" [disabled]="order_lock || user_data.term_condition=='' || !net_total|| !grand_total || !this.user_data.name || !this.user_data.company_name || !this.user_data.contact_no || !this.user_data.email_id || !this.user_data.customer_billing_address">SUBMIT</button>
+    <button class="cs-button " *ngIf="cart_array.length > 0 && this.from=='quotation_details'" (click)="user_data.quotation_status='Pending';save_orderalert('submit')" [disabled]="order_lock || user_data.term_condition==''|| !net_total|| !grand_total || !this.user_data.name || !this.user_data.company_name || !this.user_data.contact_no || !this.user_data.email_id || !this.user_data.customer_billing_address">Save Changes</button>
+</div>
+  </div>
+</ion-content>

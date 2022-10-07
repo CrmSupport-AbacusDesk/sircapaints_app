@@ -1,0 +1,84 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Plumber Meet Gallery</ion-title>
+    
+    <ion-buttons end>
+      <button ion-button icon-only (click)="presentPopover($event)">
+        <ion-icon name="more"></ion-icon>
+        
+      </button>
+    </ion-buttons>
+    
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  
+  <div>
+    <!-- <div class="upload-doc">
+      <p class="">IMAGES</p>
+      <ul class="no-padding plumber_meet_images">
+        <li class="image-upload" *ngFor="let images of plumber_meet_images">
+          <img (click)="view_image(images.img_path)" src="{{images.img_path}}"><br>
+          <button *ngIf="plumber_meet_status !='Complete' && plumber_meet_status !='Reject'" class="del" (click)="delete_gallery_data(images.id)"><i class="material-icons">delete_sweep</i></button>
+        </li>
+      </ul>
+    </div> -->
+
+    <div class="accordion" [ngClass]="{'expand':expand_image == true}">
+      <div class="accordion-head" (click)="expand_image = !expand_image; expand_video = false">IMAGES</div>
+      <div class="accordion-body">
+        <div class="edit m0">
+         
+          <div class="upload-doc">
+            <ul class="no-padding plumber_meet_images">
+              <li class="image-upload" *ngFor="let images of plumber_meet_images">
+                <img (click)="view_image(images.img_path)" src="{{images.img_path}}"><br>
+                <button *ngIf="plumber_meet_status !='Complete' && plumber_meet_status !='Reject'" class="del" (click)="delete_gallery_data(images.id)"><i class="material-icons">delete_sweep</i></button>
+              </li>
+            </ul>
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div>
+    <!-- <div class="upload-doc">
+      <p class="">VIDEOS</p>
+      <ul class="no-padding plumber_meet_videos">
+        <li class="image-upload" *ngFor="let video of plumber_meet_videos">
+          <video (playing)="onPlayingVideo($event)" width="100%" height="100%" controls><source target="_blank" [src]="video.video_path" type="video/mp4" ></video>
+          <br>
+          <button *ngIf="plumber_meet_status !='Complete' && plumber_meet_status !='Reject'" class="del" (click)="delete_gallery_data(video.id)"><i class="material-icons">delete_sweep</i></button>
+        </li>
+      </ul>
+    </div> -->
+
+    <div class="accordion" [ngClass]="{'expand':expand_video == true}">
+      <div class="accordion-head" (click)="expand_video = !expand_video; expand_image = false">Videos</div>
+      <div class="accordion-body">
+        <div class="edit m0">
+         
+          <div class="upload-doc">
+            <ul class="no-padding plumber_meet_videos">
+              <li class="image-upload" *ngFor="let video of plumber_meet_videos">
+                <video (playing)="onPlayingVideo($event)" width="100%" height="100%" controls><source target="_blank" [src]="video.video_path" type="video/mp4" ></video>
+                <br>
+                <button *ngIf="plumber_meet_status !='Complete' && plumber_meet_status !='Reject'" class="del" (click)="delete_gallery_data(video.id)"><i class="material-icons">delete_sweep</i></button>
+              </li>
+            </ul>
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+  
+</ion-content>

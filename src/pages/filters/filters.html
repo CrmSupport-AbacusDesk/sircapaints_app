@@ -1,0 +1,135 @@
+
+
+<ion-content  class="transprant-bg">
+  <span *ngIf="from == 'account-statement-page'">
+    <div class="work-modal">
+      <div class="work-modal-bg">
+        <div >
+          <div class="head">
+            <a class="close" (click)="closeModal('minimise')">
+              <i class="material-icons">keyboard_arrow_down</i>
+            </a>
+            <h2>Filter</h2>
+            <a class="close" (click)="closeModal()">Clear</a>
+          </div>
+        </div>
+        <div class="round-tab">
+          <ul>
+            <li [ngClass]="{'active' : tab_active=='transactional'} "  (click)="tab_active='transactional' ">
+              <p>Transactional </p>
+            </li>
+            <li [ngClass]="{'active' : tab_active=='date'} " (click)="tab_active='date'">
+              <p>Date</p>
+            </li>
+          </ul>
+        </div>
+
+        <div class="edit mt10">
+          <ion-list>
+            <div>
+              <ng-container *ngIf="tab_active=='date'">
+                <ion-item>
+                  <ion-label floating><span>Date From <strong>*</strong></span></ion-label>
+                  <ion-datetime display-format="MMM DD, YYYY"  placeholder="Select Date" [max]="today_date" type="text" name="date_from" #date_from="ngModel" [(ngModel)]="search.date_from" (ngModelChange)="search.date_to = ''" class="calander" required ></ion-datetime>
+                </ion-item>
+
+                <ion-item *ngIf="search.date_from">
+                  <ion-label floating><span>Date To <strong>*</strong></span></ion-label>
+                  <ion-datetime display-format="MMM DD, YYYY"  placeholder="Select Date" [min]="search.date_from" [max]="today_date" type="text" name="date_to" #date_to="ngModel" [(ngModel)]="search.date_to" class="calander" required ></ion-datetime>
+                </ion-item>
+              </ng-container>
+
+              <ion-item class="cs-normal-select" *ngIf="tab_active=='transactional'">
+                <ion-label>Select Transaction Type <strong>*</strong></ion-label>
+                <ion-select [(ngModel)]="search.transaction_type" required>
+                  <ion-option value="Credit">Credit</ion-option>
+                  <ion-option value="Debit">Debit</ion-option>
+                </ion-select>
+              </ion-item>
+            </div>
+          </ion-list>
+
+          <button ion-button block class="h35 green-color mt20" style="letter-spacing: 1px;"  [disabled]="(tab_active=='transactional' && !search.transaction_type) || (tab_active=='date' && (!search.date_from || !search.date_to))" (click)="get_account_statement_list()">Apply</button>
+        </div>
+
+      </div>
+    </div>
+  </span>
+
+  <span *ngIf="from == 'ready-to-dispatch-order-list-page'">
+    <div class="work-modal">
+      <div class="work-modal-bg">
+        <div >
+          <div class="head">
+            <h2>Warehouse List</h2>
+            <a class="close" (click)="closeModal('minimise')">
+              <i class="material-icons">keyboard_arrow_down</i>
+            </a>
+          </div>
+        </div>
+
+
+        <div class="edit mt10">
+          <ion-list>
+            <div>
+              <ion-item class="cs-normal-select">
+                <ion-label>Select Warehouse <strong>*</strong></ion-label>
+                <ion-select [(ngModel)]="selected_warehouse" required>
+                  <ion-option *ngFor="let warehouse_data of ware_house_list" [value]="warehouse_data.id">{{warehouse_data.ware_house_name}}</ion-option>
+                </ion-select>
+              </ion-item>
+            </div>
+          </ion-list>
+
+          <button ion-button block class="h35 green-color mt20" style="letter-spacing: 1px;"  [disabled]="!selected_warehouse || selected_warehouse == ''" (click)="go_to('scan_master_box_for_transfer')">Apply</button>
+        </div>
+
+      </div>
+    </div>
+  </span>
+
+  <span *ngIf="from == 'activity-notification-page'">
+    <div class="work-modal">
+      <div class="work-modal-bg">
+        <div >
+          <div class="head">
+            <a class="close" (click)="closeModal('minimise')">
+              <i class="material-icons">keyboard_arrow_down</i>
+            </a>
+            <h2>Filter</h2>
+            <a class="close" (click)="closeModal()">Clear</a>
+          </div>
+        </div>
+        <div class="round-tab">
+          <ul>
+            <li>
+              <p>Date</p>
+            </li>
+          </ul>
+        </div>
+
+        <div class="edit mt10">
+          <ion-list>
+            <div>
+              <ng-container>
+                <ion-item>
+                  <ion-label floating><span>Date From <strong>*</strong></span></ion-label>
+                  <ion-datetime display-format="MMM DD, YYYY"  placeholder="Select Date" [max]="today_date" type="text" name="date_from" #date_from="ngModel" [(ngModel)]="search.date_from" (ngModelChange)="search.date_to = ''" class="calander" required ></ion-datetime>
+                </ion-item>
+
+                <ion-item *ngIf="search.date_from">
+                  <ion-label floating><span>Date To <strong>*</strong></span></ion-label>
+                  <ion-datetime display-format="MMM DD, YYYY"  placeholder="Select Date" [min]="search.date_from" [max]="today_date" type="text" name="date_to" #date_to="ngModel" [(ngModel)]="search.date_to" class="calander" required ></ion-datetime>
+                </ion-item>
+              </ng-container>
+            </div>
+          </ion-list>
+
+          <button ion-button block class="h35 green-color mt20" style="letter-spacing: 1px;"  [disabled]="(!search.date_from && !search.date_to)" (click)="get_activity_list()">Apply</button>
+        </div>
+
+      </div>
+    </div>
+  </span>
+
+</ion-content>

@@ -1,0 +1,686 @@
+<ion-header class="catalogue-header">
+    <ion-navbar>
+
+        <ion-title *ngIf="type=='Lead'">Lead Detail</ion-title>
+        <ion-title *ngIf="type!='Lead'">Detail</ion-title>
+        <ion-buttons end>
+            <button ion-button icon-only color="light" (click)="goOnEditDetail(distributor_detail.id)" *ngIf= "userStorageData.user_type == 'Inside Sales Team' && type=='Lead'">
+                <ion-icon name="md-create"></ion-icon>
+            </button>
+            <button ion-button icon-only color="light" (click)="goOnEditDetail(distributor_detail.id)" *ngIf= "userStorageData.user_type != 'Inside Sales Team'">
+              <ion-icon name="md-create"></ion-icon>
+            </button>
+        </ion-buttons>
+    </ion-navbar>
+</ion-header>
+
+<ion-content *ngIf="type=='Lead' && userStorageData.user_type != 'Inside Sales Team'">
+    <div class="sticky-main">
+        <div class="pd-left-right16 af_bg">
+            <div class="list-box">
+                <div class="upper">
+                    <div class="left-date">
+                        <div class="date-section">
+                            <p>{{distributor_detail.date_created | date:'d MMM y'}}</p>
+                            <p>Date Created</p>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="mid">
+                    <div class="content-info">
+                        <div class="left-info">
+                            <div class="circle" >{{distributor_detail.company_name | slice:0:1}}</div>
+
+                        </div>
+                        <div class="right-info">
+                            <p>{{distributor_detail.company_name | titlecase}}</p>
+                            <p> {{!distributor_detail.name ? 'N/A' : distributor_detail.name | titlecase}} - ( {{distributor_detail.mobile}} )</p>
+                            <p *ngIf="distributor_detail.email"> {{distributor_detail.email ? distributor_detail.email : 'N/A'}}</p>
+                        </div>
+                    </div>
+                    <div class="tag-info">
+                        <a href="tel:{{distributor_detail.mobile ? distributor_detail.mobile : 'N/A'}}"><i class="material-icons">phone</i></a>
+                    </div>
+                </div>
+                <div class="lower">
+                    <p>Address</p>
+                    <p>{{!distributor_detail.state ? 'N/A' : distributor_detail.state | titlecase}} {{!distributor_detail.district ? '' : ', '+distributor_detail.district | titlecase}} {{distributor_detail.pincode ? ' - '+distributor_detail.pincode : ''}}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="csn-heading neww" *ngIf="total_checkin?.length && !search.date">
+            <p>Latest Checkins</p>
+
+            <label class="chedate">
+                <input  type="date" [max]="date" name="date" [(ngModel)]="search.date" (ngModelChange)="lead_detail()" type="date" >
+                <i class="material-icons">date_range</i>
+            </label>
+
+            <div class="text-line" *ngIf="search.date">
+                <div class="lf-text">
+                    <p>Date</p>
+                    <p>{{search.date | date:'d MMM y'}}</p>
+                </div>
+                <div class="rf-text"  (click)="search.date=null;lead_detail()">
+                    <i class="material-icons">cancel</i>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="pl16 pr16" *ngIf="total_checkin?.length && !search.date">
+        <div class="list-box mt16"*ngFor="let val of total_checkin" (click)="checkin_detail(val.id)" >
+            <div class="upper">
+                <div class="left-date">
+                    <div class="date-section">
+                        <p>{{val.activity_date | date: 'MMM d, y'}}</p>
+                        <p>Date Created</p>
+                    </div>
+                    <div class="date-section">
+                        <p>{{val.visit_start | date:'hh:mm a'}}</p>
+                        <p>Start Time</p>
+                    </div>
+                    <div class="date-section" *ngIf="val.visit_end != '0000-00-00 00:00:00'">
+                        <p>{{val.visit_end | date:'hh:mm a'}}</p>
+                        <p>End Time</p>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="three_boxes" *ngIf="val.start_address">
+                <div class="lower one-line">
+                    <p>Start Location : <span>{{val.start_address | titlecase}}</span></p>
+                </div>
+            </div>
+            <div class="three_boxes" *ngIf="val.address">
+                <div class="lower one-line">
+                    <p>End Location : <span>{{val.address | titlecase}}</span></p>
+                </div>
+            </div>
+        </div>
+        <button ion-button class="cs-btn" (click)="convertdealer()">
+            Convert To Retail Partner
+         </button>
+    </div>
+
+</ion-content>
+
+<ng-container *ngIf="type!='Lead' && userStorageData.user_type != 'Inside Sales Team'">
+
+    <ion-content >
+        <div class="sticky-main">
+            <div class="pd-left-right16 af_bg">
+                <div class="list-box">
+                    <div class="upper">
+                        <div class="left-date">
+                            <div class="date-section">
+                                <p>{{distributor_detail.date_created | date:'d MMM y'}}</p>
+                                <p>Date Created</p>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="mid">
+                        <div class="content-info">
+                            <div class="left-info">
+                                <div class="circle" >{{distributor_detail.company_name | slice:0:1}}</div>
+
+                            </div>
+                            <div class="right-info">
+                                <p>{{distributor_detail.company_name?.toUpperCase()}}</p>
+                                <p> {{!distributor_detail.name ? 'N/A' : distributor_detail.name | titlecase}} - ( {{distributor_detail.mobile}} )</p>
+                                <p *ngIf="distributor_detail.email"> {{distributor_detail.email ? distributor_detail.email : 'N/A'}}</p>
+                            </div>
+                        </div>
+                        <div class="tag-info">
+                            <a href="tel:{{distributor_detail.mobile ? distributor_detail.mobile : 'N/A'}}"><i class="material-icons">phone</i></a>
+                        </div>
+                    </div>
+                    <div class="lower">
+                        <p>Address</p>
+                        <p>{{!distributor_detail.state ? 'N/A' : distributor_detail.state | titlecase}} {{!distributor_detail.district ? '' : ', '+distributor_detail.district | titlecase}} {{distributor_detail.pincode ? ' - '+distributor_detail.pincode : ''}}</p>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="csn-heading neww" *ngIf="(total_order?.length || secondary.length || search.date ) && showRelatedTab!=false">
+                <p>Latest Orders</p>
+
+                <label class="chedate">
+                    <input  type="date" [max]="date" name="date" [(ngModel)]="search.date" (ngModelChange)="dr_detail(distributor_detaill.orderType)" type="date" >
+                    <i class="material-icons">date_range</i>
+                </label>
+
+                <div class="text-line" *ngIf="search.date">
+                    <div class="lf-text">
+                        <p>Date</p>
+                        <p>{{search.date | date:'d MMM y'}}</p>
+                    </div>
+                    <div class="rf-text"  (click)="search.date=null;dr_detail(distributor_detaill.orderType)">
+                        <i class="material-icons">cancel</i>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <ng-container *ngIf="distributor_detaill.orderType=='Primary' && showRelatedTab!=false">
+
+            <div class="pl16 pr16" *ngIf="total_order?.length && !search.date">
+                <div class="list-box mt16" *ngFor="let row of total_order" (click)="goOnOrderDetail(row.orderId)">
+                    <div class="upper"  *ngIf="row.order_status!='Draft'">
+                        <div class="left-date">
+                            <div class="date-section">
+                                <p>{{row.date_created| date:'d MMM y hh:mm a'}}</p>
+                                <p>Date</p>
+                            </div>
+                            <div class="date-section">
+                                <p>{{row.order_no}}</p>
+                                <p>Order Id</p>
+                            </div>
+
+                        </div>
+                        <!-- <div class="right-date">
+                            <button><p *ngIf="row.delivery_from=='Gravity'">Primary</p></button>
+                            <button><p *ngIf="row.delivery_from!='Gravity'">Secondary</p></button>
+                        </div> -->
+                    </div>
+                    <div class="mid" [ngClass]="{'mt0' : row.order_status=='Draft' }">
+                        <div class="content-info">
+                            <div class="left-info">
+                                <div class="circle" >{{row.dr_name.substring(0,1).toUpperCase()}}</div>
+                            </div>
+                            <div class="right-info">
+                                <p>{{row.dr_name.toUpperCase()}}</p>
+                                <p> Total Item : {{row.order_item  ? row.order_item : '0'}}</p>
+                            </div>
+                        </div>
+                        <div class="tag-info amount-view">
+                            <p>₹ {{row.order_grand_total ? row.order_grand_total : '0'}}</p>
+                            <p>Amount</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="nothing-here" style="height: 60%;" *ngIf="!total_order.length && distributor_detaill.orderType">
+                <div class="outer">
+                    <div class="innear">
+                        <img src="assets/imgs/no_found.svg" alt="">
+                        <p>No Data Available</p>
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+
+
+        <ng-container *ngIf="distributor_detaill.orderType=='Secondary' && showRelatedTab!=false">
+
+            <div class="pl16 pr16" *ngIf="secondary?.length && !search.date">
+                <div class="list-box mt16" *ngFor="let row of secondary" (click)="goOnOrderDetail(row.orderId)">
+                    <div class="upper"  *ngIf="row.order_status!='Draft'">
+                        <div class="left-date">
+                            <div class="date-section">
+                                <p>{{row.date_created| date:'d MMM y hh:mm a'}}</p>
+                                <p>Date</p>
+                            </div>
+                            <div class="date-section">
+                                <p>{{row.order_no}}</p>
+                                <p>Order Id</p>
+                            </div>
+
+                        </div>
+                        <!-- <div class="right-date">
+                            <button><p *ngIf="row.delivery_from=='Gravity'">Primary</p></button>
+                            <button><p *ngIf="row.delivery_from!='Gravity'">Secondary</p></button>
+                        </div> -->
+                    </div>
+                    <div class="mid" [ngClass]="{'mt0' : row.order_status=='Draft' }">
+                        <div class="content-info">
+                            <div class="left-info">
+                                <div class="circle" >{{row.dr_name.substring(0,1).toUpperCase()}}</div>
+                            </div>
+                            <div class="right-info">
+                                <p>{{row.dr_name.toUpperCase()}}</p>
+                                <p> Total Item : {{row.order_item  ? row.order_item : '0'}}</p>
+                            </div>
+                        </div>
+                        <div class="tag-info amount-view">
+                            <p>₹ {{row.order_grand_total ? row.order_grand_total : '0'}}</p>
+                            <p>Amount</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="nothing-here" style="height: 60%;" *ngIf="!secondary.length && distributor_detaill.orderType">
+                <div class="outer">
+                    <div class="innear">
+                        <img src="assets/imgs/no_found.svg" alt="">
+                        <p>No Data Available</p>
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+
+    </ion-content>
+    <ion-footer class="csm-footer-tabs" *ngIf="distributor_detail.type==1 && showRelatedTab!=false">
+        <div class="ftabs">
+            <button ion-item [ngClass]="{'active': distributor_detaill.orderType == 'Primary'}" (click)="distributor_detaill.orderType='Primary'"><p>Primary</p></button>
+
+            <button ion-item [ngClass]="{'active': distributor_detaill.orderType == 'Secondary'}" (click)="distributor_detaill.orderType='Secondary'" ><p>Secondary</p> </button>
+
+        </div>
+
+    </ion-footer>
+</ng-container>
+
+
+
+<!-- For Inside Sales Team User Login Start Here  -->
+
+
+  <ng-container *ngIf="userStorageData.user_type == 'Inside Sales Team' && distributor_detail.type== '1' && distributor_detail.lead_type == 'Dr'">
+    <ion-content>
+        <div class="sticky-main">
+            <div class="pd-left-right16 af_bg">
+                <div class="list-box">
+                    <div class="upper">
+                        <div class="left-date">
+
+                            <div class="date-section">
+                                <p>{{distributor_detail.date_created | date:'d MMM y'}}</p>
+                                <p>Date Created</p>
+                            </div>
+
+                            <!-- <div class="date-section" *ngIf ="type!='Lead'" (click) ="go_to_add_activity_page(distributor_detail.id, distributor_detail.type , distributor_detail.lead_type , distributor_detail.company_name)">
+                              <a>Add Activity</a>
+                            </div> -->
+
+                            <!-- <div class="left-auto" style="margin-left: 200px;">
+                              <ion-buttons end (click) ="go_to_add_activity_page(distributor_detail.id, distributor_detail.type , distributor_detail.lead_type , distributor_detail.company_name)">
+                                <button ion-button icon-only small >
+                                  <ion-icon name="add"></ion-icon>
+                                </button>
+                              </ion-buttons>
+                            </div> -->
+
+                        </div>
+
+                    </div>
+                    <div class="mid">
+                        <div class="content-info">
+                            <div class="left-info">
+                                <div class="circle" >{{distributor_detail.company_name | slice:0:1}}</div>
+
+                            </div>
+                            <div class="right-info">
+                                <p>{{distributor_detail.company_name?.toUpperCase()}}</p>
+                                <p> {{!distributor_detail.name ? 'N/A' : distributor_detail.name | titlecase}} - ( {{distributor_detail.mobile}} )</p>
+                                <p *ngIf="distributor_detail.email"> {{distributor_detail.email ? distributor_detail.email : 'N/A'}}</p>
+                            </div>
+                        </div>
+                        <div class="tag-info">
+                            <a href="tel:{{distributor_detail.mobile ? distributor_detail.mobile : 'N/A'}}"><i class="material-icons">phone</i></a>
+                        </div>
+                    </div>
+                    <div class="lower">
+                        <p>Address</p>
+                        <p>{{!distributor_detail.state ? 'N/A' : distributor_detail.state | titlecase}} {{!distributor_detail.district ? '' : ', '+distributor_detail.district | titlecase}} {{distributor_detail.pincode ? ' - '+distributor_detail.pincode : ''}}</p>
+                    </div>
+
+                    <div class="three_boxes">
+                      <div class="lower">
+                        <p>Remark</p>
+                      <p>{{distributor_detail.comment ? distributor_detail.comment : 'N/A'}}</p>
+                      </div>
+                      <div class="lower">
+                        <p>Next Followup Date & Time</p>
+                        <p>{{distributor_detail.follow_up_date| date:'d MMM y' + ' '}} {{distributor_detail.follow_up_time}}</p>
+                      </div>
+                    </div>
+
+                    <div>
+                        <button ion-button block class="h30 mt15 active" style="letter-spacing: 1px;" (click) ="go_to_add_activity_page(distributor_detail.id, distributor_detail.type , distributor_detail.lead_type , distributor_detail.company_name)">Add Activity</button>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div class="csn-heading neww" style="padding-top: 20px;">
+                <p *ngIf="btnTab == 'Assign Dealer'">Assigned Dealers</p>
+                <p *ngIf="btnTab == 'Activity'">Activity Information</p>
+            </div>
+
+
+        </div>
+
+        <ng-container *ngIf="userStorageData.user_type == 'Inside Sales Team' && distributor_detail.type == '1' && btnTab == 'Assign Dealer'">
+
+            <div class="pl16 pr16">
+                <div class="list-box mt16" *ngFor="let dealer_row of assign_dealer" (click) ="go_to_dealer_detail_page(dealer_row.id, dealer_row.lead_type, dealer_row.type)">
+                    <div class="upper">
+                        <div class="left-date">
+
+                            <div class="date-section">
+                                <p>{{dealer_row.date_created| date:'d MMM y hh:mm a'}}</p>
+                                <p>Date</p>
+                            </div>
+
+                            <div class="date-section">
+                              <p>{{dealer_row.contact_person}}</p>
+                              <p>Contact Person</p>
+                            </div>
+
+
+                            <!-- <div class="date-section" (click) ="go_to_add_activity_page(dealer_row.id, dealer_row.type , dealer_row.lead_type , dealer_row.company_name)">
+                              <a>Add Activity</a>
+                            </div> -->
+
+                            <!-- <div class="left-auto" style="margin-left: 150px;">
+                              <ion-buttons end (click) ="go_to_add_activity_page(dealer_row.id, dealer_row.type , dealer_row.lead_type , dealer_row.company_name)">
+                                <button ion-button icon-only small >
+                                  <ion-icon name="add"></ion-icon>
+                                </button>
+                              </ion-buttons>
+                            </div> -->
+
+                        </div>
+
+
+                    </div>
+
+                    <div class="mid">
+
+                        <div class="content-info">
+
+                            <div class="left-info">
+                                <div class="circle" >{{dealer_row.company_name.substring(0,1).toUpperCase()}}</div>
+                            </div>
+
+                            <div class="right-info">
+                                <p>{{dealer_row.company_name.toUpperCase()}}</p>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="three_boxes">
+                      <div class="lower">
+                        <p>Remark</p>
+                      <p>{{dealer_row.comment ? dealer_row.comment : 'N/A'}}</p>
+                      </div>
+                      <div class="lower">
+                        <p>Next Followup Date & Time</p>
+                        <p>{{dealer_row.follow_up_date | date:'d MMM y' + ' '}} {{dealer_row.follow_up_time}}</p>
+                      </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="nothing-here" style="height: 60%;" *ngIf="!assign_dealer">
+                <div class="outer">
+                    <div class="innear">
+                        <img src="assets/imgs/no_found.svg" alt="">
+                        <p>No Data Available</p>
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+
+        <ng-container *ngIf="userStorageData.user_type == 'Inside Sales Team' && distributor_detail.type == '1' && btnTab == 'Activity'">
+
+          <div class="pl16 pr16">
+              <div class="list-box mt16" *ngFor="let activity_row of activity_list">
+                  <div class="upper">
+                      <div class="left-date" (click)="go_to_activity_detail(activity_row.id)">
+
+                          <div class="date-section">
+                              <p>{{activity_row.date_created| date:'d MMM y hh:mm a'}}</p>
+                              <p>Date Created</p>
+                          </div>
+
+                          <!-- <div class="date-section">
+                            <p>{{activity_row.contact_person}}</p>
+                            <p></p>
+                          </div> -->
+
+                          <div class="date-section" >
+                            <p>{{activity_row.activity_type}}</p>
+                            <p>Activity Type</p>
+                          </div>
+
+                          <div class="date-section" *ngIf="activity_row.activity_type == 'Call'" >
+                            <p>{{activity_row.disposition_type_value ? activity_row.disposition_type_value : 'N/A'}}</p>
+                            <p>Diposition type</p>
+                          </div>
+
+                          <div class="date-section" *ngIf="activity_row.activity_type == 'Call'">
+                            <p>{{activity_row.disposition_name ? activity_row.disposition_name : 'N/A'}}</p>
+                            <p>Diposition Name</p>
+                          </div>
+
+
+                          <!-- <div class="date-section" (click) ="go_to_add_activity_page(dealer_row.id, dealer_row.type , dealer_row.lead_type , dealer_row.company_name)">
+                            <a>Add Activity</a>
+                          </div> -->
+
+                          <!-- <div class="left-auto" style="margin-left: 150px;">
+                            <ion-buttons end (click) ="go_to_add_activity_page(dealer_row.id, dealer_row.type , dealer_row.lead_type , dealer_row.company_name)">
+                              <button ion-button icon-only small >
+                                <ion-icon name="add"></ion-icon>
+                              </button>
+                            </ion-buttons>
+                          </div> -->
+
+                      </div>
+
+
+                  </div>
+
+                  <div class="mid">
+
+                      <div class="content-info">
+
+                          <div class="right-info">
+                              <p>Remark : {{activity_row.remark ? activity_row.remark : 'N/A'}}</p>
+                          </div>
+
+
+                      </div>
+
+                  </div>
+              </div>
+          </div>
+
+          <div class="nothing-here" style="height: 60%;" *ngIf="!activity_list">
+              <div class="outer">
+                  <div class="innear">
+                      <img src="assets/imgs/no_found.svg" alt="">
+                      <p>No Data Available</p>
+                  </div>
+              </div>
+          </div>
+      </ng-container>
+
+    </ion-content>
+
+    <ion-footer class="csm-footer-tabs" *ngIf="distributor_detail.type==1">
+      <div class="ftabs">
+          <button ion-item [ngClass]="{'active': btnTab == 'Assign Dealer'}" (click)="btnTab='Assign Dealer'"><p>Assigned Dealers</p></button>
+
+          <button ion-item [ngClass]="{'active': btnTab == 'Activity'}" (click)="btnTab='Activity'" ><p>Activity</p> </button>
+      </div>
+  </ion-footer>
+
+  </ng-container>
+
+
+
+  <!-- Except Channel Partner Start Here -->
+
+  <ng-container *ngIf="userStorageData.user_type == 'Inside Sales Team' && (distributor_detail.type != '1' || distributor_detail.lead_type == 'Lead')  ">
+    <ion-content>
+        <div class="sticky-main">
+            <div class="pd-left-right16 af_bg">
+                <div class="list-box">
+                    <div class="upper">
+                        <div class="left-date">
+
+                            <div class="date-section">
+                                <!-- <p>15-01-2022</p> -->
+                                <p>{{distributor_detail.date_created | date:'d MMM y'}}</p>
+                                <p>Date Created</p>
+                            </div>
+
+                            <!-- <div class="date-section" *ngIf ="type!='Lead'" (click) ="go_to_add_activity_page(distributor_detail.id, distributor_detail.type , distributor_detail.lead_type , distributor_detail.company_name)">
+                              <a>Add Activity</a>
+                            </div> -->
+
+                            <!-- <div class="left-auto" style="margin-left: 200px;">
+                              <ion-buttons end (click) ="go_to_add_activity_page(distributor_detail.id, distributor_detail.type , distributor_detail.lead_type , distributor_detail.company_name)">
+                                <button ion-button icon-only small >
+                                  <ion-icon name="add"></ion-icon>
+                                </button>
+                              </ion-buttons>
+                            </div> -->
+
+                        </div>
+
+                    </div>
+                    <div class="mid">
+                        <div class="content-info">
+                            <div class="left-info">
+                                <div class="circle" >{{distributor_detail.company_name | slice:0:1}}</div>
+
+                            </div>
+                            <div class="right-info">
+                                <p>{{distributor_detail.company_name?.toUpperCase()}}</p>
+                                <p> {{!distributor_detail.name ? 'N/A' : distributor_detail.name | titlecase}} - ( {{distributor_detail.mobile}} )</p>
+                                <p *ngIf="distributor_detail.email"> {{distributor_detail.email ? distributor_detail.email : 'N/A'}}</p>
+                            </div>
+                        </div>
+                        <div class="tag-info">
+                            <a href="tel:{{distributor_detail.mobile ? distributor_detail.mobile : 'N/A'}}"><i class="material-icons">phone</i></a>
+                        </div>
+                    </div>
+
+                    <div class="lower">
+                        <p>Address</p>
+                        <p>{{!distributor_detail.state ? 'N/A' : distributor_detail.state | titlecase}} {{!distributor_detail.district ? '' : ', '+distributor_detail.district | titlecase}} {{distributor_detail.pincode ? ' - '+distributor_detail.pincode : ''}}</p>
+                    </div>
+
+                    <div class="three_boxes">
+                      <div class="lower">
+                        <p>Remark</p>
+                      <p>{{distributor_detail.comment ? distributor_detail.comment : 'N/A'}}</p>
+                      </div>
+                      <div class="lower">
+                        <p>Next Followup Date & Time</p>
+                        <p>{{distributor_detail.follow_up_date| date:'d MMM y' + ' '}} {{distributor_detail.follow_up_time}}</p>
+                      </div>
+                    </div>
+
+                    <div>
+                      <button ion-button block class="h30 mt15 active" style="letter-spacing: 1px;" (click) ="go_to_add_activity_page(distributor_detail.id, distributor_detail.type , distributor_detail.lead_type , distributor_detail.company_name)">Add Activity</button>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div class="csn-heading neww" style="padding-top: 20px;">
+                <p>Activity Information</p>
+            </div>
+
+
+        </div>
+
+        <ng-container *ngIf="userStorageData.user_type == 'Inside Sales Team'">
+
+            <div class="pl16 pr16">
+                <div class="list-box mt16" *ngFor="let activity_row of activity_list">
+                    <div class="upper">
+                        <div class="left-date" (click)="go_to_activity_detail(activity_row.id)">
+
+                            <div class="date-section">
+                                <p>{{activity_row.date_created| date:'d MMM y hh:mm a'}}</p>
+                                <p>Date Created</p>
+                            </div>
+
+                            <!-- <div class="date-section">
+                              <p>{{activity_row.contact_person}}</p>
+                              <p></p>
+                            </div> -->
+
+                            <div class="date-section">
+                              <p>{{activity_row.activity_type}}</p>
+                              <p>Activity Type</p>
+                            </div>
+
+                            <div class="date-section" *ngIf="activity_row.activity_type == 'Call'">
+                              <p>{{activity_row.disposition_type_value ? activity_row.disposition_type_value : 'N/A'}}</p>
+                              <p>Diposition type</p>
+                            </div>
+
+                            <div class="date-section" *ngIf="activity_row.activity_type == 'Call'">
+                              <p>{{activity_row.disposition_name ? activity_row.disposition_name : 'N/A'}}</p>
+                              <p>Diposition Name</p>
+                            </div>
+
+
+                            <!-- <div class="date-section" (click) ="go_to_add_activity_page(dealer_row.id, dealer_row.type , dealer_row.lead_type , dealer_row.company_name)">
+                              <a>Add Activity</a>
+                            </div> -->
+
+                            <!-- <div class="left-auto" style="margin-left: 150px;">
+                              <ion-buttons end (click) ="go_to_add_activity_page(dealer_row.id, dealer_row.type , dealer_row.lead_type , dealer_row.company_name)">
+                                <button ion-button icon-only small >
+                                  <ion-icon name="add"></ion-icon>
+                                </button>
+                              </ion-buttons>
+                            </div> -->
+
+                        </div>
+
+
+                    </div>
+
+                    <div class="mid">
+
+                        <div class="content-info">
+
+                            <div class="right-info">
+                                <p>Remark : {{activity_row.remark ? activity_row.remark : 'N/A'}}</p>
+                            </div>
+
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="nothing-here" style="height: 60%;" *ngIf="!activity_list">
+                <div class="outer">
+                    <div class="innear">
+                        <img src="assets/imgs/no_found.svg" alt="">
+                        <p>No Data Available</p>
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+
+    </ion-content>
+
+  </ng-container>
+
+  <!-- Except Channel Partner End Here -->
+
+<!-- For Inside Sales Team User Login Start Here  -->
+

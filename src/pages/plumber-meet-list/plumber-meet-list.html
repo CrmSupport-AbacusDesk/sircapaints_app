@@ -1,0 +1,146 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Plumber Meet List</ion-title>
+  </ion-navbar>
+  
+  <ion-toolbar>
+    <div class="search add-search">
+      <div class="filter">
+        <ion-searchbar type='text' name="master" [(ngModel)]="filter.master" (ngModelChange)="get_plumber_meet_list()"></ion-searchbar>
+        <a class="date-pick">
+          <label class="chedate">
+            <input type="date" name="date" [(ngModel)]="filter.date" (ngModelChange)="get_plumber_meet_list()" />
+            <i class="material-icons">date_range</i>
+          </label>
+        </a>
+      </div>
+    </div>
+  </ion-toolbar> 
+  
+</ion-header>
+
+<div class="text-line" *ngIf="filter.date">
+  <div class="lf-text">
+    <p>Date</p>
+    <p>{{filter.date | date:'d MMM y'}}</p>
+  </div>
+  <div class="rf-text">
+    <i class="material-icons" (click)="filter.date='';get_plumber_meet_list()">cancel</i>
+  </div>
+</div>
+
+<ion-content>
+  
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingSpinner="dots" refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
+  
+  
+  <div class="">
+    
+    
+    <div class="capsule-tabs">
+      <ul>
+        <li [ngClass]="{'active' : tab_active=='Pending'} "  (click)="tab_active='Pending' ;filter.date='';start=0 ;get_plumber_meet_list() ">
+          <p>Pending <span>{{count_data.plumber_meet_pending_count}}</span></p>
+        </li>
+        <li [ngClass]="{'active' : tab_active=='Approved'} " (click)="tab_active='Approved'; filter.date='';start=0 ;get_plumber_meet_list()">
+          <p>Approved<span>{{count_data.plumber_meet_approved_count}}</span></p>
+        </li>
+        <li [ngClass]="{'active' : tab_active=='Reject'} "  (click)="tab_active='Reject'; filter.date='';start=0 ;get_plumber_meet_list()">
+          <p>Reject<span>{{count_data.plumber_meet_reject_count}}</span></p>
+        </li>
+        <li [ngClass]="{'active' : tab_active=='Complete'} "  (click)="tab_active='Complete'; filter.date='';start=0 ;get_plumber_meet_list()">
+          <p>Complete<span>{{count_data.plumber_meet_completed_count}}</span></p>
+        </li>
+      </ul>
+    </div>
+    
+    
+    <div class="pd-left-right16">
+      <div class=" list-box mt10" *ngFor="let meet_data of plumber_meet_list">
+        <div class="upper">
+          <div class="left-date" (click)="go_to('meet_detail',meet_data.id)">
+            <div class="date-section">
+              <p>{{meet_data.date_created | date:'d MMM y'}}</p>
+              <p>Date Created</p>
+            </div>
+            <div class="date-section">
+              <p>{{meet_data.date_of_meeting | date:'d MMM y'}}</p>
+              <p>Meeting Date</p>
+            </div>
+            
+            <div class="date-section">
+              <p>{{meet_data.total_member}}</p>
+              <p>Members</p>
+            </div>
+          </div>
+          <div *ngIf="meet_data.status == 'Pending'" class="left-auto" (click)="delete_meet(meet_data.id)">
+            <ion-buttons end>
+              <button ion-button icon-only small >
+                <ion-icon name="trash"></ion-icon>
+              </button>
+            </ion-buttons>
+          </div>
+        </div>
+        <span (click)="go_to('meet_detail',meet_data.id)">
+          <div class="mid" *ngIf="this.user_data.loginType =='SFA'">
+            <div class="content-info w250" >
+              <div class="left-info" >
+                <div class="circle" >{{meet_data.company_name.substring(0,1).toUpperCase()}}</div> 
+              </div>
+              
+              <div class="right-info">
+                <p>{{meet_data.company_name}} </p> 
+              </div>
+            </div>
+            <div class="tag-info" *ngIf="meet_data.mobile && meet_data.mobile != ''">
+              <a href="tel:{{meet_data.mobile}}"><i class="material-icons">phone</i></a>
+            </div>
+          </div>
+          
+          <div class="three_boxes"> 
+            <div class="lower">
+              <p>Last Update On</p> 
+            <p>{{meet_data.date_updated | date:'d MMM y'}}</p>
+            </div>
+            <div class="lower">
+              <p>Budget</p>
+              <p>&#8377;  {{meet_data.total_budget}}</p>
+            </div>
+            <div class="lower" *ngIf="meet_data.status == 'Pending'">
+              <p>Pending Days</p>
+              <p>{{meet_data.day_difference}}</p>
+            </div>
+          </div>
+        </span>
+        
+        <div class="lower one-line">
+          <p>Description : <span>{{meet_data.description}}</span></p>
+        </div>
+        
+        
+      </div>  
+    </div>
+  </div>
+  
+  <div class="nothing-here" style="height: 50%;" *ngIf="false">
+    <div class="outer">
+      <div class="innear">
+        <img src="assets/imgs/no_found.svg" alt="">
+        <p>Data not Available</p>
+      </div>
+    </div>
+  </div>
+  
+  
+  
+  
+</ion-content>
+
+<div class="cus-fab" >
+  <button (click)="go_to('plumber_meet_add')">
+    <i class="material-icons">add</i>
+  </button>
+</div>

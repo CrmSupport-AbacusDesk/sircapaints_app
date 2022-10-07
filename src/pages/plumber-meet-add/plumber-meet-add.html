@@ -1,0 +1,103 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Add Plumber Meet</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <div class="edit">
+    <ion-list>
+
+      <ion-item class="cs-selectable mt16 " *ngIf="this.user_data.loginType =='SFA'">
+        <ion-label><span>Select Retail Partner/Channel Partner</span></ion-label>
+        <ionic-selectable item-content #dealerSelectable [(ngModel)]="temp_dealer_data" [items]="assing_dealer_data" itemValueField="id" itemTextField="company_name"  [canSearch]="true" (onChange)="get_selected_dealer_data($event)"></ionic-selectable>
+      </ion-item>
+
+      <ion-item >
+        <ion-label floating><span>Date of Meeting</span></ion-label>
+        <ion-datetime display-format="MMM DD, YYYY" min={{today_date}} max={{max_date}} type="text" name="date_of_meeting" #date_of_meeting="ngModel" [(ngModel)]="meet_data.date_of_meeting" class="calander" required ></ion-datetime>
+      </ion-item>
+      <ion-item>
+        <ion-label floating><span>Total No. Of Plumber</span></ion-label>
+        <ion-input type="tel" name="total_member" #total_member="ngModel" [(ngModel)]="meet_data.total_member" required min="0" maxlength="10000" minlength="1"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label floating><span>Total (Budget Approx.)</span></ion-label>
+        <ion-input type="tel" name="total_budget" #budget="ngModel" [(ngModel)]="meet_data.total_budget" required min="0" maxlength="10000" minlength="1"></ion-input>
+      </ion-item>
+      <!-- By Abhishek Start here -->
+      <ion-item>
+        <ion-label floating><span>Current Gravity Monthly Sale Average</span></ion-label>
+        <ion-input type="tel" name="sale_average" #sale_average="ngModel" [(ngModel)]="meet_data.sale_average" required min="0" maxlength="10000" minlength="1"></ion-input>
+      </ion-item>
+
+      <ion-item class="cs-normal-select mt16">
+        <ion-label> In which segment working with Gravity <strong>*</strong></ion-label>
+        <ion-select [(ngModel)]="meet_data.working_segment_name" multiple="true" required>
+          <ion-option *ngFor="let list of working_segment_list" [value]="list.working_segment_name">{{list.working_segment_name}}</ion-option>
+        </ion-select>
+      </ion-item>
+
+
+      <ion-item class="cs-normal-select mt16">
+        <ion-label>Cp fittings series dealing in gravity</ion-label>
+
+
+        <ion-select [(ngModel)]="meet_data.how_many_cp_fitting" multiple="true" required>
+          <ion-option *ngFor="let list of category_name" [value]="list.category_name">{{list.category_name}}</ion-option>
+        </ion-select>
+      </ion-item>
+
+      <!-- <ion-item class="cs-normal-select mt16 mb0">
+        <ion-label><span>Gravity Products Display in his showroom</span></ion-label>
+        <ion-select name="product_display" [(ngModel)]="meet_data.product_display">
+          <ion-option value="Yes">Yes</ion-option>
+          <ion-option value="No">No</ion-option>
+        </ion-select>
+      </ion-item> -->
+
+      <ion-item class="cs-normal-select mt16">
+        <ion-label>Gravity branding in your store<strong>*</strong></ion-label>
+        <ion-select [(ngModel)]="meet_data.branding_item" multiple="true" required>
+            <ion-option *ngFor="let branding of gravity_branding_showroom" [value]="branding">{{branding}}</ion-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item class="cs-normal-select mt16">
+        <ion-label>Are you interested in other gravity segments?<strong>*</strong></ion-label>
+        <ion-select [(ngModel)]="meet_data.intrested_segment_name" multiple="true" required>
+            <ion-option *ngFor="let intrested_segment of working_segment_list" [value]="intrested_segment.working_segment_name">{{intrested_segment.working_segment_name}}</ion-option>
+        </ion-select>
+      </ion-item>
+
+
+
+      <!-- End Here -->
+      <ion-item class="cs-textarea1">
+        <!-- <ion-label floating><span>Description</span></ion-label> -->
+        <ion-label floating><span>Suggestion & Feedback</span></ion-label>
+        <ion-textarea placeholder="Enter Description" name="description" #description="ngModel" [(ngModel)]="meet_data.description"></ion-textarea>
+      </ion-item>
+
+      <ion-item>
+        <div class="upload-doc">
+          <p class="">Upload Image</p>
+          <ul class="no-padding">
+
+            <li class="image-upload" *ngFor="let pic of image_data;let i = index;">
+              <img src="{{pic}}">
+              <button class="del"><i class="material-icons" (click)="remove_image(i)" >delete_sweep</i></button>
+            </li>
+
+            <li class="add-image" (click)="captureMedia()">
+              <i class="material-icons">add</i>
+            </li>
+          </ul>
+        </div>
+      </ion-item>
+
+
+    </ion-list>
+    <button ion-button block class="h40 green-color mt15" style="letter-spacing: 1px;" (click)="save_meet_data()" [disabled]=" !(this.user_data.loginType =='SFA' ? meet_data.dealer_id : true) || !meet_data.total_budget || !meet_data.total_member || !meet_data.date_of_meeting || !meet_data.description || !meet_data.working_segment_name || !meet_data.branding_item ||!meet_data.intrested_segment_name">SAVE</button>
+  </div>
+</ion-content>

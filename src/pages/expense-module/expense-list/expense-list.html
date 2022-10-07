@@ -1,0 +1,143 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>{{expenseType}} Expense List</ion-title>
+        
+    <ion-buttons end>
+      <button ion-button icon-only (click)="presentPopover($event)">
+        <ion-icon name="more"></ion-icon>
+        
+        <!-- <ion-icon name="ellipsis-vertical"></ion-icon> -->
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+  
+  <ion-toolbar>
+    <div class="search add-search">
+      <div class="filter">
+        <ion-searchbar type='text' name="master" [(ngModel)]="filter.master" (ngModelChange)="get_expense_list()"></ion-searchbar>
+        <a class="date-pick">
+          <label class="chedate">
+            <input type="date" name="date" [(ngModel)]="filter.date" (ngModelChange)="get_expense_list()" />
+            <i class="material-icons">date_range</i>
+          </label>
+        </a>
+      </div>
+    </div>
+  </ion-toolbar> 
+</ion-header>
+
+<div class="text-line" *ngIf="filter.date">
+  <div class="lf-text">
+    <p>Date</p>
+    <p>{{filter.date | date:'d MMM y'}}</p>
+  </div>
+  <div class="rf-text">
+    <i class="material-icons" (click)="filter.date='';get_expense_list()">cancel</i>
+  </div>
+</div>
+
+<ion-content padding>
+  
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingSpinner="dots" refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
+  
+  <div class="">
+    
+    
+    <div class="round-tab pt0 pr0 pl0">
+      <ul>
+        <li [ngClass]="{'active' : tab_active=='Pending'} "  (click)="tab_active='Pending' ;filter.date='';start=0 ;get_expense_list() ">
+          <p>Pending <span>{{count_data.exp_pending_count}}</span></p>
+        </li>
+        <li [ngClass]="{'active' : tab_active=='Approved'} " (click)="tab_active='Approved'; filter.date='';start=0 ;get_expense_list()">
+          <p>Approved<span>{{count_data.exp_approved_count}}</span></p>
+        </li>
+        <li [ngClass]="{'active' : tab_active=='Reject'} "  (click)="tab_active='Reject'; filter.date='';start=0 ;get_expense_list()">
+          <p>Reject<span>{{count_data.exp_reject_count}}</span></p>
+        </li>
+      </ul>
+    </div>
+    
+    
+    
+    <div class="list-box mt10" *ngFor="let expense_data of expense_list">
+      <div class="upper">
+        <div class="left-date" (click)="go_to_expense_detail(expense_data.id)">
+          <div class="date-section">
+            <p>{{expense_data.dateCreated | date:'d MMM y'}}</p>
+            <p>Date Created</p>
+          </div>
+          <div class="date-section">
+            <p>{{expense_data.expenseType}}</p>
+            <p>Expense Type</p>
+          </div>
+
+          <div class="date-section" *ngIf="expenseType == 'My'">
+            <p>&#8377; {{expense_data.expense_total_amount}}</p>
+            <p>Amount</p>
+          </div>
+
+          
+        </div>
+        <div *ngIf="expense_data.seniorStatus == 'Pending' &&  expense_data.acStatus == 'Pending'" class="left-auto" (click)="delete_expense(expense_data.id)">
+          <ion-buttons end>
+            <button ion-button icon-only small >
+              <ion-icon name="trash"></ion-icon>
+            </button>
+          </ion-buttons>
+        </div>
+      </div>
+      <span (click)="go_to_expense_detail(expense_data.id)">
+        <div class="mid" *ngIf="expenseType == 'Team'">
+          <div class="content-info w250" >
+            <div class="left-info" >
+              <div class="circle" >{{expense_data.createdByName.substring(0,1).toUpperCase()}}</div> 
+            </div>
+            
+            <div class="right-info">
+              <p>{{expense_data.createdByName}} </p> 
+            </div>
+          </div>
+          <div class="tag-info amount-view">
+            <p>&#8377; {{expense_data.expense_total_amount}}</p>
+            <p>Amount</p>
+          </div>
+        </div>
+        
+        <div class="three_boxes"> 
+          <div class="lower" [ngClass]="expense_data.seniorStatus == 'Pending' ? 'pending': expense_data.seniorStatus == 'Approved' ? 'approved' : expense_data.seniorStatus == 'Reject'? 'reject':''">
+            <p>Senior Status</p> 
+            <p>{{expense_data.seniorStatus}}</p>
+          </div>
+          <div class="lower" [ngClass]="expense_data.acStatus == 'Pending' ? 'pending': expense_data.acStatus == 'Approved' ? 'approved' : expense_data.acStatus == 'Reject'? 'reject':''">
+            <p>Account Status</p>
+            <p>{{expense_data.acStatus}}</p>
+          </div>
+          <div class="lower">
+            <p>Reff. ID</p>
+            <p>{{expense_data.reference_expense_id}}</p>
+          </div>
+        </div>
+      </span>
+    </div>  
+  
+  </div>
+  
+  <div class="nothing-here" style="height: 50%;" *ngIf="expense_list.length == 0">
+    <div class="outer">
+      <div class="innear">
+        <img src="assets/imgs/no_found.svg" alt="">
+        <p>Data not Available</p>
+      </div>
+    </div>
+  </div>
+  
+</ion-content>
+
+<div class="cus-fab" >
+  <button (click)="add_expense()">
+    <i class="material-icons">add</i>
+  </button>
+</div>

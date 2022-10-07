@@ -1,0 +1,122 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>POP Orders List</ion-title>
+  </ion-navbar>
+  <ion-navbar>
+    <div class="search add-search">
+        <div class="filter">
+            <ion-searchbar type='text' name="master" [(ngModel)]="filter.order_id" (ngModelChange)="get_pop_orders()"></ion-searchbar>
+            <a class="date-pick">
+                <label class="chedate">
+                    <input type="date" name="date" [(ngModel)]="filter.date" (ngModelChange)="get_pop_orders()" />
+                    <i class="material-icons">date_range</i>
+                </label>
+            </a>
+        </div>
+    </div>
+
+</ion-navbar>
+</ion-header>
+<div class="text-line" *ngIf="filter.date">
+<div class="lf-text">
+    <p>Date</p>
+    <p>{{filter.date | date:'d MMM y'}}</p>
+</div>
+<div class="rf-text">
+    <i class="material-icons" (click)="filter.date='';get_pop_orders()">cancel</i>
+</div>
+</div>
+
+<ion-content>
+  
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingSpinner="circles" refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
+  
+  <div class="capsule-tabs">
+    <ul>       
+      <li [ngClass]="{'active' : filter.order_status=='Pending'}" (click)="filter.date='';filter.master='';start=0;filter.order_status='Pending' ;get_pop_orders()">
+        <p>Placed </p>
+                <!-- <p>Placed <span>{{count.Pending}}</span></p> -->
+      </li>
+      
+      <li [ngClass]="{'active' : filter.order_status=='Approved'}" (click)="filter.date='';filter.master='';start=0;filter.order_status='Approved';get_pop_orders()">
+        <p>Accepted </p>
+                <!-- <p>Accepted <span>{{count.Approved}}</span></p> -->
+      </li>
+
+      <li [ngClass]="{'active' : filter.order_status=='Hold'}" (click)="filter.date='';filter.master='';start=0;filter.order_status='Hold';get_pop_orders()">
+        <p>Hold</p>
+                <!-- <p>Accepted <span>{{count.Approved}}</span></p> -->
+      </li>
+      
+      <li [ngClass]="{'active' : filter.order_status=='PDispatch'}" (click)="filter.date='';filter.master='';start=0;filter.order_status='PDispatch';get_pop_orders()">
+        <p>Partially Dispatched </p>
+                <!-- <p>Partially Dispatched <span>{{count.PDispatch}}</span></p> -->
+      </li>
+      
+      <li [ngClass]="{'active' : filter.order_status=='Dispatch'}" (click)="filter.date='';filter.master='';start=0;filter.order_status='Dispatch';get_pop_orders()">
+        <p>Completely Dispatched </p>
+                <!-- <p>Completely Dispatched <span>{{count.Dispatch}}</span></p> -->
+      </li>
+      
+      <li [ngClass]="{'active' : filter.order_status=='Reject'}" (click)="filter.date='';filter.master='';start=0;filter.order_status='Reject';get_pop_orders()">
+        <p>Reject </p>
+                <!-- <p>Reject <span>{{count.Reject}}</span></p> -->
+      </li>
+      
+    </ul>
+  </div>
+  
+  <div class="pd-left-right16 mb80">
+    <div class="list-box mt16" *ngFor="let row of pop_order_list"  (click)="gotoDetail(row.id)">
+      <div class="upper">
+        <div class="left-date">
+          <div class="date-section">
+            <p>{{row.date_created| date:'d MMM y hh:mm a'}}</p>
+            <p>Date</p>
+          </div>
+          
+        </div>
+        <div class="right-date">
+          <button><p >{{row.order_no}}</p></button>
+        </div>
+      </div>
+      <div class="mid">
+        <div class="content-info">
+          <div class="left-info">
+            <div class="circle">{{row.order_total_item}}</div>
+          </div>
+          <div class="right-info">
+            <p> Total Item : {{row.order_total_item}}</p>
+          </div>
+        </div>
+        <div class="tag-info amount-view">
+          <p>{{row.order_total_points}}</p>
+          <p>Order Total Points</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="nothing-here" style="height: 50%;" *ngIf="!pop_order_list?.length">
+    <div class="outer">
+        <div class="innear">
+            <img src="assets/imgs/no_found.svg" alt="">
+            <p>Data not Available</p>
+        </div>
+    </div>
+</div>
+
+  <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)" *ngIf="flag!=1">
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
+    </ion-infinite-scroll-content>
+</ion-infinite-scroll>
+  
+</ion-content>
+<div class="cus-fab">
+  <button (click)="add_pop_order()">
+    <i class="material-icons">add</i>
+  </button>
+</div>

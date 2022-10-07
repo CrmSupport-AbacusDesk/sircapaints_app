@@ -1,0 +1,28 @@
+page-follow-up-detail {
+
+
+    .cs-heading1{
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        padding: 0px;
+    }
+
+    a.date-pick{
+        margin-right: 0px !important;
+    }
+
+    a.fix-picker{
+        position: absolute;
+        top: 50%;
+        right: 0;
+        transform: translateY(-50%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        label{
+            align-items: center;
+        }
+    }
+}

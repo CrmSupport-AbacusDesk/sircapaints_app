@@ -1,0 +1,248 @@
+<!--
+  Generated template for the AddActivityPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <ion-title>Add Activity</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+  <div class="edit">
+    <ion-list>
+
+      <ion-item  class="cs-normal-select mt16 mb0" *ngIf="userStorageData.user_type == 'Inside Sales Team' && navParams.data.comes_from != 'dr_detail_page'" >
+        <ion-label>Select Network Type</ion-label>
+        <ion-select name="dr_network_type" #dr_network_type="ngModel" [disabled]="navParams.data['come_from'] == 'follow_up_detail_page'" [(ngModel)]="activity_data.dr_network_type" required>
+          <ion-option value="Lead">Lead Network</ion-option>
+          <ion-option value="Dr">Distributor Network</ion-option>
+        </ion-select>
+      </ion-item>
+
+      
+
+      <ion-item class="cs-normal-select mt16 mb0" *ngIf="activity_data.dr_network_type && navParams.data.comes_from != 'dr_detail_page'">
+        <ion-label >Select Type <strong>*</strong></ion-label>
+        <ion-select [(ngModel)]="activity_data.dr_type" [disabled]="navParams.data['come_from'] == 'follow_up_detail_page'" (ngModelChange)="getDrList()" required>
+          <ion-option *ngIf="activity_data.dr_network_type == 'Lead' || activity_data.dr_network_type == 'Dr'" value="1">Channel Partner </ion-option>
+          <ion-option *ngIf="activity_data.dr_network_type == 'Dr'" value="7">Direct Dealers</ion-option>
+          <ion-option *ngIf="activity_data.dr_network_type == 'Lead' || activity_data.dr_network_type == 'Dr'" value="3">Dealers</ion-option>
+          <ion-option *ngIf="activity_data.dr_network_type == 'Lead'" value="10">Not Defined</ion-option>
+        </ion-select>
+      </ion-item>
+
+
+      <ion-item class="cs-normal-select mt16 mb0" *ngIf="dr_list.length > 0 && navParams.data.comes_from != 'dr_detail_page'" >
+        <ion-label class="select-label">Select Company Name <strong>*</strong></ion-label>
+        <ion-select [disabled]="navParams.data['come_from'] == 'follow_up_detail_page'" name="dr_id" [(ngModel)]="activity_data.dr_id" required>
+            <ion-option *ngFor="let dr_data of dr_list" [value]="dr_data.dr_id">{{dr_data.dr_name}}</ion-option>
+        </ion-select>
+      </ion-item>
+
+
+      <ion-item class="cs-normal-select mt16 mb0" *ngIf="activity_data.dr_network_type">
+        <ion-label><span>Activity Type</span></ion-label>
+        <ion-select  name="activity_type"  #activity_type="ngModel" [(ngModel)]="activity_data.activity_type" (ngModelChange)="get_disposition_type()" required>
+          <ion-option value="Mail">Mail</ion-option>
+          <ion-option value="Call">Call</ion-option>
+          <ion-option value="SMS">SMS</ion-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item class="cs-normal-select mt16 mb0" *ngIf="dr_list.length > 0 && activity_data.activity_type == 'Call'" >
+        <ion-label class="select-label">Select Disposition Type<strong>*</strong></ion-label>
+        <ion-select name="disposition_type" [(ngModel)]="activity_data.disposition_type" (ngModelChange)="get_disposition_type_name();activity_data.followup_date='';activity_data.followup_time='';activity_data.followup_type='';activity_data.disposition_name='';" required>
+            <ion-option *ngFor="let disposition_type_data of disposition_type" [value]="disposition_type_data.disposition_type">{{disposition_type_data.disposition_type_value}}</ion-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item class="cs-normal-select mt16 mb0" *ngIf="activity_data.disposition_type && activity_data.activity_type == 'Call'" >
+        <ion-label class="select-label">Select Disposition Name<strong>*</strong></ion-label>
+        <ion-select name="disposition_name" [(ngModel)]="activity_data.disposition_name"  required>
+            <ion-option *ngFor="let disposition_name_data of disposition_name" [value]="disposition_name_data.disposition_name">{{disposition_name_data.disposition_name}}</ion-option>
+        </ion-select>
+      </ion-item>
+
+      <!-- <ion-item class="cs-textarea1 mt16 mb0" >
+        <ion-label floating><span>Description</span></ion-label>
+        <ion-textarea name="description" #description="ngModel" [(ngModel)]="activity_data.description" placeholder="Enter Description" ></ion-textarea>
+      </ion-item> -->
+      <ng-container *ngIf="activity_data.dr_network_type && activity_data.dr_network_type == 'Dr'">
+        <ion-item>
+          <ion-label floating><span>Product Quality</span></ion-label>
+          <ion-input type="text" name="product_quality" [(ngModel)]="activity_data.product_quality"  #product_quality="ngModel"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label floating><span>Working Tenure</span></ion-label>
+          <ion-input type="text" name="working_tenure" [(ngModel)]="activity_data.working_tenure"  #working_tenure="ngModel"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label floating><span>Purchase Frequency</span></ion-label>
+          <ion-input type="text" name="purchase_frequency" [(ngModel)]="activity_data.purchase_frequency"  #purchase_frequency="ngModel"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label floating><span>Segments in Gravity</span></ion-label>
+          <ion-input type="text" name="segments_in_gravity" [(ngModel)]="activity_data.segments_in_gravity"  #segments_in_gravity="ngModel"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label floating><span>Why not all segments of Gravity</span></ion-label>
+          <ion-input type="text" name="why_not_all_segments_of_gravity" [(ngModel)]="activity_data.why_not_all_segments_of_gravity"  #why_not_all_segments_of_gravity="ngModel"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label floating><span>Dealing in how many brands</span></ion-label>
+          <ion-input type="text" name="dealing_in_how_many_brands" [(ngModel)]="activity_data.dealing_in_how_many_brands"  #dealing_in_how_many_brands="ngModel"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label floating><span>Most Selling Brands</span></ion-label>
+          <ion-input type="text" name="most_selling_brands" [(ngModel)]="activity_data.most_selling_brands"  #most_selling_brands="ngModel"></ion-input>
+        </ion-item>
+        <ion-item class="cs-normal-select mb0 mt16">
+          <ion-label><span>Status</span></ion-label>
+          <ion-select name="status"  #status="ngModel" [(ngModel)]="activity_data.status">
+            <ion-option value="satisfied">Satisfied</ion-option>
+            <ion-option value="unsatisfied">Unsatisfied</ion-option>
+
+          </ion-select>
+        </ion-item>
+       
+      </ng-container>
+
+
+      <ng-container *ngIf ="activity_data.activity_type && activity_data.activity_type == 'Call' && activity_data.disposition_type">
+
+          <div class="csn-heading neww" *ngIf ="activity_data.disposition_type != '4' && activity_data.disposition_type != '7' && activity_data.disposition_type != '10'">
+            <p>Add Followup</p>
+          </div>
+
+          <ion-item *ngIf ="activity_data.disposition_type != '4' && activity_data.disposition_type != '7' && activity_data.disposition_type != '10'">
+            <ion-label floating><span>Follow Up Date <strong>*</strong></span></ion-label>
+            <ion-input  type="datetime-local" style="font-size: 20px;padding-top: 5px;" [min]="today_date" type="date" name="followup_date" #followup_date="ngModel" [(ngModel)]="activity_data.followup_date" (ngModelChange)="get_selected_date_followup()" class="calander" required >  <i class="material-icons">date_range</i> </ion-input>
+          </ion-item>
+
+          <ion-item *ngIf ="activity_data.comes_from == 'follow_up_detail_page'" >
+            <ion-label floating><span>Follow Up Date <strong>*</strong></span></ion-label>
+            <ion-input  type="datetime-local" style="font-size: 20px;padding-top: 5px;" [min]="today_date" type="date" name="followup_date" #followup_date="ngModel" [(ngModel)]="activity_data.followup_date" (ngModelChange)="get_selected_date_followup()" class="calander" required readonly >  <i class="material-icons">date_range</i> </ion-input>
+          </ion-item>
+
+
+          <ion-item *ngIf ="activity_data.disposition_type != '4' && activity_data.disposition_type != '7' && activity_data.disposition_type != '10'">
+            <ion-label floating><span>Time</span><strong>*</strong></ion-label>
+            <ion-datetime display-format="h:mm A" pickerFormat="h:mm A" name="followup_time" [(ngModel)]="activity_data.followup_time" required #depatureTime="ngModel"></ion-datetime>
+          </ion-item>
+
+
+          <ion-item class="cs-normal-select mb0 mt16" *ngIf="activity_data.dr_id && activity_data.disposition_type != '4' && activity_data.disposition_type != '7' && activity_data.disposition_type != '10'">
+            <ion-label><span>Followup Type</span></ion-label>
+            <ion-select name="followup_type"  #followup_type="ngModel" [(ngModel)]="activity_data.followup_type" (ngModelChange)="activity_data.description=''" required>
+              <ion-option value="Call">Call</ion-option>
+            </ion-select>
+          </ion-item>
+
+      </ng-container>
+
+      <ng-container *ngIf ="activity_data.activity_type && activity_data.activity_type != 'Call'">
+
+        <div class="csn-heading neww">
+          <p>Add Followup</p>
+        </div>
+
+        <ion-item>
+          <ion-label floating><span>Follow Up Date <strong>*</strong></span></ion-label>
+          <ion-input  type="datetime-local" style="font-size: 20px;padding-top: 5px;" [min]="today_date" type="date" name="followup_date" #followup_date="ngModel" [(ngModel)]="activity_data.followup_date" (ngModelChange)="get_selected_date_followup()" class="calander" required >  <i class="material-icons">date_range</i> </ion-input>
+        </ion-item>
+
+        <ion-item >
+          <ion-label floating><span>Time</span><strong>*</strong></ion-label>
+          <ion-datetime display-format="h:mm A" pickerFormat="h:mm A" name="followup_time" [(ngModel)]="activity_data.followup_time" required #depatureTime="ngModel"></ion-datetime>
+        </ion-item>
+
+
+        <ion-item class="cs-normal-select mb0 mt16">
+          <ion-label><span>Followup Type</span></ion-label>
+          <ion-select name="followup_type"  #followup_type="ngModel" [(ngModel)]="activity_data.followup_type" (ngModelChange)="activity_data.description=''" required>
+            <ion-option value="Call">Call</ion-option>
+          </ion-select>
+        </ion-item>
+      </ng-container>
+
+
+
+
+      <ion-item class="cs-textarea1 mt16 mb0" >
+        <ion-label floating><span>Description</span></ion-label>
+        <ion-textarea name="description" #description="ngModel" [(ngModel)]="activity_data.description" placeholder="Enter Description" ></ion-textarea>
+      </ion-item>
+
+      
+      <!-- <ion-item class="cs-textarea1" >
+        <ion-label floating><span>Description</span></ion-label>
+        <ion-textarea name="follow_up_description" #description="ngModel" [(ngModel)]="activity_data.follow_up_description"  placeholder="Enter Description" ></ion-textarea>
+      </ion-item> -->
+
+    </ion-list>
+
+    <div >
+
+    </div>
+
+    <ng-container *ngIf="activity_data.disposition_type != '4' && activity_data.disposition_type != '7' && activity_data.disposition_type != '10'">
+
+      <button *ngIf="activity_data.dr_network_type && activity_data.dr_type" ion-button block class="h40 green-color mt15" style="letter-spacing: 1px;" [disabled]= "!activity_data.dr_type || !activity_data.dr_id || !activity_data.activity_type || !activity_data.followup_date || !activity_data.followup_time || !activity_data.followup_type" (click) = "addActivity()">Save</button>
+
+    </ng-container>
+
+
+    <ng-container *ngIf="activity_data.disposition_type == '4' || activity_data.disposition_type == '7' || activity_data.disposition_type == '10'">
+
+      <button *ngIf="activity_data.dr_network_type && activity_data.dr_type" ion-button block class="h40 green-color mt15" style="letter-spacing: 1px;" [disabled]= "!activity_data.dr_type || !activity_data.dr_id || !activity_data.activity_type" (click)="addActivity()">Save</button>
+
+    </ng-container>
+    
+
+
+    <div class="csn-heading neww mt20 pl0 "  *ngIf="selected_date_followups_list.length > 0">
+      <p>{{activity_data.followup_date | date:'d MMM y'}} Follow Up</p>
+    </div>
+
+
+    <div *ngIf="selected_date_followups_list.length > 0">
+      <div class="list-box mt16" *ngFor="let row of selected_date_followups_list">
+        <div class="upper">
+          <div class="left-date">
+            <div class="date-section pr70" >
+              <p>{{row.date_created| date:'d MMM y hh:mm a'}}</p>
+              <p>Date</p>
+            </div>
+            <div class="date-section" >
+              <p>{{row.follow_up_type}}</p>
+              <p>Follow Up Type</p>
+            </div>
+
+          </div>
+        </div>
+        <div class="mid">
+          <div class="content-info">
+            <div class="left-info">
+              <div class="circle" >{{row.dr_name.substring(0,1).toUpperCase()}}</div>
+            </div>
+            <div class="right-info">
+              <p>{{row.dr_name.toUpperCase()}}</p>
+            </div>
+          </div>
+          <div class="tag-info amount-view" >
+            <p>{{row.status}}</p>
+            <p>Status</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+
+
+</ion-content>

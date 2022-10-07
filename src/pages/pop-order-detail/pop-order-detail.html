@@ -1,0 +1,136 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>POP Order Detail</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content> 
+  <div class="pd-left-right16 af_bg">
+    
+    <div class="list-box mb0 ">
+      <div class="three_boxes">
+        <div class="lower">
+          <p>Date Created</p>
+          <p>{{order_detail?(order_detail.date_created | date:'d MMM y'):'--'}}</p>
+        </div>
+        <div class=" lower ">
+          <p>Time</p>
+          <p>{{order_detail?(order_detail.date_created | date:'hh:mm a'):'--'}}</p>
+        </div>
+      </div>
+      
+      <div class="three_boxes">
+        <div class="lower" ngClass="{{order_detail.order_status == 'Pending'?'pending':(order_detail.order_status == 'Approved'? 'approved' : (order_detail.order_status == 'PDispatch' || order_detail.order_status == 'Dispatch'?'dispatch': (order_detail.order_status == 'Reject')?'reject'  : (order_detail.order_status == 'Hold' ? 'draft':'' )))}}">
+          <p>Status</p>
+          <p>{{order_detail.order_status}}</p>
+        </div>
+        <div class="lower">
+          <p>Action On</p>
+          <p>{{order_detail.action_on | date:'d MMM y hh:mm a'}}</p>
+        </div>
+      </div>
+
+      <div class="three_boxes" *ngIf="order_detail.order_status == 'Reject' || order_detail.order_status == 'Hold'">
+        <div class="lower">
+          <p *ngIf="order_detail.order_status == 'Reject'">Reject Reason</p>
+          <p *ngIf="order_detail.order_status == 'Hold'">Hold Reason</p>
+          <p>{{order_detail.reason}}</p>
+        </div>
+      </div>
+
+
+    </div>
+    </div>
+    <div class="pd-left-right16" *ngIf="order_detail.order_status == 'Pending'">
+      <button class="cs-button border-btn mt16"  (click)="addMoreItem(order_detail.id)">ADD MORE ITEM</button>
+    </div>
+    
+    <div class="pd-left-right16 mt16">
+      <div class="clcsd_new ds-collapse"  *ngFor="let order of cart_data;let i = index;">
+        <ul class="collapsible_new" >
+          <li (click)="(order.edit_true == false || globalCollapsible == true) ? '' : (openCollapse == order.id)?(openCollapse = 0):(openCollapse = order.id) " [ngClass]="{'active': openCollapse == order.id}">
+            <div class="collapsible-header_new">
+              <p>{{order.gift_name}}</p>
+            </div>
+            
+            <div class="collapsible-body_new">
+              <div class="common_form">
+                <div class="box complete" >
+                  <div class="data-table padding10">
+                    <table>
+                      <tr>
+                        <th>Order Quantity</th>
+                        <td *ngIf="order_detail.order_status == 'Pending'">
+                          <div class="edit-data" ngClass="{{order.edit_true ? '' : 'active' }}">
+                            <input *ngIf="!order.edit_true" type="number" string-to-number  name="qty" [(ngModel)]="order.qty" (input)="order.total_points = con_Int(order.qty) * con_Int(order.gift_points) ; calculate_values(i,order.qty)" >
+                            <span *ngIf="order.edit_true">{{order.qty}} {{order.u_o_m?order.u_o_m:''}}</span>
+                            <ng-container>
+                              
+                              <a class="edit-value edits" *ngIf="order.edit_true" (click)="order.edit_true = false ; globalCollapsible = true">
+                                <i class="material-icons create" >create</i>
+                              </a>
+                            </ng-container>
+                            
+                            <a class="edit-value saves" *ngIf="!order.edit_true && !disable_save">
+                              <i class="material-icons create" (click)="globalCollapsible = false ; update_Order(false,i);order.edit_true = true">save</i>
+                            </a>
+                          </div>
+                        </td>
+
+                        <td *ngIf="order_detail.order_status != 'Pending'">{{order.qty}} {{order.u_o_m?order.u_o_m:''}}</td>
+                      </tr>
+                      
+                      <tr>
+                        <th>Points</th>
+                        <td>{{order.gift_points}}</td>
+                      </tr>
+                      <tr>
+                        <th>Total points</th>
+                        <td>{{order.total_points}}</td>
+                        
+                      </tr>
+
+                      <tr>
+                        <th>Wallet points</th>
+                        <td>{{order_detail.wallet_points}}</td>
+                      </tr>
+  
+                      <ng-container *ngIf="order_detail.order_status == 'Pending'">
+                        <tr>
+                          <th>Action</th>
+                          <td><a class="del-btn" (click)="update_Order(true,i)"><i class="material-icons create" >delete_sweep</i>Delete</a></td>
+                        </tr>
+                      </ng-container>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+    
+  <div style="padding: 0px 16px 16px 16px;">
+    <div class="time_show amount-listing">
+        <p>Order Total Item</p>
+        <p>{{order_detail.order_total_item}} </p>
+    </div>
+    <div class="time_show amount-listing">
+        <p>Order Total Points</p>
+        <p>{{order_detail.order_total_points}}</p>
+    </div>
+</div>
+  <!-- ////////////////////////////////display picture -->
+  <div class="add-new" *ngIf="image != ''">
+    <div class="cs-heading1 pt0 pl5 pr0 mb10">
+        <p>PICTURE OF BRANDING</p>
+    </div>
+    <div class="uplode-image">
+        <ul>
+            <li class="ml0 mr0 wp100 h160" *ngFor="let pic of image"><img src="{{pic}}"></li>
+        </ul>
+    </div>
+</div>
+  
+</ion-content>

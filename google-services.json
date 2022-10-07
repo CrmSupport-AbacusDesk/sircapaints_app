@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "588971704584",
+    "project_id": "gravityapp-c08b7",
+    "storage_bucket": "gravityapp-c08b7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:588971704584:android:3eab006032b59e6f50acbd",
+        "android_client_info": {
+          "package_name": "com.gravitybath.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "588971704584-b7999qnlp7732728h4v6soocdode49mf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCUF8iSyVzrIzvVb7TPdEzqNMei4Qta-C4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "588971704584-b7999qnlp7732728h4v6soocdode49mf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

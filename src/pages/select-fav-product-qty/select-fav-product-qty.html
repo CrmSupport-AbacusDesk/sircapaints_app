@@ -1,0 +1,75 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Select Quantity</ion-title>
+  </ion-navbar>
+
+  <!-- <ion-toolbar>
+    <div class="search add-search">
+      <div class="filter">
+        <ion-searchbar type='text' name="master" [(ngModel)]="filter.master" (ngModelChange)="get_filter_order_item()"></ion-searchbar>
+      </div>
+    </div>
+  </ion-toolbar>  -->
+
+</ion-header>
+
+<ion-content padding>
+  <div class="list-box mt10" *ngFor="let product_data of fav_product_data_array;let i = index;">
+    <div class="mid mt0">
+      <div class="content-info">
+        <div class="right-info">
+          <p> {{product_data.category}} / {{product_data.material_code}} / {{product_data.sub_category}}</p>
+          <p> {{product_data.product_name}}</p>
+        </div>
+      </div>
+      <div class="tag-info amount-view">
+        <p>₹ {{product_data.price | number:'1.2-2'}}</p>
+        <p>Price</p>
+      </div>
+      <!-- <div class="tag-info ml8" (click)="remove_item()">
+        <a><i class="material-icons red-clr">delete_sweep</i></a>
+      </div> -->
+    </div>
+    
+    
+    <div class="three_boxes">
+      <div class="lower">
+        <p>Carton Packing</p>
+        <p>{{product_data.cartoon_packing}}</p>
+      </div>
+      <div class="lower">
+        <p>Box Packing</p>
+        <p>{{product_data.std_packing}}</p>
+      </div>
+    </div>
+    
+    
+    <div class="edit ml0 mr0" >
+      <ion-list class="dflex1">
+        
+        <ion-item class="input-bg">
+          <ion-label floating><span>Carton QTY</span></ion-label>
+          <ion-input type="tel" name="carton_qty" [(ngModel)]="product_data.selected_carton_qty" (ngModelChange)="calculate_amt('carton_qty',i)"(keypress)="only_number_allowed_validation($event)"></ion-input>
+        </ion-item>
+        
+        <ion-item class="ml8 input-bg">
+          <ion-label floating><span>QTY</span></ion-label>
+          <ion-input type="tel" name="qty" [(ngModel)]="product_data.selected_qty" (keypress)="only_number_allowed_validation($event)" (ngModelChange)="product_data.selected_carton_qty = ''" ></ion-input>
+        </ion-item>
+        
+      </ion-list>
+    </div>
+    
+    
+    
+  </div>
+  
+  <div class="align-btn mr20 ml20" *ngIf="fav_product_data_array.length">
+    <button class="cs-button border" style="border: 2px solid #27ab00 !important ;" (click)="go_to('add_order')">
+      <i class="material-icons">add_shopping_cart</i>
+      Create Order
+    </button>
+  </div>
+  
+  
+</ion-content>

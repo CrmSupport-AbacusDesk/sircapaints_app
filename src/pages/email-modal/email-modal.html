@@ -1,0 +1,40 @@
+
+
+<ion-content class="transprant-bg">
+  <div class="work-modal">
+    <div class="work-modal-bg">
+      <div>
+        <!-- <div class="head" style="display: flex;justify-content: space-between;background: #ac134a;color: #fff;padding: 5px;"> -->
+          <div class="head">
+          <h2>Send Mail</h2>
+          <!-- <a class="close" style="color:#fff;" (click)="dismiss()"><i class="material-icons">close</i></a> -->
+          <a class="close"  (click)="dismiss()"><i class="material-icons">close</i></a>
+        </div>
+        <form #f="ngForm" (ngSubmit)="f.valid && sendEmail()">
+          <div class="edit mb32">
+            <ion-list>
+              <ion-item [ngClass]="{'cs-error':show_email_error}">
+                <ion-label floating><span>Email<strong>*</strong> </span></ion-label>
+                <ion-input type="email" name="email" #email="ngModel" (keyup)="testEmail(data.email)"  [(ngModel)]="data.email" required></ion-input>
+              </ion-item>
+              <p *ngIf="show_email_error" class="error-line">Email Is Required</p>
+
+              <ion-item>
+                <ion-label floating><span>CC</span></ion-label>
+                <ion-input type="email" name="email_cc" #email_cc="ngModel" (keyup)="testEmail(data.email)"  [(ngModel)]="data.email_cc"></ion-input>
+              </ion-item>
+              <p class="mt10">{{"'CC' is not compulsory.you can provide multiple email in 'CC' by using ',' " | titlecase}}</p>
+
+              <button ion-button type="submit" class="mt32 cs-btn re-btn" [disabled]="show_email_error">send</button>
+            </ion-list>
+          </div>
+    
+        </form>
+      </div>
+    </div>
+  </div> 
+ 
+        
+  <!--  pattern="[a-zA-Z0-9_.+%-]+@[0-9a-zA-Z.-]+\.[a-z]{2,3}$" -->
+  <!-- pattern="(^[a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,3}$)" -->
+</ion-content>

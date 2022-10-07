@@ -1,0 +1,82 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Manual Mapping</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <span *ngIf="login_user_role == 'Production Packing'">
+    <div class="edit mt10">
+      
+      
+      <ion-list>
+        <div> 
+          
+          <ion-item class="cs-selectable">
+            <ion-label><span>Category </span></ion-label>
+            <select-searchable #category item-content [(ngModel)]="data.category" [items]="categoryList" itemValueField="category" [itemTextField]="searchTrigger ? 'category' : 'product_name'" name="category" value="category" [canSearch]="true" [hasVirtualScroll]="true" (onChange)="this.booleanFlag = this.searchTrigger ; this.searchTrigger=true; getSubCategory(data.category);(searchTrigger=true)" (onSearch)="master_search($event,'category')">
+            </select-searchable>
+          </ion-item>
+          
+          <ion-item class="cs-selectable" *ngIf="data.category">
+            <ion-label><span>Sub-Category</span></ion-label>
+            <select-searchable #subCategory item-content [(ngModel)]="data.sub_category" [items]="subCatList" itemValueField="sub_category" itemTextField="sub_category" name="sub_category" value="sub_category" [canSearch]="true" [hasVirtualScroll]="true" (onChange)="getProductCode(data.sub_category)">
+            </select-searchable>
+          </ion-item>
+          
+        </div>
+        
+        <ion-item class="cs-selectable mb0" *ngIf="data.category && data.sub_category">
+          <ion-label><span>Item Name</span></ion-label>
+          <select-searchable #productCode item-content [(ngModel)]="data.cat_no" [items]="autocompleteItems" itemValueField="cat_no" itemTextField="product_name" name="cat_no" value="cat_no" [canSearch]="true" [hasVirtualScroll]="true" (onSearch)="master_search($event)">
+          </select-searchable>
+        </ion-item>
+      </ion-list>
+      
+      
+    </div>
+    
+    <div class="edit" *ngIf="data.cat_no">
+      <ion-list class="dflex1">
+        <ion-item class="input-bg">
+          <ion-label floating><span>Product QTY</span></ion-label>
+          <ion-input type="tel" name="qty" [(ngModel)]="selected_product_qty" (keypress)="MobileNumber1($event)" ></ion-input>
+        </ion-item>
+      </ion-list>
+      
+      <button class=" edit" ion-button block class="h35 green-color mt20" style="letter-spacing: 1px;" [disabled]="!selected_product_qty || selected_product_qty == '' || selected_product_qty == null" (click)="save_item_data()"> Map Product </button>
+      
+    </div>
+  </span>
+  
+  
+  
+  <span *ngIf="login_user_role == 'Ware House'">
+    <div class="edit mt10">
+      
+      <ion-list>
+        <ion-item class="cs-selectable mb0">
+          <ion-label><span>Item Name</span></ion-label>
+          <select-searchable #available_product_name item-content [(ngModel)]="data.cat_no" [items]="available_product_list_for_warehouse_user" itemValueField="product_id" itemTextField="product_name" name="product_name" value="product_id" [canSearch]="true" [hasVirtualScroll]="true" (ngModelChange)="test()" >
+          </select-searchable>
+        </ion-item>
+      </ion-list>
+      
+      
+    </div>
+    
+    <div class="edit" *ngIf="data.cat_no">
+      <ion-list class="dflex1">
+        <ion-item class="input-bg">
+          <ion-label floating><span>Product QTY</span></ion-label>
+          <ion-input type="tel" name="qty" [(ngModel)]="selected_product_qty" (keypress)="MobileNumber1($event)" ></ion-input>
+        </ion-item>
+      </ion-list>
+      
+      <button class=" edit" ion-button block class="h35 green-color mt20" style="letter-spacing: 1px;" [disabled]="!selected_product_qty || selected_product_qty == '' || selected_product_qty == null" (click)=" check_qty() && save_item_data()"> Map Product </button>
+      
+    </div>
+  </span>
+  
+  
+</ion-content>

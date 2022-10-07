@@ -1,0 +1,259 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Plumber Meet Detail</ion-title>
+
+    <ion-buttons end *ngIf="meet_detail != {} && meet_detail.is_media_file_exist > 0">
+      <button ion-button icon-only (click)="presentPopover($event,meet_detail.status);test()">
+        <ion-icon name="more"></ion-icon>
+
+      </button>
+    </ion-buttons>
+
+  </ion-navbar>
+</ion-header>
+
+<ion-content *ngIf="meet_detail != {}">
+
+  <div class="pd-left-right16 af_bg">
+    <div class="list-box">
+
+      <div class="upper">
+        <div class="left-date">
+          <div class="date-section">
+            <p>{{meet_detail.date_created | date:'d MMM y'}}</p>
+            <p>Date Created</p>
+          </div>
+          <div class="date-section">
+            <p>{{meet_detail.date_of_meeting | date:'d MMM y'}}</p>
+            <p>Meeting Date</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="mid" *ngIf="this.user_data.loginType =='SFA'">
+        <div class="content-info w250" >
+          <div class="left-info" *ngIf="meet_detail.company_name && meet_detail.company_name!=''" >
+            <div class="circle" >{{meet_detail.company_name.substring(0,1).toUpperCase()}}</div>
+          </div>
+
+          <div class="right-info">
+            <p>{{meet_detail.company_name}} </p>
+          </div>
+        </div>
+        <div class="tag-info" *ngIf="meet_detail.mobile && meet_detail.mobile != ''">
+          <a href="tel:{{meet_detail.mobile}}"><i class="material-icons">phone</i></a>
+        </div>
+      </div>
+
+      <div class="lower one-line" *ngIf="meet_detail.description && meet_detail.description!='' && meet_detail.description != null">
+        <p>Description : <span>{{meet_detail.description}}</span></p>
+      </div>
+
+    </div>
+  </div>
+
+
+  <div class="pl16 pr16">
+    <div class="list-box mb0">
+
+      <div class="lower mt0">
+        <div class="three_boxes">
+          <div class="lower" [ngClass]="meet_detail.status == 'Pending' ? 'pending': meet_detail.status == 'Approved' ? 'approved' : meet_detail.status == 'Reject'? 'reject':meet_detail.status == 'Complete'? 'dispatch':''">
+            <p>Status</p>
+            <p>{{meet_detail.status}}</p>
+          </div>
+          <div class="lower">
+            <p>Last Update On</p>
+            <p>{{meet_detail.date_updated | date:'d MMM y'}}</p>
+          </div>
+        </div>
+
+        <div class="three_boxes">
+          <div class="lower">
+            <p>Total (Budget Approx.)</p>
+            <p>&#8377;  {{meet_detail.total_budget}}</p>
+          </div>
+          <div class="lower">
+            <!-- <p>Total Members</p> -->
+            <p>Total No. Of Plumber</p>
+            <p>{{meet_detail.total_member}}</p>
+          </div>
+        </div>
+
+        <div class="three_boxes">
+          <div class="lower">
+            <p>Monthly Sale Average</p>
+            <p>&#8377;  {{meet_detail.sale_average}}</p>
+          </div>
+          <div class="lower">
+            <p>Working Segment</p>
+            <p>{{meet_detail.working_segment_name}}</p>
+          </div>
+        </div>
+
+        <div class="three_boxes">
+          <div class="lower">
+            <!-- <p>Working Model In CP Fitting</p> -->
+            <p>Cp fittings series dealing in gravity</p>
+            <p>{{meet_detail.how_many_cp_fitting}}</p>
+          </div>
+          <!-- <div class="lower">
+            <p>Gravity Product Display</p>
+            <p>{{meet_detail.product_display}}</p>
+          </div> -->
+          <div class="lower">
+            <p>Gravity Branding In Store</p>
+            <p>{{meet_detail.branding_item}}</p>
+          </div>
+        </div>
+        <div class="three_boxes" *ngIf="meet_detail.organiser_name && meet_detail.organiser_name != ''">
+
+          <div class="lower">
+            <p>Organiser Name</p>
+            <p>{{meet_detail.organiser_name}}</p>
+          </div>
+
+        </div>
+
+        <div class="three_boxes">
+
+          <div class="lower">
+            <p>Intrested In Other Segment</p>
+            <p>{{meet_detail.intrested_segment_name}}</p>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="lower one-line" *ngIf="meet_detail.remarks && meet_detail.remarks!='' && meet_detail.remarks != null">
+        <p>{{meet_detail.status =='Approved' || meet_detail.status =='Complete' ? 'Approved' : meet_detail.status =='Reject' ? meet_detail.status : '' }} Remark : <span>{{meet_detail.remarks}}</span></p>
+        <p class="mt5" *ngIf="meet_detail.status =='Complete'">Expense Remark : <span>{{meet_detail.expense_remark}}</span></p>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <form *ngIf=" meet_detail.status != 'Pending' && meet_detail.status !='Complete' && meet_detail.status !='Reject' && meet_detail.date_of_meeting <= today_date" #participent_form="ngForm" class="mt20" (ngSubmit)=" participent_form.valid ? add_participants() : ''">
+
+
+    <div class="cs-heading1 pt0">
+      <p>ADD Participants</p>
+    </div>
+
+    <div class="edit">
+      <ion-list>
+        <ion-item [ngClass]="{'cs-error': show_error && participent_form.submitted && participent_name?.invalid}">
+          <ion-label floating><span>Name</span></ion-label>
+          <ion-input type="text" name="participent_name" #participent_name="ngModel"[(ngModel)]="temp_participant_data.participent_name" required></ion-input>
+        </ion-item>
+        <p *ngIf="show_error && participent_form.submitted && participent_name?.invalid && !temp_participant_data.participent_name" class="error-line"> Name Is Required!</p>
+
+        <ion-item [ngClass]="{'cs-error': show_error && participent_form.submitted && participent_mobile?.invalid}">
+          <ion-label floating><span>Mobile No.</span></ion-label>
+          <ion-input type="tel" name="participent_mobile" #participent_mobile="ngModel"[(ngModel)]="temp_participant_data.participent_mobile"[ngClass]="{'is-invalid': participent_form.submitted && participent_mobile?.invalid}" maxlength=10 minlength=10 onkeypress="return event.charCode >= 48 && event.charCode <= 57" required></ion-input>
+        </ion-item>
+
+        <p *ngIf="show_error && participent_form.submitted && participent_mobile?.invalid && temp_participant_data.participent_mobile" class="error-line">MobileNumber Is Invalid!</p>
+        <p *ngIf="show_error && participent_form.submitted && participent_mobile?.invalid && !temp_participant_data.participent_mobile" class="error-line">Mobile Number Is Required!</p>
+      </ion-list>
+    </div>
+
+    <div class="pd-left-right16 dflex flex-end mt16">
+      <button type="submit" class="cs-button border-btn" (click)="show_error=true" >ADD PARTICIPANTS</button>
+    </div>
+
+
+  </form>
+
+  <div class="pl16 pr16 mt10" *ngIf="saved_participant_data.length">
+    <div class="list-box mb0">
+
+      <div class="lower one-line mt5 mb10" *ngIf="meet_detail.remarks && meet_detail.remarks!='' && meet_detail.remarks != null">
+        <p><span>Participants  Data : </span></p>
+      </div>
+
+      <div class="lower mt0">
+        <div class="data-table padding0">
+          <table>
+            <tr>
+              <th class="w36"></th>
+              <th>Name</th>
+              <th class="w95">Mobile No</th>
+              <th *ngIf="meet_detail.status !='Complete' && meet_detail.status !='Reject'" class="w56">Action</th>
+            </tr>
+            <tr *ngFor="let participant_data of saved_participant_data;let i = index">
+              <td class="w36">{{i+1}}</td>
+              <td>{{participant_data.participent_name}}</td>
+              <td class="w95">{{participant_data.participent_mobile}}</td>
+              <td class="w56" *ngIf="meet_detail.status !='Complete' && meet_detail.status !='Reject'">
+                <div class="tag-info pr10">
+                  <ion-buttons end (click)="delete_participent(participant_data.id)">
+                    <button ion-button icon-only small ><ion-icon name="trash"></ion-icon></button>
+                  </ion-buttons>
+                </div>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+    <div class="upload-doc">
+      <p class="">Uploaded Images</p>
+      <ul class="no-padding">
+
+        <li class="image-upload" *ngFor="let pic of meet_detail.add_plumber_meet_images;let i = index;">
+          <img (click)="view_image(pic.images)" src="{{pic.images}}">
+
+        </li>
+
+
+      </ul>
+    </div>
+
+  <div class="dflex pl16 pr16" *ngIf="saved_participant_data.length && meet_detail.status !='Complete' && meet_detail.status !='Reject'">
+    <div class="add-new p0 pt16 wp100">
+      <!-- <h4 >Upload Image</h4> -->
+      <div class="uplode-image" >
+        <ul>
+          <li (click)="captureImageVideo()">
+
+            <label>
+              <input type="file" style="display: none;" >
+              <div class="other">
+                <i class="material-icons" >collections</i>
+                <span>UPLOAD IMAGES</span>
+              </div>
+            </label>
+          </li>
+
+          <li>
+            <label>
+              <input type="file" (change)="upload_video($event)" placeholder="Upload file" accept="video/*"style="display: none;">
+              <div class="other">
+                <i class="material-icons" >videocam</i>
+                <span>UPLOAD VIDEO</span>
+              </div>
+            </label>
+          </li>
+
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="pd-left-right16 dflex flex-end mt16 mb16" *ngIf="meet_detail.status !='Complete' && meet_detail.status !='Reject' && saved_participant_data.length && meet_detail.is_media_file_exist > 0">
+    <button type="submit" class="cs-button border-btn" (click)="add_expese_of_plumber_meet_prompt()" >COMPLETE PLUMBER MEET </button>
+  </div>
+
+
+
+
+
+</ion-content>

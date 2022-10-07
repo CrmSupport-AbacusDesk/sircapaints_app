@@ -1,0 +1,58 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Calculated Stock</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="calculte_stock()">
+        <i class="material-icons">qr_code_scanner</i>
+      </button>
+    </ion-buttons>
+    
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  
+  <div class="pd-left-right16" *ngIf="scanned_coupon_product_detail.length">
+    <div class="list-box mt16" *ngFor="let stock_data of scanned_coupon_product_detail;let i = index">
+      <span>
+        
+        <div class="mid mt0">
+          <div class="content-info">
+            <div class="left-info">
+              <div class="circle">{{i+1}}</div>
+            </div>
+            <div class="right-info">
+              <p>{{stock_data.product_name +'-'+ stock_data.product_code}}</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="three_boxes"> 
+          <div class="lower">
+            <p>Master Carton</p>
+            <p>{{stock_data.total_master_box_qty}}</p>
+          </div>
+          <div class="lower">
+            <p>Secondary Box</p>
+            <p>{{stock_data.total_secondary_box_qty}}</p>
+          </div>
+          
+          <div class="lower">
+            <p>Item Qty.</p>
+            <p>{{stock_data.total_primary_box_qty}}</p>
+          </div>
+        </div>
+        
+      </span>
+    </div>  
+  </div>
+  
+  
+</ion-content>
+
+
+<div class="cus-fab" *ngIf="true">
+  <button (click)="download_stock_list()">
+    <i class="material-icons">file_download</i>
+  </button>
+</div>

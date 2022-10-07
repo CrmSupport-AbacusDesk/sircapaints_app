@@ -1,0 +1,249 @@
+
+<ion-header>
+  <ion-navbar>
+    <ion-title *ngIf="coupon_type == 'master coupon'">Master Box Detail</ion-title>
+    <ion-title *ngIf="coupon_type == 'secondary coupon'">Secondary Box Detail</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<!-- <div class="header-logo" *ngIf=" this.master_box_detail != {} && this.master_box_detail['dispatch_status_flag'] == '0'">
+  <img src="">
+  <div class="btn-head mb20 mr10">
+    <button ion-button class="hs-menu cs-hdr-icons" color="light" (click)="scan_secondary_QR_code_for_master_packing_test(scanned_master_QR_code_id)">
+      
+      <img src="assets/imgs/qr-code.svg">
+    </button>
+  </div>
+</div> -->
+
+<ion-content >
+  
+  <div class="pd-left-right16 af_bg">
+    <div class="list-box" [ngClass]="{'mb25':coupon_type == 'secondary coupon'}"  >
+      <div class="mid mt0">
+        
+        <div class="content-info" *ngIf="coupon_type == 'master coupon'">
+          <div class="left-info">
+            <div class="circle">M</div>
+          </div>
+          <div class="right-info" >
+            <p> {{master_box_detail.master_box_qr_code && master_box_detail.master_box_qr_code!='' ? master_box_detail.master_box_qr_code : '--'}}</p>
+            <p> Master Box Code </p>
+          </div>
+        </div>
+        
+        <div class="content-info" *ngIf="coupon_type == 'secondary coupon'">
+          <div class="left-info">
+            <div class="circle">S</div>
+          </div>
+          <div class="right-info" >
+            <p> {{secondary_coupon_detail.secondary_qr_code && secondary_coupon_detail.secondary_qr_code!='' ? secondary_coupon_detail.secondary_qr_code : '--'}}</p>
+            <p> Secondary Box Code </p>
+          </div>
+        </div>
+        
+      </div>
+      
+      <div class="three_boxes" *ngIf="coupon_type == 'master coupon'">
+        <div class="lower">
+          <p>Secondary Box</p>
+          <p>{{master_box_detail.total_secondary_box_assign_to_master_box && master_box_detail.total_secondary_box_assign_to_master_box!='' ? master_box_detail.total_secondary_box_assign_to_master_box : '--'}}</p>   
+        </div>
+        <div class="lower">
+          <p>Items</p>
+          <p>{{master_box_detail.total_different_product && master_box_detail.total_different_product!='' ? master_box_detail.total_different_product : '--'}}</p>   
+        </div>
+        <div class="lower">
+          <p>Total Items Qty.</p>
+          <p>{{master_box_detail.total_item_qty && master_box_detail.total_item_qty!='' ? master_box_detail.total_item_qty : '--'}}</p>   
+        </div>
+      </div>
+      
+      <ng-container *ngIf="coupon_type == 'secondary coupon'">
+        
+        <div class="three_boxes">
+          <div class="lower">
+            <p>Product Name</p>
+            <p>{{secondary_coupon_detail.product_name && secondary_coupon_detail.product_name!='' ? secondary_coupon_detail.product_name : '--'}}</p>   
+          </div>
+          <div class="lower">
+            <p>Qty.</p>
+            <p>{{secondary_coupon_detail.item_qty && secondary_coupon_detail.item_qty!='' ? secondary_coupon_detail.item_qty : '--'}}</p>   
+          </div>
+        </div>
+        
+        <div class="three_boxes">
+          <div class="lower">
+            <p>Category</p>
+            <p>{{secondary_coupon_detail.category && secondary_coupon_detail.category!='' ? secondary_coupon_detail.category : '--'}}</p>   
+          </div>
+          <div class="lower">
+            <p>Sub-Category</p>
+            <p>{{secondary_coupon_detail.sub_category && secondary_coupon_detail.sub_category!='' ? secondary_coupon_detail.sub_category : '--'}}</p>   
+          </div>
+        </div>
+        
+        <div class="three_boxes">
+          <div class="lower">
+            <p>Batch Code</p>
+            <p>{{secondary_coupon_detail.batch_code && secondary_coupon_detail.batch_code!='' ? secondary_coupon_detail.batch_code : '--'}}</p>   
+          </div>
+          <div class="lower">
+            <p>Mfg. Date</p>
+            <p>{{secondary_coupon_detail.manufacturing_date && secondary_coupon_detail.manufacturing_date!='' ? (secondary_coupon_detail.manufacturing_date | date : 'd MMM, y') : '--'}}</p>   
+          </div>
+        </div>
+        
+      </ng-container>      
+      
+    </div>  
+  </div>
+  
+  <div class="pd-left-right16" *ngIf="order_detail != {} && order_detail != null ">
+    <div class="list-box"  >
+      <div class="lower one-line mt5">
+        <p><span>Dispatch Order Data : </span></p>
+      </div>
+      <div class="three_boxes">
+        <div class="lower">
+          <p> Party Name </p>
+          <p> {{order_detail.company_name && order_detail.company_name!='' ? order_detail.company_name : '--'}}</p>
+        </div>
+      </div>
+      
+      <div class="three_boxes">
+        <div class="lower">
+          <p>Order ID</p>
+          <p>{{order_detail.order_id && order_detail.order_id!='' ? order_detail.order_id : '--'}}</p>   
+        </div>
+        <div class="lower">
+          <p>Dispatch Date</p>
+          <p>{{order_detail.dispatch_date && order_detail.dispatch_date!='' && order_detail.dispatch_date!='0000-00-00 00:00:00' ? (order_detail.dispatch_date | date : 'd MMM, y') : '--'}}</p>   
+        </div>
+      </div>
+      
+      
+    </div>  
+  </div>
+  
+  
+  <div class="pd-left-right16" *ngIf="secondary_coupon_assign_list.length">
+    <div class="list-box mt16">
+      
+      <div class="lower one-line mt5 mb10">
+        <p><span>Secondary Box Product Data : </span></p>
+      </div>
+      
+      <div class="lower mt0">
+        <div class="data-table padding0">
+          <table>
+            <tr>
+              <th>Product Description</th>
+              <th class="w35">S-Box</th>
+              <th class="w35">Qty.</th>
+            </tr>
+            <tr *ngFor="let secondary_coupon_data of secondary_coupon_assign_list;let i = index">
+              <td>{{secondary_coupon_data.category && secondary_coupon_data.category != '' ? secondary_coupon_data.category : '--'}} - {{secondary_coupon_data.sub_category && secondary_coupon_data.sub_category != '' ? secondary_coupon_data.sub_category : '--'}} - {{secondary_coupon_data.product_name && secondary_coupon_data.product_name!='' ? secondary_coupon_data.product_name : '--'}}</td>
+              <td class="w35">{{secondary_coupon_data.total_secondary_box_qty && secondary_coupon_data.total_secondary_box_qty!='' ? secondary_coupon_data.total_secondary_box_qty : '--'}}</td>
+              <td class="w35">{{secondary_coupon_data.total_primary_box_qty && secondary_coupon_data.total_primary_box_qty!='' ? secondary_coupon_data.total_primary_box_qty : '--'}}
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      
+      
+      
+    </div>  
+    
+    
+  </div>
+  
+  
+  <div class="pd-left-right16" *ngIf="coupon_type != 'secondary coupon' &&  manual_mapping_product_item.length">
+    <div class="list-box mt16">
+      
+      <div class="lower one-line mt5 mb10">
+        <p><span>Manual Mapping Product Data : </span></p>
+      </div>
+      
+      <div class="lower mt0">
+        <div class="data-table padding0">
+          <table>
+            <tr>
+              <!-- <th>Product Name</th> -->
+              <th>Product Description</th>
+              <th class="w35">Qty.</th>
+              <th class="w20" *ngIf="login_user_data.role_id == '17' || (login_user_data.role_id == '16')"></th>
+              
+            </tr>
+            <tr *ngFor="let manual_mapping_data of manual_mapping_product_item;let i = index">
+              <td>{{manual_mapping_data.category && manual_mapping_data.category != '' ? manual_mapping_data.category : '--'}} - {{manual_mapping_data.sub_category && manual_mapping_data.sub_category != '' ? manual_mapping_data.sub_category : '--'}} - {{manual_mapping_data.product_name && manual_mapping_data.product_name!='' ? manual_mapping_data.product_name : '--'}}</td>
+              <td class="w35">{{manual_mapping_data.item_qty && manual_mapping_data.item_qty!='' ? manual_mapping_data.item_qty : '--'}}</td>
+              <td class="w20" *ngIf="login_user_data.role_id == '17' || (login_user_data.role_id == '16')">
+                <a class="del-btn" (click)="delete_manual_item_from_master_box(manual_mapping_data.product_id)"><i class="material-icons create" style=" font-size: 20px; ">delete_sweep</i></a>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      
+      
+      
+    </div>  
+    
+    
+  </div>
+  
+  
+  
+</ion-content>
+
+<!-- <div class="cus-fab btn-group" *ngIf=" false && coupon_type == 'master coupon' && master_box_detail != {} && (order_detail == {} || order_detail == null) && master_box_detail['dispatch_status_flag'] == '0'">
+  <button class="cs-button border-btn ml16" (click)="scan_secondary_QR_code_for_master_packing_test(scanned_master_QR_code_id)">Assign</button>
+  <button class="cs-button border-btn " (click)="scan_secondary_QR_code_for_remove_master_packing_test(scanned_master_QR_code_id)">Remove</button>
+  <button *ngIf="secondary_coupon_assign_list.length" class="cs-button border-btn w40 bg_green" (click)="delete_master_box()">
+    <i class="material-icons deactive">delete_sweep</i>
+  </button>
+  
+</div> -->
+
+
+
+
+<ion-footer class="af-none" padding *ngIf=" coupon_type == 'master coupon' && master_box_detail != {} && (order_detail == {} || order_detail == null) && master_box_detail['dispatch_status_flag'] == '0' && master_box_detail.next_ware_house_id == '0'">
+  <ion-fab right bottom >
+    <button ion-fab color="primary" ><ion-icon name="add"></ion-icon></button>
+    <ion-fab-list side="top">
+      
+      <button *ngIf="(secondary_coupon_assign_list.length || manual_mapping_product_item.length) && login_user_data.role_id == '16'" color="secondary" ion-fab class="mb15 tooltip" (click)="delete_master_box()">
+        <ion-icon name="logo-dropbox">
+          <ion-label>Open Master Box</ion-label>
+        </ion-icon>
+      </button>
+      
+      <button *ngIf="login_user_data.role_id == '17' || (!secondary_coupon_assign_list.length && !manual_mapping_product_item.length) || master_box_detail.scanned_by == login_user_data.id" color="secondary" ion-fab class="mb15 tooltip" (click)="open_page_item_manual_map()">
+        <ion-icon name="clipboard">
+          <ion-label>Manual Map Item</ion-label>
+        </ion-icon>
+      </button> 
+      
+      <button *ngIf="secondary_coupon_assign_list.length && login_user_data.role_id == '17' || master_box_detail.scanned_by == login_user_data.id" color="secondary" ion-fab class="mb15 tooltip" (click)="scan_secondary_QR_code_for_remove_master_packing(scanned_master_QR_code_id)">
+      <!-- <button *ngIf="secondary_coupon_assign_list.length && login_user_data.role_id == '17' || master_box_detail.scanned_by == login_user_data.id" color="secondary" ion-fab class="mb15 tooltip" (click)="scan_secondary_QR_code_for_remove_master_packing_test(scanned_master_QR_code_id)"> -->
+        <ion-icon name="trash">
+          <ion-label>Secondary Remove</ion-label>
+        </ion-icon>
+      </button>
+      
+      <button *ngIf="login_user_data.role_id == '17' || (!secondary_coupon_assign_list.length && !manual_mapping_product_item.length) || master_box_detail.scanned_by == login_user_data.id" color="secondary" ion-fab class="mb15 tooltip" (click)="scan_secondary_QR_code_for_master_packing(scanned_master_QR_code_id)">
+
+      <!-- <button *ngIf="login_user_data.role_id == '17' || (!secondary_coupon_assign_list.length && !manual_mapping_product_item.length) || master_box_detail.scanned_by == login_user_data.id" color="secondary" ion-fab class="mb15 tooltip" (click)="scan_secondary_QR_code_for_master_packing_test(scanned_master_QR_code_id)"> -->
+        <ion-icon name="qr-scanner">
+          <ion-label>Secondary Mapping</ion-label>
+        </ion-icon>
+      </button>
+      
+    </ion-fab-list>
+  </ion-fab>
+</ion-footer> 
+

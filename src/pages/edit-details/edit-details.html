@@ -1,0 +1,117 @@
+<ion-header>
+  <ion-navbar>
+      <ion-title>
+          <h1>Update Lead Details</h1>
+      </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <form name="f" #f="ngForm" (ngSubmit)="f.valid && submit()">
+      <div class="cs-heading1">
+          <!-- <p>Basic information</p> -->
+      </div>
+      <div class="edit">
+          <ion-list>
+              <ion-item >
+                  <ion-label floating><span>Mobile No.<strong>*</strong></span></ion-label>
+                  <ion-input type="tel"  name="mobile" placeholder="Enter Mobile" #mobile="ngModel" [(ngModel)]="form.mobile" minLength="10" maxLength="10"  required></ion-input>
+              </ion-item>
+              <ng-container>
+
+                  <ion-item [ngClass]="{'cs-error':f.submitted && company_name?.invalid}">
+                      <ion-label floating><span>Company Name <strong>*</strong></span></ion-label>
+                      <ion-input type="text" placeholder="Enter Company Name" name="company_name" #company_name="ngModel" [(ngModel)]="form.company_name" [ngClass]="{'is-invalid':f.submitted && company_name?.invalid}" required></ion-input>
+                  </ion-item>
+
+                <ion-item class="cs-normal-select mt16 mb0"  *ngIf="userStorageData.user_type != 'Inside Sales Team'">
+                  <ion-label >Select Type <strong>*</strong></ion-label>
+                  <ion-select name ="type" type ="ngModel" [(ngModel)]="form.type"  required>
+                    <ion-option  value="1">Channel Partner </ion-option>
+                    <ion-option  value="3">Retail Partner</ion-option>
+                  </ion-select>
+                </ion-item>
+
+                  <ion-item [ngClass]="{'cs-error':f.submitted && name?.invalid}">
+                      <ion-label floating><span>Name <strong>*</strong></span></ion-label>
+                      <ion-input type="text" placeholder="Enter Name" name="name" #name="ngModel" [(ngModel)]="form.name" required [ngClass]="{'is-invalid':f.submitted && name?.invalid}"></ion-input>
+                  </ion-item>
+
+                  <ion-item [ngClass]="{'cs-error':f.submitted && email?.invalid && !form.DealerExist}">
+                      <ion-label floating><span>Email ID </span></ion-label>
+                      <ion-input type="email" placeholder="Enter Email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" name="email" #email="ngModel" [(ngModel)]="form.email" [ngClass]="{'is-invalid':f.submitted && email?.invalid}"></ion-input>
+                  </ion-item>
+
+                  <ion-item>
+                      <ion-label floating><span>GST</span></ion-label>
+                      <ion-input type="text" placeholder="Enter GST" name="gst" [(ngModel)]="form.gst"></ion-input>
+                  </ion-item>
+
+                  <ion-item class="cs-normal-select mt16 mb0"  *ngIf="userStorageData.user_type == 'Inside Sales Team' && form.type == '10'">
+                    <ion-label class="select-label">Select Lead Status<strong>*</strong></ion-label>
+                    <ion-select name="lead_status" [(ngModel)]="form.lead_status" (ngModelChange)="form.lead_status == 'Dead' ? get_dead_reason() : ''; form.dead_reason=''" required>
+                        <ion-option *ngFor="let lead_status_data of lead_status" [value]="lead_status_data.lead_status">{{lead_status_data.lead_status}}</ion-option>
+                    </ion-select>
+                  </ion-item>
+
+                  <ion-item class="cs-normal-select mt16 mb0" *ngIf="form.lead_status=='Dead' && userStorageData.user_type == 'Inside Sales Team' ">
+                    <ion-label class="select-label">Select Dead Reason<strong>*</strong></ion-label>
+                    <ion-select name="dead_reason" [(ngModel)]="form.dead_reason" required>
+                        <ion-option *ngFor="let dead_reason_data of dead_reason" [value]="dead_reason_data.dead_reason">{{dead_reason_data.dead_reason}}</ion-option>
+                    </ion-select>
+                  </ion-item>
+
+              </ng-container>
+
+
+
+          </ion-list>
+      </div>
+
+      <div class="cs-heading1">
+          <p>Address information </p>
+      </div>
+
+      <div class="edit" >
+          <ion-list>
+              <ion-item class="mb0" [ngClass]="{'cs-error':f.submitted && pincode?.invalid}">
+                  <ion-label floating><span>Pincode </span></ion-label>
+                  <ion-input placeholder="Enter Pincode" type="tel" minLength="6" maxLength="6" name="pincode" #pincode="ngModel" [(ngModel)]="form.pincode"></ion-input>
+              </ion-item>
+
+              <ion-item [ngClass]="{'cs-error':f.submitted && address?.invalid}">
+                  <ion-label floating><span>Street </span></ion-label>
+                  <ion-input placeholder="Enter Street" type="text" name="address" #address="ngModel" [(ngModel)]="form.address"></ion-input>
+              </ion-item>
+
+              <ion-item class="cs-normal-select mt15" [ngClass]="{'cs-error':f.submitted && state_name?.invalid}">
+
+                  <ion-label floating><span>State </span></ion-label>
+                  <ion-input placeholder="State" type="text" name="state" #state_name="ngModel" [(ngModel)]="form.state"></ion-input>
+              </ion-item>
+
+              <ion-item class="cs-normal-select mb0" [ngClass]="{'cs-error':f.submitted && district_name?.invalid}">
+
+                  <ion-label floating><span>District </span></ion-label>
+                  <ion-input placeholder="District" type="text" name="district" #district_name="ngModel" [(ngModel)]="form.district"></ion-input>
+              </ion-item>
+
+              <ion-item [ngClass]="{'cs-error':f.submitted && city?.invalid}">
+                  <ion-label floating><span>City </span></ion-label>
+                  <ion-input placeholder="Enter City" type="text" name="city" #city="ngModel" [(ngModel)]="form.city" required></ion-input>
+              </ion-item>
+
+              <ion-item [ngClass]="{'cs-error':f.submitted && area?.invalid}">
+                  <ion-label floating><span>Area </span></ion-label>
+                  <ion-input placeholder="Enter Area" type="text" name="area" #area="ngModel" [(ngModel)]="form.area"></ion-input>
+              </ion-item>
+
+
+          </ion-list>
+      </div>
+
+      <div class="padding16">
+          <button ion-button class="cs-btn" style="margin: 16px 0px !important;">Update</button>
+      </div>
+  </form>
+</ion-content>

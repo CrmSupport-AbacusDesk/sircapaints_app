@@ -1,0 +1,264 @@
+<!--
+  Generated template for the ActivitydetailPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header class="catalogue-header">
+  <ion-navbar>
+    <ion-title>Activity Detail</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <div class="pd-left-right16 af_bg">
+    <div class="list-box"  >
+      <div class="mid mt0">
+        <div class="content-info" >
+          <div class="left-info" >
+            <div class="circle">{{activity_detail.company_name?activity_detail.company_name.substring(0,1).toUpperCase():''}}</div>
+
+          </div>
+
+          <div class="right-info" >
+            <p > {{activity_detail.company_name}}</p>
+            <p *ngIf="activity_detail.type == '1'">Channel Partner</p>
+            <p *ngIf="activity_detail.type == '7'">Direct Dealers</p>
+            <p *ngIf="activity_detail.type == '3'">Retail Partner</p>
+          </div>
+        </div>
+        <!-- <div class="tag-info">
+          <a href="tel:99990909999"><i class="material-icons">phone</i></a>
+        </div> -->
+
+      </div>
+      <div class="lower">
+        <p>Mobile</p>
+        <p>{{activity_detail.mobile && activity_detail.mobile!=''?(activity_detail.mobile | titlecase) +', ' :''}}</p>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="pl16 pr16">
+    <div class="list-box mb0">
+      <div class="three_boxes">
+        <!-- <div class="lower">
+          <p>Activity Date</p>
+          <p>{{activity_detail.date_created | date : 'd MMM y'}}</p>
+
+          <a class="date-pick fix-picker" *ngIf="activity_detail.status == 'In Progress'">
+            <label class="chedate">
+              <input type="date" name="follow_up_date" [(ngModel)]="activity_detail.follow_up_date" />
+              <i class="material-icons">date_range</i>
+            </label>
+          </a>
+
+        </div> -->
+        <div class="lower">
+          <p>Date Created</p>
+          <p>{{activity_detail.date_created | date : 'd MMM y hh:mm a'}}</p>
+        </div>
+      <div class="lower">
+        <p>Created By</p>
+        <p>{{activity_detail.created_by_name}}</p>
+      </div>
+    </div>
+
+      <div class="three_boxes">
+        <div class="lower">
+          <p>Activity Type</p>
+          <p>{{activity_detail.activity_type?activity_detail.activity_type:'N/A'}}</p>
+        </div>
+        <div class="lower">
+          <p>Disposition Name</p>
+          <p >{{activity_detail.disposition_name?activity_detail.disposition_name:'N/A'}}</p>
+        </div>
+
+
+
+      </div>
+      <div class="three_boxes">
+        <div class="lower">
+          <p>Disposition Type</p>
+          <p>{{activity_detail.disposition_type_value?activity_detail.disposition_type_value:'N/A'}}</p>
+        </div>
+        <div class="lower">
+          <p>Description</p>
+          <p>{{activity_detail.remark?activity_detail.remark:'N/A'}}</p>
+        </div>
+       </div>
+
+      <ng-container *ngIf="activity_detail.lead_type=='Dr'">
+        <div class="three_boxes">
+          <div class="lower">
+            <p>Product Quality</p>
+            <p>{{activity_detail.product_quality?activity_detail.product_quality:'N/A'}}</p>
+          </div>
+          <div class="lower">
+            <p>Purchase Frequency</p>
+            <p >{{activity_detail.purchase_frequency?activity_detail.purchase_frequency:'N/A'}}</p>
+          </div>
+        </div>
+        <div class="three_boxes">
+          <div class="lower">
+            <p>Most Selling Brands</p>
+            <p>{{activity_detail.most_selling_brands?activity_detail.most_selling_brands:'N/A'}}</p>
+          </div>
+          <div class="lower">
+            <p>Segments in Gravity</p>
+            <p >{{activity_detail.segments_in_gravity?activity_detail.segments_in_gravity:'N/A'}}</p>
+          </div>
+        </div>
+        <div class="three_boxes">
+          <div class="lower">
+            <p>Why not all segments of Gravity</p>
+            <p>{{activity_detail.why_not_all_segments_of_gravity?activity_detail.why_not_all_segments_of_gravity:'N/A'}}</p>
+          </div>
+          <div class="lower">
+            <p>WorkingTenure</p>
+            <p >{{activity_detail.working_tenure?activity_detail.working_tenure:'N/A'}}</p>
+          </div>
+        </div>
+        <div class="three_boxes">
+          <div class="lower">
+            <p>Dealing in how many Brands</p>
+            <p>{{activity_detail.dealing_in_how_many_brands?activity_detail.dealing_in_how_many_brands:'N/A'}}</p>
+          </div>
+          <div class="lower">
+            <p>Status</p>
+            <p class="pending-clr">{{activity_detail.status?(activity_detail.status | titlecase):'N/A'}}</p>
+          </div>
+
+        </div>
+      </ng-container>
+
+
+
+
+
+
+    </div>
+  </div>
+
+  <!-- <div class="edit">
+    <ion-list>
+
+    </ion-list>
+  </div> -->
+
+
+  <!-- <div class="edit" *ngIf="userStorageData.user_type != 'Inside Sales Team' && status == 'Pending' && current_followup_date <= today_date">
+    <ion-list>
+
+
+      <ion-item class="mb10 cs-textarea1" *ngIf="activity_detail.status == 'In Progress'" >
+        <ion-label floating><span>Follow Up Remark</span></ion-label>
+        <ion-textarea name="followup_remark" #followup_remark="ngModel" [(ngModel)]="activity_detail.followup_remark"  placeholder="Enter Remark" ></ion-textarea>
+      </ion-item>
+
+      <ion-item class="cs-normal-select mb0">
+        <ion-label><span>Status</span></ion-label>
+        <ion-select name="discount_type" [(ngModel)]="activity_detail.status">
+          <ion-option value="Pending">Pending</ion-option>
+          <ion-option value="In Progress">In Process</ion-option>
+          <ion-option value="Done">Complete</ion-option>
+        </ion-select>
+      </ion-item>
+    </ion-list>
+    <div >
+    </div>
+    <button *ngIf="activity_detail.follow_up_type == 'Meeting'" ion-button block class="h40 green-color mt15" style="letter-spacing: 1px;" (click)=" go_to('checkin_start')" >Start Check In</button>
+    <button ion-button block class="h40 green-color mt15" style="letter-spacing: 1px;" [disabled]="activity_detail.status == 'Pending' || (activity_detail.status == 'In Progress' &&  disable_update)  " (click)="activity_detail.status == 'Done' || activity_detail.status == 'In Progress'? change_followup_status():''">Update</button>
+
+  </div> -->
+
+
+  <!-- <div class="edit" *ngIf="userStorageData.user_type == 'Inside Sales Team' && status == 'Pending' && current_followup_date <= today_date">
+    <ion-list>
+
+      <ion-item class="mb10 cs-textarea1" *ngIf="activity_detail.status == 'Done'" >
+        <ion-label floating><span>Follow Up Remark</span></ion-label>
+        <ion-textarea name="followup_remark" #followup_remark="ngModel" [(ngModel)]="activity_detail.followup_remark"  placeholder="Enter Remark" ></ion-textarea>
+      </ion-item>
+
+      <ion-item class="cs-normal-select mb0">
+        <ion-label><span>Status</span></ion-label>
+        <ion-select name="discount_type" [(ngModel)]="activity_detail.status">
+          <ion-option value="Pending">Pending</ion-option>
+          <ion-option value="Done">Complete</ion-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item class="cs-normal-select mt16 mb0" *ngIf="activity_detail.type == 10 && activity_detail.status =='Done'" >
+        <ion-label class="select-label">Select Lead Status<strong>*</strong></ion-label>
+        <ion-select name="lead_status" [(ngModel)]="activity_detail.lead_status" (ngModelChange)="activity_detail.lead_status == 'Dead' ? get_dead_reason() : ''" required>
+            <ion-option *ngFor="let lead_status_data of lead_status" [value]="lead_status_data.lead_status">{{lead_status_data.lead_status}}</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item class="cs-normal-select mt16 mb0"*ngIf="activity_detail.type == 10 && activity_detail.lead_status =='Order Won'">
+        <ion-label floating><span> Payment Date *</span></ion-label>
+        <ion-datetime display-format="MMM DD, YYYY" placeholder ="Select Order Won Date" min={{today_date}} max={{max_date}} name="payment_date" #payment_date="ngModel" [(ngModel)]="activity_detail.payment_date" required ></ion-datetime>
+      </ion-item>
+      <ion-item class="cs-normal-select mt16 mb0"*ngIf="activity_detail.type == 10 && activity_detail.lead_status =='Order Won'">
+        <ion-label><span>Payment Status</span></ion-label>
+        <ion-select name="payment_status" [(ngModel)]="activity_detail.payment_status">
+          <ion-option value="Yes">Yes</ion-option>
+          <ion-option value="No">No</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item class="cs-normal-select mt16 mb0" *ngIf="activity_detail.type == 10 && activity_detail.lead_status =='Order Won'">
+        <ion-label floating><span>Order Amount</span><strong>*</strong></ion-label>
+        <ion-input type="tel" #order_amount="ngModel" [(ngModel)]="activity_detail.order_amount" placeholder = "Enter Order Amount" onkeypress="return event.charCode>=48 && event.charCode<=57" required></ion-input>
+      </ion-item>
+
+      <ion-item class="cs-normal-select mt16 mb0" *ngIf="activity_detail.type == 10 && activity_detail.lead_status =='Order Won'">
+        <ion-label><span>Sale Type</span></ion-label>
+        <ion-select name="sale_type" [(ngModel)]="activity_detail.sale_type">
+          <ion-option value="Primary">Primary</ion-option>
+          <ion-option value="Secondary">Secondary</ion-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item class="cs-normal-select mt16 mb0" *ngIf="activity_detail.lead_status=='Dead' && activity_detail.type == 10">
+        <ion-label class="select-label">Select Dead Reason<strong>*</strong></ion-label>
+        <ion-select name="dead_reason" [(ngModel)]="activity_detail.dead_reason" required>
+            <ion-option *ngFor="let dead_reason_data of dead_reason" [value]="dead_reason_data.dead_reason">{{dead_reason_data.dead_reason}}</ion-option>
+        </ion-select>
+      </ion-item>
+
+
+    </ion-list>
+
+    <div ></div>
+
+
+    <ng-container *ngIf="activity_detail.type && activity_detail.type != '10'">
+
+      <button ion-button block class="h40 green-color mt15" style="letter-spacing: 1px;" [disabled]="activity_detail.status == 'Pending' && disable_update " (click)="activity_detail.status == 'Done' ? change_followup_status() : '';">Update</button>
+
+    </ng-container>
+
+
+
+    <ng-container *ngIf="activity_detail.lead_status && activity_detail.lead_status != 'Dead' && activity_detail.lead_status != 'Order Won'">
+
+      <button ion-button block class="h40 green-color mt15" style="letter-spacing: 1px;" [disabled]="activity_detail.status == 'Pending' && activity_detail.lead_status && activity_detail.lead_status != 'Dead' && activity_detail.lead_status != 'Order Won' && disable_update " (click)="activity_detail.status == 'Done' ? change_followup_status_for_inside_sales_user():''">Update</button>
+
+    </ng-container>
+
+    <ng-container  *ngIf="activity_detail.lead_status && activity_detail.lead_status == 'Dead'">
+
+      <button ion-button block class="h40 green-color mt15" style="letter-spacing: 1px;" [disabled]="activity_detail.status == 'Pending' && activity_detail.dead_reason &&  disable_update  " (click)="activity_detail.status == 'Done' ? change_followup_status_for_inside_sales_user():''">Update</button>
+
+    </ng-container>
+
+    <ng-container *ngIf="activity_detail.lead_status && activity_detail.lead_status == 'Order Won' && activity_detail.order_amount && activity_detail.payment_status && activity_detail.sale_type">
+
+      <button ion-button block class="h40 green-color mt15" style="letter-spacing: 1px;" [disabled]="activity_detail.status == 'Pending' && activity_detail.order_amount != '' && activity_detail.payment_status != '' && activity_detail.sale_type != '' && disable_update  " (click)="activity_detail.status == 'Done' ? change_followup_status_for_inside_sales_user():''">Update</button>
+
+    </ng-container>
+
+  </div> -->
+
+</ion-content>

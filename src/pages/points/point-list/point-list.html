@@ -1,0 +1,76 @@
+
+<ion-header class="main-header">
+    <ion-navbar>
+        <ion-title>My Points</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content>
+    
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingSpinner="circles" refreshingText="Refreshing...">
+        </ion-refresher-content>
+    </ion-refresher>
+    <div class="p16 pt16" *ngIf="karigar_point.length != null || karigar_point.length != '' || karigar_point.length != undefined ">
+        
+        <div class="card-list" (click)="change_page('scan')">
+            <div class="card-content">
+                <img src="assets/icon/scan.png">
+                <p>Earn By Scan Points</p>
+            </div>
+            <div class="points">
+                {{karigar_point.earn_by_scan}}
+            </div>
+        </div>
+        
+        <div class="card-list" (click)="change_page('service')" *ngIf="userType == 'Plumber'"> 
+            <div class="card-content">
+                <img src="assets/icon/service.png">
+                <p>Earn By Service Points</p>
+            </div>
+            <div class="points">
+                {{karigar_point.earn_by_service}}
+            </div>
+        </div>
+        
+        
+        <div class="card-list" (click)="change_page('referal')"> 
+            <div class="card-content">
+                <img src="assets/icon/referal.png">
+                <p>Earn By Referal Points</p>
+            </div>
+            <div class="points">
+                {{karigar_point.earn_by_referal}}
+            </div>
+        </div>
+        
+        <div class="point-table" >
+            <table>
+                <tr>
+                    <td>Total Earn Points</td>
+                    <td class="point-font w110  pr29 text-right">{{karigar_point.total_earn}}</td>    
+                </tr>
+                <tr (click)="change_page('redeem')">
+                    <td>Redeem Points</td>
+                    <td class="point-font red-text w110 text-right"> 
+                        <p>
+                            {{karigar_point.total_redeem}}
+                            <i class="material-icons">chevron_right</i>
+                        </p>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        
+        
+        <div class="card-list"> 
+            <div class="card-content">
+                <img src="assets/icon/wallet.png">
+                <p>Total Balance</p>
+            </div>
+            <div class="points flat">
+                {{karigar_point.total_balance}}
+            </div>
+        </div>
+    </div>
+</ion-content>

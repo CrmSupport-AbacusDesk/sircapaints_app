@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Pop & Gift</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="listing add-images grid-listing">
+
+  <div  class="main-div" >
+    <ion-list *ngFor="let list of pop_list; let i=index" >
+       
+        <button ion-item (click)="go_to_pop_detail(list.id)">
+            <div class="image-manage">
+                <img  src="{{list.image}}">
+            </div>
+            <p>{{list.gift_name}}</p>
+        </button>
+
+    </ion-list>
+
+</div>
+
+<div class="nothing-here" *ngIf="!pop_list.length && load_data == '1' ">
+  <div class="outer">
+      <div class="innear">
+          <img src="assets/imgs/nothing.svg" alt="">
+          <p>Data not Available</p>
+      </div>
+  </div>
+</div>
+
+</ion-content>

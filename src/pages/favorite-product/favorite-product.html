@@ -1,0 +1,63 @@
+<ion-header class="main-header remove" >
+    <ion-navbar >
+        <ion-title>My Cart</ion-title>
+    </ion-navbar>
+    <ion-toolbar>
+        <div class="search add-search">
+            <div class="filter">
+                <ion-searchbar type='text' name='search'  [(ngModel)]="filter.search" (ngModelChange)="get_favorite_product(cat_id,filter.search)"></ion-searchbar>
+            </div>
+        </div>
+    </ion-toolbar>    
+</ion-header>
+
+<ion-content class="listing grid-listing category-product sub-category">
+    
+    <div class="nothing-here" *ngIf="!prod_list.length && load_data == '1' ">
+        <div class="outer">
+            <div class="innear">
+                <img src="assets/imgs/nothing.svg" alt="">
+                <p>Data not Available</p>
+            </div>
+        </div>
+    </div>
+    
+    <div *ngIf="prod_list.length"class="main-div">
+        <div class="sub-listing tydo-list p0">
+            <ion-list (click)="goOnProductSubDetailPage(list.id)" *ngFor="let list of prod_list;let i=index">
+                <button ion-item>
+                    <div class="image-manage">
+                        <img  src="https://app.gravitybath.com/dd_api/app/Http/Controllers/Admin/Master/appOfflineUploads/productImage/{{list.actual_image_name}}" style="width: 60%;">
+                    </div>
+                    <div class="detail">
+                        <h4>{{list.product_name}}</h4>
+                        <h3 class="m0"><span>₹​</span>{{list.price}}/-</h3>
+                    </div>
+                </button>
+            </ion-list>
+        </div>
+        <!-- <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)"  *ngIf="flag!=1">
+            <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
+            </ion-infinite-scroll-content>
+            <div class="sub-listing tydo-list p0">
+                <ion-list class="skleton-box-2"  *ngFor="let row of skelton"></ion-list>
+            </div>
+        </ion-infinite-scroll> -->
+    </div>
+    
+    <!-- <div class="main-div" *ngIf="!prod_list.length">
+        <div class="sub-listing tydo-list p0">
+            <ion-list class="skleton-box-2"  *ngFor="let row of skelton"></ion-list>
+        </div>
+    </div> -->
+    
+    <div class="align-btn mr20 ml20" *ngIf="prod_list.length && this.user_data.loginType =='DrLogin' && (this.user_data.type == '1' || this.user_data.type == '7' || this.user_data.type == '3')">
+    <!-- <div class="align-btn mr20 ml20" *ngIf="false"> -->
+        <button class="cs-button border" style="border: 2px solid #27ab00 !important ;" (click)="go_to('select_items_page')">
+            <i class="material-icons">shopping_cart</i>
+            Create Order
+        </button>
+    </div>
+    
+    
+</ion-content>

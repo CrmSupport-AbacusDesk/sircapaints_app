@@ -1,0 +1,130 @@
+<!--
+  Generated template for the QuotationDistributorPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <ion-title>Quotation List</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <!-- <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content  pullingIcon="arrow-dropdown" pullingText="Pull to refresh"     refreshingSpinner="circles" refreshingText="Refreshing...">
+    </ion-refresher-content>
+</ion-refresher> -->
+
+  <!-- <div class="nothing-here" *ngIf="!leave_data.length && load_data == '1' ">
+
+    <div class="outer">
+      <div class="innear">
+        <img src="assets/imgs/nothing.svg" alt="">
+        <p>Data not Available</p>
+      </div>
+    </div>
+  </div> -->
+
+
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content  pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingSpinner="circles" refreshingText="Refreshing...">
+    </ion-refresher-content>
+</ion-refresher>
+
+<div class="pd-left-right16">
+    <div class="list-box mt16" *ngFor="let row of quotation_data" >
+        <div class="upper">
+            <div class="left-date" (click)="gotoQuotationDetailPage(row.quotation_id,row.quotation_status)">
+                <div class="date-section">
+                    <p>{{row.date_created | date:'d MMM y'}}</p>
+                    <p>Date Created</p>
+                </div>
+            </div>
+            
+            <div class="right-date" >
+                <!-- <button class="{{row.quotation_status}}" (click)="gotoQuotationDetailPage(row.quotation_id,row.quotation_status)">
+                    <p>{{row.quotation_status}}</p>
+                </button> -->
+                <button class="font12 ml10" type="button"  (click)="delete_quotation(row.quotation_id)">
+                    <i class="material-icons red-clr">delete_sweep</i>
+                </button>
+               
+            </div>
+        </div>
+        <div class="mid">
+          <!-- <div class="content-info" *ngIf="dbService.userStorageData.type=='3'" (click)="gotoQuotationDetailPage(row.quotation_id,row.quotation_status)">
+            <div class="left-info">
+                <div class="circle">{{row.created_by_name.substring(0,1).toUpperCase()}}</div>
+            </div>
+            
+            <div class="right-info">
+                <p>{{row.created_by_name}}</p>
+            </div>
+        </div> -->
+            <div class="content-info" (click)="gotoQuotationDetailPage(row.quotation_id,row.quotation_status)">
+                <div class="left-info">
+                    <div class="circle">{{row.name.substring(0,1).toUpperCase()}}</div>
+                </div>
+                
+                <div class="right-info">
+                    <p>{{row.name}}({{row.contact_no}})</p>
+                </div>
+            </div>
+            <div class="tag-info amount-view">
+              <p>₹ {{row.grand_total ? row.grand_total : '--'}}</p>
+              <p>Amount</p>
+          </div>
+            <!-- <div class="tag-info">
+                <a href="tel:{{row.mobile}}"><i class="material-icons">phone</i></a>
+            </div> -->
+        </div>
+        
+        <!-- <div class="lower" *ngIf="row.quotation_remark">
+            <p>Quotation Remark</p>
+            <p>{{row.quotation_remark ? row.quotation_remark : 'N/A'}}</p>
+        </div> -->
+        <!-- <div class="lower" (click)="gotoQuotationDetailPage(row.quotation_id,row.quotation_status)">
+            <p>Term And Condition</p>
+            <p [innerHTML]="row.term_condition">{{row.term_condition}}</p>
+            <p class="two-line-ellipse" [innerHTML]="row.term_condition"></p>
+            
+        </div> -->
+        <div class="lower" (click)="gotoQuotationDetailPage(row.quotation_id,row.quotation_status)">
+          <p>Quotation Remark</p>
+          <p>{{row.quotation_remark && row.quotation_remark !=''? row.quotation_remark:'--'}}</p>
+          <!-- <p [innerHTML]="row.term_condition">{{row.term_condition}}</p> -->
+          <!-- <p class="two-line-ellipse" [innerHTML]="row.term_condition"></p> -->
+          
+      </div>
+    </div>  
+</div>
+
+<div class="nothing-here" *ngIf="quotation_data.length<1">
+    
+    <div class="outer">
+        <div class="innear">
+            <img src="assets/imgs/no_found.svg" alt="">
+            <p>Data not Available</p>
+        </div>
+    </div>
+</div>
+
+<div class="h50"></div>
+
+<ion-fab right bottom>
+    <button ion-fab color="danger" (click)="addQuotations()" ><ion-icon name="add"></ion-icon></button>
+</ion-fab>
+
+
+ 
+  
+
+
+</ion-content>
+<!-- <div class="cus-fab">
+  <button (click)="addQuotations()">
+    <i class="material-icons">add</i>
+  </button>
+</div> -->
+

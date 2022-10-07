@@ -1,0 +1,93 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Stock Transfer Details</ion-title>
+    
+    <ion-buttons end>
+      <button ion-button icon-only (click)="add_remove_master_card_data_from_next_warehouse()">
+        <i class="material-icons">qr_code_scanner</i>
+      </button>
+    </ion-buttons>
+    
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  
+  <div class="mb20">
+    <ng-container>
+      <div class="list-box mb0">
+        
+        <ng-container>
+          <div class="mid mt5">
+            <div class="content-info">
+              <div class="left-info">
+                <div class="circle">w</div>
+              </div>
+              <div class="right-info">
+                <p>{{selected_ware_house_detail.ware_house_name && selected_ware_house_detail.ware_house_name!= '' && selected_ware_house_detail.ware_house_name!= null ? selected_ware_house_detail.ware_house_name : '--'}}</p>
+                <p>Warehouse Name</p>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+        
+        <div class="lower mb5">
+          <p>Address</p>
+          <p>{{selected_ware_house_detail.address && selected_ware_house_detail.address!= '' && selected_ware_house_detail.address!= null ? selected_ware_house_detail.address : '--'}}</p>
+        </div>
+        
+      </div>
+    </ng-container>
+  </div>
+  
+  <div class="list-box mt16" *ngIf="assigned_master_box_detail_list.length">
+    
+    <div class="lower one-line mt5 mb10">
+      <p><span>Scanned Master Box Data : </span></p>
+    </div>
+    
+    
+    <ng-container *ngFor="let master_box_data of assigned_master_box_detail_list;let i = index">
+      <div class="accordion"  [ngClass]="{'expand':expand_master_detail == master_box_data.id}">
+        <div class="accordion-head" (click)="expand_master_detail == 0?expand_master_detail = master_box_data.id : expand_master_detail = 0">Master Box - {{i+1}}
+          
+        </div>
+        <div class="accordion-body">
+          <div class="common_form">
+            <div>
+              <div class="box complete">
+                <div class="data-table padding0">
+                  <table>
+                    <tr>
+                      <th>Product Description</th>
+                      <th class="w35">Qty.</th>
+                    </tr>
+                    <tr *ngFor="let product_data of master_box_data.master_box_product_detail;let secondary_index = index">
+                      <td>{{product_data.category+' - '+product_data.sub_category+' - '+product_data.product_name +' - ' +product_data.product_code}}</td>
+                      <td class="w35">{{product_data.total_primary_box_qty}}</td>
+                    </tr>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </ng-container>
+  </div>
+  
+  
+  
+  
+</ion-content>
+
+
+
+
+<ion-footer class="csm-footer-tabs" *ngIf="assigned_master_box_detail_list.length">
+  <div class="ftabs">
+    <button *ngIf="true" class="active" ion-item (click)="dispatch_master_carton_to_next_warehouse()"><p>TRANSFER</p></button>
+  </div>
+</ion-footer> 
+

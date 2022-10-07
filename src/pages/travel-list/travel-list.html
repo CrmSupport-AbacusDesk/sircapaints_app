@@ -1,0 +1,206 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>{{travel_team_type}} Travel List</ion-title>
+        <ion-buttons end>
+            <button ion-button icon-only (click)="presentPopover($event)">
+              <ion-icon name="more"></ion-icon>
+            </button>
+          </ion-buttons>
+    </ion-navbar>
+
+    <ion-toolbar>
+        <div class="search add-search">
+            <div class="filter">
+                <ion-searchbar type='text' name="master" [(ngModel)]="filter.master" (ngModelChange)="getTravelPlan()"></ion-searchbar>
+                <a class="date-pick">
+                    <label class="chedate">
+                        <input type="date" name="date" [(ngModel)]="filter.date" (ngModelChange)="getTravelPlan()" />
+                        <i class="material-icons">date_range</i>
+                    </label>
+                </a>
+            </div>
+        </div>
+    </ion-toolbar>
+
+</ion-header>
+
+
+<div class="text-line" *ngIf="filter.date">
+    <div class="lf-text">
+        <p>Date</p>
+        <p>{{filter.date | date:'d MMM y'}}</p>
+    </div>
+    <div class="rf-text">
+        <i class="material-icons" (click)="filter.date='';getTravelPlan()">cancel</i>
+    </div>
+</div>
+
+<ion-content style="background: #f8f8f8;">
+
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingSpinner="circles" refreshingText="Refreshing...">
+        </ion-refresher-content>
+    </ion-refresher>
+
+    <div class="capsule-tabs">
+        <ul>
+            <li [ngClass]="{'active' : filter.status=='Today'}" (click)="filter.date='';start=0;filter.status='Today' ;getTravelPlan()">
+                <p>Today<span>{{travel_plan_counts.travel_plan_today_count}}</span></p>
+            </li>
+            <li [ngClass]="{'active' : filter.status=='Pending'}" (click)="filter.date='';start=0;filter.status='Pending' ;getTravelPlan()">
+                <p>Pending<span>{{travel_plan_counts.travel_plan_pending_count}}</span></p>
+            </li>
+            <li [ngClass]="{'active' : filter.status=='Approved'}" (click)="filter.date='';start=0;filter.status='Approved' ;getTravelPlan()">
+                <p>Approved<span>{{travel_plan_counts.travel_plan_approved_count}}</span></p>
+            </li>
+            <li [ngClass]="{'active' : filter.status=='Reject'}" (click)="filter.date='';start=0;filter.status='Reject' ;getTravelPlan()">
+                <p>Reject<span>{{travel_plan_counts.travel_plan_reject_count}}</span></p>
+            </li>
+        </ul>
+    </div>
+
+    <div class="pd-left-right16">
+
+        <ng-container *ngIf="travel_list.length">
+            <div class="cs-heading1 pl0 mb5 pt30" *ngIf="areaVisitExist">
+                <p>Area Wise Visit</p>
+            </div>
+
+            <div class="mt10" *ngFor="let row of travel_list ;let i=index">
+                <div class="list-box border-remove" *ngIf="row.travel_type=='Area Visit'">
+                    <div class="upper upr-verified">
+
+                        <!-- <div class="verify-section">
+                            <i *ngIf="row.check_in_flag == 1" class="material-icons verify-button">verified</i>
+                            <i *ngIf="row.check_in_flag == 0" class="material-icons cancel-button">cancel</i>
+
+                        </div> -->
+
+                        <div class="left-date">
+                            <div class="date-section" (click)="go_to_travel_plane_detail(row.id)">
+                                <p>{{row.date_created | date:'d MMM y'}}</p>
+                                <p>Date Created</p>
+                            </div>
+                        </div>
+
+                        <div class="left-auto" *ngIf="row.status =='Pending' && userStorageData.id == row.created_by">
+                            <ion-buttons end (click)="deleteTravelPlan(row.id,i,row.flag)" *ngIf="row.status =='Pending' && userStorageData.id == row.created_by">
+                                <button ion-button icon-only small >
+                                    <ion-icon name="trash"></ion-icon>
+                                </button>
+                            </ion-buttons>
+                        </div>
+                    </div>
+
+
+
+                    <div class="three_boxes">
+                        <div class="lower" >
+                            <p>Date From</p>
+                            <p>{{row.travel_date_from | date:'d MMM y'}}</p>
+                        </div>
+
+                        <div class="lower">
+                            <p>Date To</p>
+                            <p>{{row.travel_date_to | date:'d MMM y'}}</p>
+                        </div>
+
+                        <div class="lower">
+                            <p>Travel ID</p>
+                            <p>{{row.reference_travel_id}}</p>
+                        </div>
+                    </div>
+
+                    <div class="flex-column"  (click)="go_to_travel_plane_detail(row.id)">
+                        <div class="lower mt0">
+                            <span class="">
+                                <span *ngFor="let area_data of row.selected_data">
+                                    <ion-badge class="mb5" >{{area_data.state}} - {{area_data.district}} - {{area_data.city}}</ion-badge>
+                                </span>
+                            </span>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </ng-container>
+
+
+        <ng-container *ngIf="travel_list.length">
+            <div class="cs-heading1 pl0 mb5" *ngIf="cpVisitExist">
+                <p>Channel Partner Wise Visit</p>
+            </div>
+
+            <div class="mt10" *ngFor="let row of travel_list;let i=index">
+                <div class="list-box border-remove" *ngIf="row.travel_type=='Channel Partner Visit'">
+
+                    <div class="upper upr-verified">
+
+                        <div class="verify-section">
+                            <i *ngIf="row.check_in_flag == 1" class="material-icons verify-button">verified</i>
+                            <i *ngIf="row.check_in_flag == 0" class="material-icons cancel-button">cancel</i>
+
+                        </div>
+
+                        <div class="left-date">
+                            <div class="date-section" (click)="go_to_travel_plane_detail(row.id)">
+                                <p>{{row.date_created | date:'d MMM y'}}</p>
+                                <p>Date Created</p>
+                            </div>
+                        </div>
+
+                        <div class="left-auto">
+                            <ion-buttons end (click)="deleteTravelPlan(row.id,i,row.flag)" *ngIf="row.status =='Pending'">
+                                <button ion-button icon-only small >
+                                    <ion-icon name="trash"></ion-icon>
+                                </button>
+                            </ion-buttons>
+                        </div>
+                    </div>
+
+                    <div class="mid mt10" *ngFor="let dr_data of row.selected_data">
+                        <div class="content-info">
+                            <div class="left-info">
+                                <div class="circle">{{dr_data.company_name.substring(0,1).toUpperCase()}}</div>
+                            </div>
+                            <div class="right-info">
+                                <p>{{dr_data.company_name}}</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="three_boxes">
+                        <div class="lower" >
+                            <p>Date From</p>
+                            <p>{{row.travel_date_from | date:'d MMM y'}}</p>
+                        </div>
+
+                        <div class="lower">
+                            <p>Date To</p>
+                            <p>{{row.travel_date_to | date:'d MMM y'}}</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </ng-container>
+
+    </div>
+
+    <div class="nothing-here" *ngIf="!travel_list.length && requestSend">
+        <div class="outer">
+            <div class="innear">
+                <img src="assets/imgs/nothing.svg" alt="">
+                <p>No Travel Plan</p>
+            </div>
+        </div>
+    </div>
+
+    <ion-fab right bottom *ngIf="!userId">
+        <button ion-fab color="danger" (click)="goOnAddTravel()" ><ion-icon name="add"></ion-icon></button>
+    </ion-fab>
+
+
+</ion-content>

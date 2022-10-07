@@ -1,0 +1,287 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>Quotation detail</ion-title>
+        <!-- <ion-buttons end>
+          <button ion-button icon-only color="light" (click)="shareproduct()">
+              <ion-icon name="md-share"></ion-icon>
+          </button> 
+      </ion-buttons> -->
+    </ion-navbar>
+</ion-header>
+
+<ion-content>
+
+    <div class="edit">
+
+
+        <ion-list>
+
+            <!-- <div class="time_show mt16">
+                <p>Dealer</p>
+                <p>{{form.dr_name}}</p>
+            </div> -->
+            <div class="time_show mt16">
+                <p>Company Name</p>
+                <p>{{form.company_name}}</p>
+            </div>
+            <div class="time_show mt16">
+                <p>Contact Person Name</p>
+                <p>{{form.name}}</p>
+            </div>
+            
+
+            <div class="time_show mt16">
+                <p>Mobile No.</p>
+                <p>{{form.contact_no}}
+                    <a href="tel:{{form.contact_no}}" *ngIf="form.contact_no"><i class="material-icons"
+                            style="font-size: 12px;">phone</i></a>
+                </p>
+            </div>
+            <div class="time_show mt16">
+                <p>Email</p>
+                <p>{{form.email_id}} </p>
+            </div>
+            <div class="time_show mt16">
+                <p>GST</p>
+                <p>{{form.gst?form.gst:'--'}}</p>
+            </div>
+
+            <ion-item>
+                <ion-label floating><span>Customer Shipping Address <strong>*</strong></span></ion-label>
+                <ion-input type="text" name="customer_shipping_address" #customer_shipping_address="ngModel"
+                    [(ngModel)]="form.customer_shipping_address" readonly></ion-input>
+            </ion-item>
+
+            <ion-item>
+                <ion-label floating><span>Customer Billing Address<strong>*</strong></span></ion-label>
+                <ion-input type="text" name="customer_billing_address" #customer_billing_address="ngModel"
+                    [(ngModel)]="form.customer_billing_address" readonly></ion-input>
+            </ion-item>
+
+            <ion-item>
+                <ion-label floating><span>Quotation Remark<strong>*</strong></span></ion-label>
+                <ion-input type="text" name="quotation_remark" #quotation_remark="ngModel"
+                    [(ngModel)]="form.quotation_remark" readonly></ion-input>
+            </ion-item>
+
+            <!-- <ion-item class="cs-textarea1">
+                <ion-label floating><span>Term and Condition <strong>*</strong></span></ion-label>
+                <ion-textarea type="text" name="term_condition" #term_condition="ngModel"
+                    [(ngModel)]="form.term_condition" readonly></ion-textarea>
+            </ion-item> -->
+              <div class="lower mt20 cs-textarea1">
+          <p>
+           <span style="font-size:20px;">
+            Term And Condition
+           </span> 
+          </p>
+          <!-- <p [innerHTML]="row.term_condition">{{row.term_condition}}</p> -->
+          <p class="two-line-ellipse"  [innerHTML]="form.term_condition"></p>
+          
+      </div>
+            <!-- <ion-item>
+              <ion-label floating><span> Cd Discount Percent<strong>*</strong></span></ion-label>
+              <ion-input type="number" name="cd_discount_percent" #cd_discount_percent="ngModel" [(ngModel)]="form.cd_discount_percent" ></ion-input>
+          </ion-item>
+          <ion-item  >
+              <ion-label floating><span> Other Discount Percent<strong>*</strong></span></ion-label>
+              <ion-input type="number" name="other_discount_percent" #other_discount_percent="ngModel" [(ngModel)]="form.other_discount_percent" ></ion-input>
+          </ion-item> -->
+
+
+
+
+
+
+            <div class="cs-heading1 pl0">
+                <p>PRODUCT INFORMATION</p>
+            </div>
+
+            <div class="list-box mt10" *ngFor="let row of quotationSummary; let i=index">
+                <div class="mid mt0">
+                    <div class="content-info">
+                        <div class="right-info">
+                            <p>{{row.category}}/{{row.product_name}}/{{row.sub_category}}</p>
+                            <p>Product Code - {{row.material_code}}</p>
+                            <!-- <p>qid - {{list.quotation_id}}</p> -->
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="three_boxes">
+                    <div class="lower">
+                       
+                        <div class="edit-data" ngClass="{{row.edit_true ? '' : 'active' }}" >
+                        <p>Qty</p>
+
+                            <!-- <input class="h33" type="number" string-to-number  (keyup)="calculateAmount(row.qty,i,false,''); "[readonly]="active[i]?.qty != '1'" name="qty" [(ngModel)]="row.qty" readonly> -->
+                            <input class="h20 mt15" type="number" placeholder="Qty" string-to-number (keyup)="calculateAmountq(row.qty,i,''); "
+                                [readonly]="active[i]?.qty != '1'" name="qty" [(ngModel)]="row.qty" readonly>
+                            <ng-container *ngIf="row.edit_true && form.quotation_status=='Pending'">
+                                
+                                <a class="edit-value edits h20 mt10"
+                                    *ngIf="form.quotation_status=='Pending' || form.created_by==dbService.userStorageData.id"
+                                    (click)="edit_qty(i)">
+                                    <i class="material-icons create">create</i>
+                                </a>
+                            </ng-container>
+
+                            <a class="edit-value saves h20 mt10" *ngIf="!row.edit_true && check_qty_flag ">
+                                <i class="material-icons create"
+                                    (click)="update_Quotation(i,row.qty,row.id,row.discount,false)">save</i>
+                            </a>
+                        </div>
+
+                    </div>
+                    <!-- <div class="lower">
+                      <p>Type</p>
+                      <p class="input-and-save">
+                         dfs
+                      </p>
+                  </div> -->
+                    <div class="lower">
+                        <p>Carton Qty</p>
+                        <p class="input-and-save">
+                            {{row.cartoon_qty}}
+                        </p>
+                    </div>
+                    <div class="lower">
+                        <p>Price</p>
+                        <p class="input-and-save">
+                            {{row.price}}
+                        </p>
+                    </div>
+
+                    <!-- <div class="lower">
+                      <p>Amount</p>
+                      <p>₹ {{row}}</p>
+                  </div> -->
+                </div>
+                <div class="three_boxes">
+                    <div class="lower">
+                        <!-- <p class="input-and-save">
+                            {{row.discount}}
+                        </p> -->
+                        <div class="edit-data" ngClass="{{row.edit_true1 ? '' : 'active' }}" >
+                        <p>Discount(%)</p>
+                           
+                            <input class="h30 mt15" type="number" placeholder="Disocunt" string-to-number (keyup)="calculateAmountq(row.qty,i,''); "
+                                [readonly]="active[i]?.discount != '1'" name="discount" [(ngModel)]="row.discount" readonly>
+                            <ng-container *ngIf="row.edit_true1 && form.quotation_status=='Pending'">
+                                
+                                <a class="edit-value edits h20 mt10"
+                                    *ngIf="form.quotation_status=='Pending' || form.created_by==dbService.userStorageData.id"
+                                    (click)="edit_discount(i)">
+                                    <i class="material-icons create">create</i>
+                                </a>
+                            </ng-container>
+
+                            <a class="edit-value saves h20 mt10" *ngIf="!row.edit_true1 && check_qty_flag">
+                                <i class="material-icons create"
+                                    (click)="update_Quotation(i,row.qty,row.id,row.discount ,false)">save</i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="lower">
+                        <p>Price After Discount</p>
+                        <!-- <p>₹ {{row.subtotal_discounted}}</p> -->
+                        <p>₹ {{row.discountedAmount}}</p>
+                    </div>
+                    <!-- <div class="lower">
+                      <p>GST Amount</p>
+                      <p>₹ adadaqeq</p>
+                  </div> -->
+                   
+                    <div class="lower">
+                        <p>Total Amount</p>
+                        <p>₹ {{row.subtotal_discounted}}</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pd-left-right16" >
+                <button class="cs-button border-btn mt16" (click)="more_item()">ADD MORE ITEM</button>
+            </div>
+
+
+            <div class="time_show amount-listing">
+                <p>Total Qty</p>
+                <p>{{form.total_quantity}}</p>
+            </div>
+
+            <div class="time_show amount-listing">
+                <p>Sub Total</p>
+                <p>₹ {{form.sub_total | number : '1.2-2'}} /-</p>
+            </div>
+
+            <div class="time_show amount-listing">
+                <p>Total Discount Amount</p>
+                <p>₹ {{form.dis_amt | number : '1.2-2'}} /-</p>
+            </div>
+
+            <!-- <div class="time_show amount-listing">
+              <p>Total GST Amount</p>
+              <p>₹ 54 /-</p>
+          </div> -->
+
+            <div class="time_show amount-listing">
+                <p>Grand Total</p>
+                <p>₹ {{form.grand_total | number : '1.2-2'}} /-</p>
+            </div>
+            <div class="time_show amount-listing">
+                <p>Net Total</p>
+                <p>₹ {{form.net_total | number : '1.2-2'}} /-</p>
+            </div>
+            <div class="time_show amount-listing border-none">
+                <p>Break Up Of Grand Total</p>
+                <p>({{form.netBreakup | number:'1.2-2'}} , GST (18%): {{form.gstBreakup | number:'1.2-2'}} )</p>
+            </div>
+
+        </ion-list>
+        <!-- <ion-list> -->
+        <!-- <ion-item class="mt40">
+                <ion-fab left bottom>
+
+                    <button ion-button class="h35 cs-btn mt30" (click)="openPdfQuotation()">
+                        <i class="material-icons mr16">forward_to_inbox</i>
+                        Send Email
+                    </button>
+                </ion-fab>
+               
+            </ion-item>
+            <ion-item>
+                <ion-fab right bottom>
+                    
+                    <button ion-button class="h35 cs-btn mt30" (click)="openPdfQuotation()">
+                        <i class="material-icons mr16">print_pdf</i>
+                        Open PDF
+                    </button>
+            
+                </ion-fab>
+            </ion-item> -->
+        <div style="display: flex;justify-content: space-evenly;">
+            <div class="bottom-block" style="background-color: transparent;">
+                <!-- <button ion-button class="h35 cs-btn mt30" (click)="sendEmail()">
+                    <i class="material-icons mr16">forward_to_inbox</i>
+                    Send Email
+                </button> -->
+                <button ion-button class="h35 cs-btn mt30" (click)="openEmailModal(form.email_id)">
+                    <i class="material-icons mr16">forward_to_inbox</i>
+                    Send Email
+                </button>
+            </div>
+            <div class="bottom-block" style="background-color: transparent;">
+                <button color="danger" class="h35  mt30" ion-button (click)="downloadQuotation()"><i
+                        class="material-icons">picture_as_pdf</i>Print Pdf
+                </button>
+            </div>
+            <!-- </ion-list> -->
+
+        </div>
+    </div>
+
+
+
+
+</ion-content>

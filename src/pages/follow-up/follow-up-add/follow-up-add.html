@@ -1,0 +1,121 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Add Follow Up</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content >
+  <div class="edit">
+    <ion-list>
+
+      <!-- <ion-item >
+        <ion-label floating><span>Follow Up Date *</span></ion-label>
+        <ion-datetime display-format="MMM DD, YYYY" placeholder ="Select Date" min={{today_date}} max={{max_date}} name="followup_date" #followup_date="ngModel" [(ngModel)]="followup_data.followup_date" (ngModelChange)="get_selected_date_followup()" required ></ion-datetime>
+      </ion-item> -->
+
+      <ion-item >
+        <ion-label floating><span>Follow Up Date *</span></ion-label>
+        <ion-input  type="datetime-local" [min]="today_date" type="date" name="followup_date" #followup_date="ngModel" [(ngModel)]="followup_data.followup_date"  (ngModelChange)="get_selected_date_followup()" class="calander" required >  <i class="material-icons">date_range</i> </ion-input>
+      </ion-item>
+
+
+      <ion-item *ngIf ="userStorageData.user_type == 'Inside Sales Team'">
+        <ion-label floating><span>Time</span><strong>*</strong></ion-label>
+        <ion-datetime display-format="h:mm A" pickerFormat="h:mm A" name="followup_time" [(ngModel)]="followup_data.followup_time" required #depatureTime="ngModel" [disabled]="navParams.data['comes_from'] == 'follow_up_detail_page'"></ion-datetime>
+      </ion-item>
+
+
+      <ion-item  class="cs-normal-select mt16 mb0" *ngIf="navParams.data['comes_from'] != 'follow_up_detail_page'">
+        <ion-label>Select Network Type</ion-label>
+        <ion-select  name="dr_network_type" #dr_network_type="ngModel" [(ngModel)]="followup_data.dr_network_type" (ngModelChange)="followup_data.dr_type = '';followup_data.dr_id = ''; dr_list=[];followup_data.followup_type='';followup_data.description=''" required >
+          <ion-option value="Lead">Lead Network</ion-option>
+          <ion-option value="Dr">Distributor Network</ion-option>
+        </ion-select>
+      </ion-item>
+
+
+      <ion-item class="cs-normal-select mt16 mb0" *ngIf="followup_data.followup_date && followup_data.dr_network_type && navParams.data['comes_from'] != 'follow_up_detail_page'">
+        <ion-label >Select Type <strong>*</strong></ion-label>
+        <ion-select [(ngModel)]="followup_data.dr_type" (ngModelChange)="getDrList();followup_data.dr_id = ''; dr_list=[];followup_data.followup_type='';followup_data.description=''"     required>
+          <ion-option *ngIf="followup_data.dr_network_type == 'Lead' || followup_data.dr_network_type == 'Dr'" value="1">Channel Partner </ion-option>
+          <ion-option *ngIf="followup_data.dr_network_type == 'Dr'" value="7">Direct Dealers</ion-option>
+          <ion-option *ngIf="followup_data.dr_network_type == 'Lead' || followup_data.dr_network_type == 'Dr'" value="3">Dealers</ion-option>
+          <ion-option *ngIf="followup_data.dr_network_type == 'Lead'" value="10">Social Media Lead</ion-option>
+        </ion-select>
+      </ion-item>
+
+
+      <!-- <ion-item  class="cs-normal-select mt16" *ngIf="dr_list.length > 0" >
+        <ion-label>Select Company Name</ion-label>
+        <ion-select  placeholder="Select Type" [(ngModel)]="followup_data.dr_id" (ngModelChange)="followup_data.followup_type='';followup_data.description=''" required >
+          <ion-option *ngFor="let list of dr_list" [value]="list.dr_id">{{list.dr_name}}</ion-option>
+        </ion-select>
+      </ion-item> -->
+
+      <ion-item class="cs-selectable mt16 " *ngIf="dr_list.length > 0 && navParams.data['comes_from'] != 'follow_up_detail_page'">
+        <ion-label><span>Select Company Name</span></ion-label>
+        <ionic-selectable item-content #distributorSelectable [(ngModel)]="temp_data" [items]="dr_list" itemValueField="dr_id" itemTextField="dr_name"  [canSearch]="true" (onChange)="test($event)"></ionic-selectable>
+      </ion-item>
+
+
+      <ion-item class="cs-normal-select mb0" *ngIf="followup_data.dr_id">
+        <ion-label><span>Followup Type</span></ion-label>
+        <ion-select name="followup_type"  #followup_type="ngModel" [(ngModel)]="followup_data.followup_type"  (ngModelChange)="followup_data.description=''" required>
+          <ion-option *ngIf ="userStorageData.user_type != 'Inside Sales Team'" value="Meeting">Meeting</ion-option>
+          <ion-option value="Call">Call</ion-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item class="cs-textarea1" >
+        <ion-label floating><span>Description</span></ion-label>
+        <ion-textarea name="description" #description="ngModel" [(ngModel)]="followup_data.description"  placeholder="Enter Description" ></ion-textarea>
+      </ion-item>
+    </ion-list>
+    <div >
+    </div>
+    <button *ngIf="followup_data.followup_date && followup_data.dr_network_type && navParams.data['comes_from'] != 'follow_up_detail_page'" ion-button block class="h40 green-color mt15" style="letter-spacing: 1px;" [disabled]= " !followup_data.followup_date || !followup_data.dr_type || !followup_data.dr_id || !followup_data.followup_type " (click)="add_Followup()" >Save</button>
+
+    <button *ngIf="navParams.data['comes_from'] == 'follow_up_detail_page'" ion-button block class="h40 green-color mt15" style="letter-spacing: 1px;" [disabled]= " !followup_data.followup_date || !followup_data.dr_type || !followup_data.dr_id || !followup_data.followup_type " (click)=" Update_Followup()" >Update</button>
+
+    <div class="csn-heading neww mt20 pl0 "  *ngIf="selected_date_followups_list.length > 0">
+      <p>{{followup_data.followup_date | date:'d MMM y'}} Follow Up</p>
+    </div>
+
+
+    <div *ngIf="selected_date_followups_list.length > 0">
+      <div class="list-box mt16" *ngFor="let row of selected_date_followups_list">
+        <div class="upper">
+          <div class="left-date">
+            <div class="date-section pr70">
+              <p>{{row.date_created| date:'d MMM y hh:mm a'}}</p>
+              <p>Date</p>
+            </div>
+            <div class="date-section">
+              <p>{{row.follow_up_type}}</p>
+              <p>Follow Up Type</p>
+            </div>
+
+          </div>
+        </div>
+        <div class="mid">
+          <div class="content-info">
+            <div class="left-info">
+              <div class="circle" >{{row.dr_name.substring(0,1).toUpperCase()}}</div>
+            </div>
+            <div class="right-info">
+              <p>{{row.dr_name.toUpperCase()}}</p>
+            </div>
+          </div>
+          <div class="tag-info amount-view">
+            <p>{{row.status}}</p>
+            <p>Status</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+  </div>
+</ion-content>
