@@ -22,7 +22,7 @@
                         <ion-input type="text" name="mobile_no" #mobile_no="ngModel" [(ngModel)]="data.mobile_no" required  (keypress)="MobileNumber($event)" readonly></ion-input>
                     </ion-item>
                     
-                    <div *ngIf="data.type=='Plumber'">
+                    <div>
                         <ion-item  class="cs-date" >
                             <ion-label>Date of Birth</ion-label>
                             <ion-datetime displayFormat="DD/MM/YYYY" max={{today_date}} type="text"  name="dob" #dob="ngModel" [(ngModel)]="data.dob" >
@@ -90,7 +90,7 @@
                 </ion-list>
                 
             </div>		  
-            <div class="ragistration-fields"  *ngIf="data.type=='Plumber'">
+            <div class="ragistration-fields" >
                 <div class="cs-form">
                     <ion-list>
                         <ion-item class="cs-select" >
@@ -120,7 +120,7 @@
                             <ion-input type="text" name="document_no" #document_no="ngModel" [(ngModel)]="data.document_no"  ></ion-input>
                         </ion-item>
                         
-                        <ion-item class="cs-input" [ngClass]="{'error':f.submitted && referral_by_code?.invalid}" *ngIf="data.type=='Plumber'" >
+                        <ion-item class="cs-input" [ngClass]="{'error':f.submitted && referral_by_code?.invalid}" >
                             <ion-label floating>Referral Code</ion-label>
                             <ion-input type="text" name="referral_by_code" #referral_by_code="ngModel" [(ngModel)]="data.referral_by_code"></ion-input>
                         </ion-item>
