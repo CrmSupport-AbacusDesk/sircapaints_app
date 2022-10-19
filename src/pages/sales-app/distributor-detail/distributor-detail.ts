@@ -233,7 +233,7 @@ export class DistributorDetailPage {
         
         viewProfiePic(src)
         {
-            this.modalCtrl.create(ViewProfilePage, {"Image": "https://app.gravitybath.com/uploads/"+src}).present();
+            this.modalCtrl.create(ViewProfilePage, {"Image": "https://devcrm.abacusdesk.com/sircapaints/uploads/"+src}).present();
         }
         ionViewDidLeave()
         {

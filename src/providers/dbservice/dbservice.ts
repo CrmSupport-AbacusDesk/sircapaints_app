@@ -10,34 +10,15 @@ export class DbserviceProvider {
 
   loading:Loading;
 
-  // live links ---------------------
-  public rootUrl: string =  'https://app.gravitybath.com/dd_api/'
-  public rootUrlSfa: string =  'https://app.gravitybath.com/crm/api/app/'
+  public rootUrl: string =  'https://devcrm.abacusdesk.com/sircapaints/dd_api/'
+  public rootUrlSfa: string =  'https://devcrm.abacusdesk.com/sircapaints/crm/api/index.php/app/'
   public server_url: string = this.rootUrl + 'index.php/app/';
   public upload_url: string = this.rootUrl;
-  public upload_url1: string = 'https://app.gravitybath.com/crm/api/uploads/';
-  public upload_url2: string = 'https://app.gravitybath.com/uploads/order-invoice/';
-  public upload_url3: string = 'https://app.gravitybath.com/dd_api/app/uploads/';
-  public stock_pdf_url: string = 'https://app.gravitybath.com/crm/api/uploads/';
-  public uploadURL: string = 'https://app.gravitybath.com/dd_api/app/uploads/images/';
-
-
-
-
-
-
-  // test links ---------------------
-  // public rootUrl: string =  'https://apps.abacusdesk.com/gravity2k21/dd_api/index.php/'
-  // public rootUrlSfa: string =  'https://apps.abacusdesk.com/gravity2k21/crm/api/index.php/app/'
-  // public server_url: string = this.rootUrl + 'app/';
-  // public upload_url: string = this.rootUrl;
-  // public upload_url1: string = 'https://apps.abacusdesk.com/gravity2k21/crm/api/index.php/uploads/';
-  // public upload_url2: string = 'https://apps.abacusdesk.com/gravity2k21/uploads/order-invoice/';
-  // public upload_url3: string = 'https://apps.abacusdesk.com/gravity2k21/dd_api/app/uploads/';
-  // public stock_pdf_url: string = 'https://apps.abacusdesk.com/gravity2k21/crm/api/uploads/';
-  // public uploadURL: string = 'https://apps.abacusdesk.com/gravity2k21/dd_api/app/uploads/images/';
-
-
+  public upload_url1: string = 'https://devcrm.abacusdesk.com/sircapaints/crm/api/index.php/uploads/';
+  public upload_url2: string = 'https://devcrm.abacusdesk.com/sircapaints/uploads/order-invoice/';
+  public upload_url3: string = 'https://devcrm.abacusdesk.com/sircapaints/dd_api/app/uploads/';
+  public stock_pdf_url: string = 'https://devcrm.abacusdesk.com/sircapaints/crm/api/uploads/';
+  public uploadURL: string = 'https://devcrm.abacusdesk.com/sircapaints/dd_api/app/uploads/images/';
 
 
   userStorageData: any;

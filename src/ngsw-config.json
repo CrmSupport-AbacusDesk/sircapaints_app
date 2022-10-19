@@ -9,7 +9,7 @@
         "/assets/**"
       ],
       "urls": [
-        "https://app.gravitybath.com/dd_api/app/Http/Controllers/Admin/Master/appOfflineUploads/productImage/**"
+        "https://devcrm.abacusdesk.com/sircapaints/dd_api/app/Http/Controllers/Admin/Master/appOfflineUploads/productImage/**"
       ]
     }
   }]

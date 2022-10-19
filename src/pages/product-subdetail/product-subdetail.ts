@@ -133,12 +133,12 @@ export class ProductSubdetailPage {
 
                     if(this.prod_image.length > 1) {
 
-                        this.imgData='https://app.gravitybath.com/dd_api/app/Http/Controllers/Admin/Master/appOfflineUploads/productImage/'+this.prod_image[1].image;
+                        this.imgData='https://devcrm.abacusdesk.com/sircapaints/dd_api/app/Http/Controllers/Admin/Master/appOfflineUploads/productImage/'+this.prod_image[1].image;
 
 
                     } else {
 
-                        this.imgData='https://app.gravitybath.com/dd_api/app/Http/Controllers/Admin/Master/appOfflineUploads/productImage/'+this.prod_image[0].image;;
+                        this.imgData='https://devcrm.abacusdesk.com/sircapaints/dd_api/app/Http/Controllers/Admin/Master/appOfflineUploads/productImage/'+this.prod_image[0].image;;
 
                     }
 

@@ -322,7 +322,7 @@ uploadImage(profile)
 
     viewProfiePic()
     {
-        this.modalCtrl.create(ViewProfilePage, {"Image": "https://app.gravitybath.com/uploads/"+this.data.image}).present();
+        this.modalCtrl.create(ViewProfilePage, {"Image": "https://devcrm.abacusdesk.com/sircapaints/uploads/"+this.data.image}).present();
     }
 
 }
