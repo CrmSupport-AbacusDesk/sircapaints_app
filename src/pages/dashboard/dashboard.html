@@ -66,18 +66,6 @@
             </div>
         </div>
 
-       
-        <div style="display: flex; justify-content: center; ">
-             <button ion-button style="font-size: 1rem;height: 2rem;border-radius: 10px;" (click)="refreshCatalogue()"><i class="material-icons">refresh</i> Refresh Catalogue</button>
-        <!-- <button ion-button style="font-size: 1rem;height: 2rem;border-radius: 10px;" (click)="onProcessSQLDataHandler()"><i class="material-icons">refresh</i> Refresh Catalogue</button> -->
-
-        </div>
-       
-        <p *ngIf="offlineService.shouldStartSetUpProcess===true" style="text-align:center">Catalogue Offline Setup:  </p>
-        <!-- <p  style="text-align:center">Catalogue Offline Setup: <span><i class="material-icons" (click)="onProcessSQLDataHandler()">refresh</i> </span> </p> -->
-        <progress-bar [progress]="offlineService.imagesDownloadProgress" [color]="'#488aff'" *ngIf="offlineService.shouldStartSetUpProcess===true">
-            <!-- <progress-bar [progress]="offlineService.imagesDownloadProgress" [color]="'#488aff'" > -->
-        </progress-bar>
 
 
         <ng-container *ngIf="user_data.user_type!='OFFICE'">
@@ -267,7 +255,7 @@
                     </div>
                     <div class="g-right">
                         <div class="g-content" >
-                            <p>Order To Gravity</p>
+                            <p>Order To Sirca Paints</p>
                             <p >&#x20B9; <span>{{total_primary_order.primary_order_sum |number:'1.0-0'}}/-</span></p>
                         </div>
                         <div class="g-count">

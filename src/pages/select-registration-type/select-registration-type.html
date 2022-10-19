@@ -8,12 +8,17 @@
 
 	<ion-list radio-group [(ngModel)]="data.registerType" >
 		<ion-list-header class="border-heading">
-			Select Registration Type
+			Select Login Type
 		</ion-list-header>
 
 		<ion-item>
-		  <ion-label>Consumer</ion-label>
-		  <ion-radio value="Customer" ></ion-radio>
+			<ion-label>Architect</ion-label>
+			<ion-radio  value="Architect"></ion-radio>
+		</ion-item>
+
+		<ion-item>
+		  <ion-label>Contractor</ion-label>
+		  <ion-radio value="Contractor" ></ion-radio>
 		</ion-item>
 
 		<ion-item>
@@ -21,21 +26,15 @@
 		  <ion-radio  value="Employee"></ion-radio>
 		</ion-item>
 
-		<ion-item>
+		<!-- <ion-item>
 			<ion-label>Ware House / Production</ion-label>
 			<ion-radio  value="Ware House"></ion-radio>
-		  </ion-item>
+		  </ion-item> -->
   
-
-		<ion-item>
-		  <ion-label>Plumber</ion-label>
-		  <ion-radio  value="Plumber"></ion-radio>
-		</ion-item>
-
-		<ion-item>
+		<!-- <ion-item>
 			<ion-label>Retail Partner/Distributor</ion-label>
 			<ion-radio  value="DrLogin"></ion-radio>
-		  </ion-item>
+		</ion-item> -->
 	  </ion-list>
 
 

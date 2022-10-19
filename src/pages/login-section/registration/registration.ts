@@ -101,16 +101,7 @@ export class RegistrationPage {
           console.log(this.selectedFile);
           console.log('data');
           this.data.type = this.navParams.get('loginType');
-          if(this.data.type == 'Customer')
-          {
-            this.registerType = 'Customer';
-            this.data.status='Verified';
-            // console.log(this.data.dealer_status);
-          }
-          else{
-            this.registerType = 'Plumber';
-            this.data.status='Pending';
-          }
+          this.data.status='Pending';
           this.data.karigar_edit_id='';
           this.saveFlag = true;
           this.presentLoading();

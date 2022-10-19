@@ -305,18 +305,18 @@ export class MyApp {
           {
             title : 'My cart', name: 'Favorite Product', component:FavoriteProductPage, index: 2, icon: 'shopping_cart', show: true
           },
-          {
-            title : 'Videos', name: 'Videos', component:VideoCategoryPage, index: 9, icon: 'videocam', show: true
-          },
+          // {
+          //   title : 'Videos', name: 'Videos', component:VideoCategoryPage, index: 9, icon: 'videocam', show: true
+          // },
           {
             title: 'Check-In', name: 'Check-In', component: CheckinListPage , index: 9,icon: 'home_work', show: true
           },
           {
             title: 'Attendance', name: 'AttendencePage', component: AttendencePage,index: 11, icon: 'date_range', show: true
           },
-          {
-            title : 'Quotation', name: 'QuotationDistributorPage', component:QuotationDistributorPage, index: 10, icon: 'insert_drive_file', show: true
-          },
+          // {
+          //   title : 'Quotation', name: 'QuotationDistributorPage', component:QuotationDistributorPage, index: 10, icon: 'insert_drive_file', show: true
+          // },
           {
             title : 'Channel Partner', name: 'Distributor', component: MainDistributorListPage,index: 15, icon: 'group', show: true
           },
@@ -326,9 +326,9 @@ export class MyApp {
           {
             title : 'Retail Partner', name: 'Dealer', component: MainDistributorListPage,index: 12, icon: 'person', show: true
           },
-          {
-            title: 'Lead', name: 'Lead', component: DistributorListPage,index: 5, icon: 'group_add', show: true
-          },
+          // {
+          //   title: 'Lead', name: 'Lead', component: DistributorListPage,index: 5, icon: 'group_add', show: true
+          // },
           
           {
             title: 'Follow Up', name: 'Follow Up', component: FollowUpListPage,index: 16, icon: 'today', show: true
@@ -342,9 +342,9 @@ export class MyApp {
             title : 'Travel Plan', name: 'TravelListPage', component: TravelListPage, index: 23, icon: 'contacts', show: true
           },
           
-          {
-            title: 'Plumber Meet', name: 'Plumber Meet', component: PlumberMeetListPage,index: 25, icon: 'groups', show: true
-          },
+          // {
+          //   title: 'Plumber Meet', name: 'Plumber Meet', component: PlumberMeetListPage,index: 25, icon: 'groups', show: true
+          // },
           
           {
             title : 'Leave', name: 'LeaveListPage', component:LeaveListPage ,index: 10, icon: 'beach_access', show: true

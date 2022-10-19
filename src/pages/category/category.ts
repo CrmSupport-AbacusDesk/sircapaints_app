@@ -159,7 +159,7 @@ export class CategoryPage {
   getCategoryImages(categoryId,index)
   {
       console.log(categoryId)
-      //  this.prod_cat_list[index]['image'] = 'https://app.gravitybath.com/dd_api/app/uploads/newarrival.jpg';
+      //  this.prod_cat_list[index]['image'] = 'https://devcrm.abacusdesk.com/sircapaints/dd_api/app/uploads/newarrival.jpg';
       this.dbService.onPostRequestDataFromApi({'categoryid':categoryId},'app_master/getcategoryImage', this.dbService.rootUrl).subscribe((res)=>
       {
         console.log(res)

@@ -451,7 +451,7 @@ export class AddNewComplaintPage {
               
               
               
-              fileTransfer.upload(this.videoId,"https://app.gravitybath.com/dd_api/app/uploadVideos.php", options1)
+              fileTransfer.upload(this.videoId,"https://devcrm.abacusdesk.com/sircapaints/dd_api/app/uploadVideos.php", options1)
               .then((data :any) => {
                 
                 var d = JSON.parse(data.response)
