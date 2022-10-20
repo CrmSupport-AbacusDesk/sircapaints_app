@@ -41,6 +41,8 @@ export class CategoryPage {
   ionViewWillEnter()
   {
       this.getProductCategoryList();
+      // this.goOnCategoryListPageWithLiveServer('');
+      // this.getCategoryImages(2,1);
   }
 
   doRefresh(refresher)

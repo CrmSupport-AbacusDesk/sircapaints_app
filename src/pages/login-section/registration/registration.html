@@ -19,7 +19,7 @@
                     
                     <ion-item class="cs-input" [ngClass]="{'error':f.submitted && mobile_no?.invalid}" >
                         <ion-label floating>Mobile No. <span>*</span></ion-label>
-                        <ion-input type="text" name="mobile_no" #mobile_no="ngModel" [(ngModel)]="data.mobile_no" required  (keypress)="MobileNumber($event)" readonly></ion-input>
+                        <ion-input type="text" name="mobile_no" minlength="10" maxlength="10" #mobile_no="ngModel" [(ngModel)]="data.mobile_no" required  (keypress)="MobileNumber($event)" ></ion-input>
                     </ion-item>
                     
                     <div>
@@ -28,13 +28,13 @@
                             <ion-datetime displayFormat="DD/MM/YYYY" max={{today_date}} type="text"  name="dob" #dob="ngModel" [(ngModel)]="data.dob" >
                             </ion-datetime>
                         </ion-item>
-                        <ion-item class="cs-input" [ngClass]="{'error':f.submitted && dist?.invalid}">
+                        <!-- <ion-item class="cs-input" [ngClass]="{'error':f.submitted && dist?.invalid}">
                             <ion-label floating>Distributor / Direct Dealer <span>*</span></ion-label>
                             <ion-select name="dist" [(ngModel)]="data.dist" #dist="ngModel" required>
                                 <ion-option *ngFor="let row of dr_list" value="{{row.id}}">{{row.company_name}}</ion-option>
                             </ion-select>
                             <ion-input type="text" name="dist" #dist="ngModel" [(ngModel)]="data.dist"></ion-input>
-                        </ion-item>
+                        </ion-item> -->
                         
                         <ion-item class="cs-input" >
                             <ion-label floating>Retail Partner Name</ion-label>

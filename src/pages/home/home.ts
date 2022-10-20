@@ -127,7 +127,7 @@ export class HomePage {
                 
                 console.log('Hello its calling');
                 this.notification();
-                this.onProcessSQLDataHandler();
+                // this.onProcessSQLDataHandler();
                 
             }
         }

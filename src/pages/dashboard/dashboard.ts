@@ -18,6 +18,7 @@ import { TargetAchievementPage } from '../target-achievement/target-achievement'
 import { FollowUpListPage } from '../follow-up/follow-up-list/follow-up-list';
 import { ReadyToDipatchOrderListPage } from '../ready-to-dipatch-order-list/ready-to-dipatch-order-list';
 import { NotificationPage } from '../notification/notification';
+import { RegistrationPage } from '../login-section/registration/registration';
 
 
 @IonicPage()
@@ -122,20 +123,20 @@ export class DashboardPage {
 
   
 
-    onProcessSQLDataHandler() {
+    // onProcessSQLDataHandler() {
 
-        if(this.offlineService.localDBCallingCount === 0) {
+    //     if(this.offlineService.localDBCallingCount === 0) {
 
-            this.offlineService.localDBCallingCount++;
-            this.offlineService.onValidateLocalDBSetUpTypeHandler();
-        }
-    }
+    //         this.offlineService.localDBCallingCount++;
+    //         this.offlineService.onValidateLocalDBSetUpTypeHandler();
+    //     }
+    // }
 
 
     ionViewDidLoad() {
         
 
-        this.onProcessSQLDataHandler();
+        // this.onProcessSQLDataHandler();
         // if(this.user_data.length<1){
         //     console.log(this.user_data); 
         //     var  apiInterval= setInterval(()=>{this.last_attendence},4000);
@@ -464,16 +465,19 @@ export class DashboardPage {
         }, 1000);
       }
 
+      goToRegistrationPage(loginType){
+        this.navCtrl.push(RegistrationPage,{loginType ,'Employee':'Employee'});
+      } 
 
-      refreshCatalogue(){
-        this.offlineService.shouldStartSetUpProcess=true;
-        this.offlineService.localDBCallingCount=0;
-        if(this.offlineService.localDBCallingCount === 0) {
-            console.log("testing purpose");
+    //   refreshCatalogue(){
+    //     this.offlineService.shouldStartSetUpProcess=true;
+    //     this.offlineService.localDBCallingCount=0;
+    //     if(this.offlineService.localDBCallingCount === 0) {
+    //         console.log("testing purpose");
             
-            this.offlineService.localDBCallingCount++;
-            this.offlineService.onValidateLocalDBSetUpTypeHandler();
-        }
-      }
+    //         this.offlineService.localDBCallingCount++;
+    //         this.offlineService.onValidateLocalDBSetUpTypeHandler();
+    //     }
+    //   }
 
 }

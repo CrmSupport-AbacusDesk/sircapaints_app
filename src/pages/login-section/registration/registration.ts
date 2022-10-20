@@ -6,6 +6,7 @@ import { DbserviceProvider } from '../../../providers/dbservice/dbservice';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import {AboutusModalPage} from '../../aboutus-modal/aboutus-modal'
 import { Storage } from '@ionic/storage';
+import { DashboardPage } from '../../dashboard/dashboard';
 
 
 
@@ -32,7 +33,7 @@ export class RegistrationPage {
   today_date:any;
   saveFlag:boolean= false;
   registerType : any ;
-
+  Employee:any='';
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public dbService:DbserviceProvider,
@@ -57,7 +58,10 @@ export class RegistrationPage {
     this.data.mobile_no = this.navParams.get('mobile_no');
     this.data.type = this.navParams.get('loginType');
     // this.data.type = "Customer";
+    this.registerType=this.navParams.get('loginType');
+    this.Employee=this.navParams.get('Employee');
     console.log(this.data.type);
+    console.log(this.Employee);
     this.data.profile='';
     this.data.document_image='';
     console.log(this.data.profile);
@@ -121,11 +125,15 @@ export class RegistrationPage {
                 this.dbService.onPostRequestDataFromApi({'mobile_no': this.data.mobile_no, 'registerType' : this.registerType,'mode' :'App'},'auth/login',this.dbService.rootUrl).subscribe( r =>
                   {
                     console.log(r);
+                   
+                    
                     if(r['status'] == 'NOT FOUND'){
 
                       return;
 
-                    } else if(r['status'] == 'ACCOUNT SUSPENDED'){
+                    } 
+                    
+                    else if(r['status'] == 'ACCOUNT SUSPENDED'){
 
                       this.showAlert("Your account has been suspended");
                       return;
@@ -133,6 +141,11 @@ export class RegistrationPage {
                     }
                     else if(r['status'] == 'SUCCESS')
                     {
+
+                      if(this.Employee='Employee'){
+                        this.navCtrl.push(DashboardPage);
+
+                      }else{
                         r['loginType'] = 'CMS';
                         r['user']['token'] = r['token'];
                         r['user']['loginType'] = r['loginType'];
@@ -151,7 +164,7 @@ export class RegistrationPage {
                               return;
                         }
                     }
-
+                  }
                   });
                 }
                 else if(r['status']=="EXIST")

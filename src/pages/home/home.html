@@ -1,4 +1,4 @@
-<ion-header *ngIf="dbService.userStorageData.type == 'Customer'" class="home-header">
+<ion-header *ngIf="dbService.userStorageData.type == 'Contractor' || dbService.userStorageData.type == 'Architect'" class="home-header">
     <ion-navbar>
         <ion-title></ion-title>
         <ion-buttons end></ion-buttons>
@@ -45,7 +45,7 @@
             </div>
 
         </div>
-        <div class="main-box" (click)="complaintHistory('Service')">
+        <!-- <div class="main-box" (click)="complaintHistory('Service')">
             <div class="product-box">
                 <img src="assets/imgs/request.svg">
 
@@ -56,8 +56,8 @@
             <div class="point">
                 <h3>{{complaint_count}}</h3>
             </div>
-        </div>
-        <div class="main-box" (click)="complaintHistory('Installation')">
+        </div> -->
+        <!-- <div class="main-box" (click)="complaintHistory('Installation')">
             <div class="product-box">
                 <img src="assets/imgs/server.svg">
             </div>
@@ -67,11 +67,11 @@
             <div class="point">
                 <h3>{{installation_count}}</h3>
             </div>
-        </div>
+        </div> -->
     </div>
 
     <div style="padding: 0px 10px 10px 10px;">
-        <div class="btns">
+        <!-- <div class="btns">
             <button *ngIf="!complaint_exist" (click)="goOnComplaintAdd('Service')">
             <div class="lf-btn">
                 <i class="material-icons">home_repair_service</i>
@@ -88,17 +88,10 @@
                 <p> Add Installation Req.</p>
             </div>
         </button>
-        </div>
+        </div> -->
 
         <div class="btns">
-            <!-- <button *ngIf="complaint_exist" (click)="goOnOpenComplaintAdd()">
-            <div class="lf-btn">
-                <i class="material-icons">meeting_room</i>
-            </div>
-            <div class="rt-btn">
-                <p>Open Service Req.</p>
-            </div>
-        </button> -->
+            
 
             <a href="tel:9582198301">
                 <div class="lf-btn">
@@ -130,7 +123,7 @@
             </div>
         </button>
 
-            <button *ngIf="dbService.userStorageData.type != 'Plumber'" (click)="goToNearestDealers('Plumber')">
+            <button *ngIf="dbService.userStorageData.type == 'Contractor' || dbService.userStorageData.type == 'Architect'" (click)="goToNearestDealers('Plumber')">
             <div class="lf-btn">
                 <i class="material-icons">engineering</i>
             </div>
@@ -162,7 +155,7 @@
 
 </ion-content>
 
-<ion-header *ngIf="dbService.userStorageData.type == 'Plumber'" class="home-header">
+<ion-header *ngIf="dbService.userStorageData.type == 'Contractor' || dbService.userStorageData.type == 'Architect'" class="home-header">
     <ion-navbar>
         <ion-title>
         </ion-title>
@@ -187,7 +180,7 @@
     </div>
 </div>
 
-<ion-content *ngIf="dbService.userStorageData.type == 'Plumber'">
+<ion-content *ngIf="dbService.userStorageData.type == 'Contractor' || dbService.userStorageData.type == 'Architect'">
 
     <ion-refresher (ionRefresh)="doRefresh($event)">
         <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingSpinner="circles" refreshingText="Refreshing...">
@@ -245,7 +238,7 @@
             </div>
             <span>{{product_count ? product_count : 0}}</span>
         </div>
-        <div class="main-box" (click)="goOnMyCamplaintsPage('Service')">
+        <!-- <div class="main-box" (click)="goOnMyCamplaintsPage('Service')">
             <div class="product-box">
                 <img src="assets/imgs/complaint.svg">
             </div>
@@ -253,8 +246,8 @@
                 <h4>Service Request</h4>
             </div>
             <span>{{plumber_complaint}}</span>
-        </div>
-        <div class="main-box" (click)="goOnMyCamplaintsPage('Installation')">
+        </div> -->
+        <!-- <div class="main-box" (click)="goOnMyCamplaintsPage('Installation')">
             <div class="product-box">
                 <img src="assets/imgs/complaint.svg">
             </div>
@@ -264,13 +257,13 @@
             <span>
                 {{plumber_installation}}
             </span>
-        </div>
+        </div> -->
     </div>
 
 
-    <p *ngIf="offlineService.shouldStartSetUpProcess===true" style="text-align:center">Catalogue Offline Setup:</p>
+    <!-- <p *ngIf="offlineService.shouldStartSetUpProcess===true" style="text-align:center">Catalogue Offline Setup:</p>
     <progress-bar [progress]="offlineService.imagesDownloadProgress" [color]="'#488aff'" *ngIf="offlineService.shouldStartSetUpProcess===true">
-    </progress-bar>
+    </progress-bar> -->
 
     <div class="pd-left-right16 mb16" (click)="goToVideosPage('Product Installation')">
         <div class="go-btn artificial">
