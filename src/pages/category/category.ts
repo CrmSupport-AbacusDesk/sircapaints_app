@@ -14,234 +14,216 @@ import { OfflineDbProvider } from '../../providers/offline-db/offline-db';
   templateUrl: 'category.html',
 })
 export class CategoryPage {
-  prod_cat_list:any=[];
-  filter :any = {};
-  flag:any='';
-  loading:Loading;
-  cat_images:any=[];
-  category_count:any='';
-  no_rec:any=false;
-  skelton:any={}
+  prod_cat_list: any = [];
+  filter: any = {};
+  flag: any = '';
+  loading: Loading;
+  cat_images: any = [];
+  category_count: any = '';
+  no_rec: any = false;
+  skelton: any = {}
   constructor(public navCtrl: NavController,
-              public navParams: NavParams,
-              public dbService:DbserviceProvider,
-              public loadingCtrl:LoadingController,
-              private app:App,
-              public offlineService: OfflineDbProvider,
-              private sqlite: SQLite) {
+    public navParams: NavParams,
+    public dbService: DbserviceProvider,
+    public loadingCtrl: LoadingController,
+    private app: App,
+    public offlineService: OfflineDbProvider,
+    private sqlite: SQLite) {
 
-        this.skelton = new Array(10);
+    this.skelton = new Array(10);
   }
 
   ionViewDidLoad() {
-      console.log('ionViewDidLoad ProductsPage');
-      this.presentLoading();
+    console.log('ionViewDidLoad ProductsPage');
+    this.presentLoading();
   }
 
-  ionViewWillEnter()
-  {
-      this.getProductCategoryList();
-      // this.goOnCategoryListPageWithLiveServer('');
-      // this.getCategoryImages(2,1);
+  ionViewWillEnter() {
+    // this.getProductCategoryList();
+    this.goOnCategoryListPageWithLiveServer();
+    // this.getCategoryImages(2,1);
   }
 
-  doRefresh(refresher)
-  {
+  doRefresh(refresher) {
     console.log('Begin async operation', refresher);
-    this.getProductCategoryList();
-    this.flag='';
+    this.goOnCategoryListPageWithLiveServer();
+    // this.getCategoryImages(2,1);
+    // this.getProductCategoryList();
+    this.flag = '';
     refresher.complete();
   }
-  goToNewArrivals()
-  {
+  goToNewArrivals() {
     console.log('newArrivals')
     this.navCtrl.push(NewarrivalsPage);
   }
 
+  goOnCategoryListPage2(name, id){
+
+    this.navCtrl.push(ProductsPage,{id,name});
+
+  }
 
   goOnCategoryListPage(name, image) {
 
-        this.presentLoading2();
-        this.filter.name = name;
-        this.offlineService.onProductSelectedImage = image;
+    this.presentLoading2();
+    this.filter.name = name;
+    this.offlineService.onProductSelectedImage = image;
 
-        this.offlineService.onReturnLocalDBHandler().subscribe((db) => {
+    this.offlineService.onReturnLocalDBHandler().subscribe((db) => {
 
-                this.offlineService.onGetCategoryRowsHandler(db, name).subscribe(categoryData => {
+      this.offlineService.onGetCategoryRowsHandler(db, name).subscribe(categoryData => {
 
-                        this.loading.dismiss();
+        this.loading.dismiss();
 
-                        const categoryLength = categoryData.rows.length;
+        const categoryLength = categoryData.rows.length;
 
-                        if(categoryLength == 1) {
+        if (categoryLength == 1) {
 
-                              console.log('list length is one');
+          console.log('list length is one');
 
-                              const item = categoryData.rows.item(0);
-                              console.log(item);
-                              const categoryId = item.id;
-                              this.navCtrl.push(ProductDetailPage,{'id':categoryId, src: 'mainCategory'});
+          const item = categoryData.rows.item(0);
+          console.log(item);
+          const categoryId = item.id;
+          this.navCtrl.push(ProductDetailPage, { 'id': categoryId, src: 'mainCategory' });
 
-                        } else {
+        } else {
 
-                              console.log('list length is two');
-                              this.navCtrl.push(ProductsPage,{'name':name})
-                        }
-                });
-        });
+          console.log('list length is two');
+          this.navCtrl.push(ProductsPage, { 'name': name })
+        }
+      });
+    });
   }
 
 
-  goOnCategoryListPageWithLiveServer(name){
+  goOnCategoryListPageWithLiveServer() {
     this.presentLoading2();
-    this.filter.limit = 0;
-    this.filter.name = name;
-    this.dbService.onPostRequestDataFromApi({'filter' : this.filter},'app_master/checkCategoryLength', this.dbService.rootUrl)
-    .subscribe((r)=>
-    {
-      console.log(r);
-      this.loading.dismiss();
-      if(r['categories'].length == 1)
-      {
-        console.log('list length is one');
-        this.navCtrl.push(ProductDetailPage,{'id':r['categories'][0].id})
-
-      }
-      else{
-        console.log('list length is two');
-
-        this.navCtrl.push(ProductsPage,{'name':name})
-      }
-    },(error: any) => {
-      this.loading.dismiss();
-    })
+    // this.filter.limit = 0;
+    // this.filter.name = name;
+    this.dbService.onPostRequestDataFromApi({ 'filter': this.filter }, 'app_karigar/getCategory', this.dbService.rootUrl)
+      .subscribe((r) => {
+        console.log(r);
+        this.prod_cat_list = r['categoryData'];
+        this.loading.dismiss();
+        if (!this.prod_cat_list.length) {
+          this.no_rec = true
+        }
+      }, (error: any) => {
+        this.loading.dismiss();
+      })
   }
 
 
   getProductCategoryList(name = '') {
 
-          this.filter.name = name;
-          if(name) {
-             this.filter.name = '%' +name + '%';
-          }
-          this.no_rec=false
-          this.offlineService.onGetMainCategoryListHandler(this.filter).subscribe(data => {
+    this.filter.name = name;
+    if (name) {
+      this.filter.name = '%' + name + '%';
+    }
+    this.no_rec = false
+    this.offlineService.onGetMainCategoryListHandler(this.filter).subscribe(data => {
 
-                console.log(data);
-                this.prod_cat_list = [];
+      console.log(data);
+      this.prod_cat_list = [];
 
-                for (let i = 0; i < data.rows.length; i++) {
+      for (let i = 0; i < data.rows.length; i++) {
 
-                      let item = data.rows.item(i);
-                      this.prod_cat_list.push(item);
-                      console.log(item);
-                      console.log(item.id);
-                      this.offlineService.onReturnImagePathHandler('mainCategoryImage', item.image, item.id).subscribe((imageResultData) => {
+        let item = data.rows.item(i);
+        this.prod_cat_list.push(item);
+        console.log(item);
+        console.log(item.id);
+        this.offlineService.onReturnImagePathHandler('mainCategoryImage', item.image, item.id).subscribe((imageResultData) => {
 
-                            console.log(imageResultData);
+          console.log(imageResultData);
 
-                            const categoryIndex = this.prod_cat_list.findIndex(row => row.id == imageResultData.recordId);
+          const categoryIndex = this.prod_cat_list.findIndex(row => row.id == imageResultData.recordId);
 
-                            console.log(this.prod_cat_list);
-                            console.log('categoryIndex ' + categoryIndex);
+          console.log(this.prod_cat_list);
+          console.log('categoryIndex ' + categoryIndex);
 
-                            this.prod_cat_list[categoryIndex].imageCompletePath = imageResultData['imagePath'];
+          this.prod_cat_list[categoryIndex].imageCompletePath = imageResultData['imagePath'];
 
-                      });
-                }
+        });
+      }
 
-                console.log(this.prod_cat_list);
-                if(!this.prod_cat_list.length)
-                {
-                     this.no_rec=true
-                }
-          });
+      console.log(this.prod_cat_list);
+      if (!this.prod_cat_list.length) {
+        this.no_rec = true
+      }
+    });
   }
 
-  getCategoryImages(categoryId,index)
-  {
-      console.log(categoryId)
-      //  this.prod_cat_list[index]['image'] = 'https://devcrm.abacusdesk.com/sircapaints/dd_api/app/uploads/newarrival.jpg';
-      this.dbService.onPostRequestDataFromApi({'categoryid':categoryId},'app_master/getcategoryImage', this.dbService.rootUrl).subscribe((res)=>
-      {
-        console.log(res)
-        console.log(res['categories'][0]['image'])
-        this.prod_cat_list[index]['image'] = res['categories'][0]['image']
-      })
+  getCategoryImages(categoryId, index) {
+    console.log(categoryId)
+    //  this.prod_cat_list[index]['image'] = 'https://devcrm.abacusdesk.com/sircapaints/dd_api/app/uploads/newarrival.jpg';
+    this.dbService.onPostRequestDataFromApi({ 'categoryid': categoryId }, 'app_master/getcategoryImage', this.dbService.rootUrl).subscribe((res) => {
+      console.log(res)
+      console.log(res['categories'][0]['image'])
+      this.prod_cat_list[index]['image'] = res['categories'][0]['image']
+    })
   }
 
 
-  loadData(infiniteScroll)
-  {
+  loadData(infiniteScroll) {
     console.log('loading');
 
-    this.filter.limit=this.prod_cat_list.length;
-    this.dbService.onPostRequestDataFromApi({'filter' : this.filter},'app_master/parentCategoryList', this.dbService.rootUrl).subscribe( r =>
-      {
-        console.log(r);
-        if(r['categories']=='')
-        {
-          this.flag=1;
-        }
-        else
-        {
-          setTimeout(()=>{
-            for (let index = this.prod_cat_list.length; index < r['categories'].length; index++) {
-              console.log(r['categories'][index])
-              this.getCategoryImages(r['categories'][index]['main_category'],index)
-            }
-            this.prod_cat_list=this.prod_cat_list.concat(r['categories']);
-            console.log('Asyn operation has stop')
-            infiniteScroll.complete();
-          },1000);
-        }
-      });
-    }
-    presentLoading()
-    {
-      // this.loading = this.loadingCtrl.create({
-      //   content: "Please wait...",
-      //   dismissOnPageChange: true
-      // });
-      // this.loading.present();
-    }
-    presentLoading2()
-    {
-      this.loading = this.loadingCtrl.create({
-        content: "",
-        dismissOnPageChange: true
-      });
-      this.loading.present();
-    }
-    ionViewDidLeave()
-    {
-      let nav = this.app.getActiveNav();
-      if(nav && nav.getActive())
-      {
-        let activeView = nav.getActive().name;
-        let previuosView = '';
-        if(nav.getPrevious() && nav.getPrevious().name)
-        {
-          previuosView = nav.getPrevious().name;
-        }
-        console.log(previuosView);
-        console.log(activeView);
-        console.log('its leaving');
-        if((activeView == 'HomePage' || activeView == 'GiftListPage' || activeView == 'TransactionPage' || activeView == 'ProfilePage' ||activeView =='MainHomePage') && (previuosView != 'HomePage' && previuosView != 'GiftListPage'  && previuosView != 'TransactionPage' && previuosView != 'ProfilePage' && previuosView != 'MainHomePage'))
-        {
+    this.filter.limit = this.prod_cat_list.length;
+    this.dbService.onPostRequestDataFromApi({ 'filter': this.filter }, 'app_master/parentCategoryList', this.dbService.rootUrl).subscribe(r => {
+      console.log(r);
+      if (r['categories'] == '') {
+        this.flag = 1;
+      }
+      else {
+        setTimeout(() => {
+          for (let index = this.prod_cat_list.length; index < r['categories'].length; index++) {
+            console.log(r['categories'][index])
+            this.getCategoryImages(r['categories'][index]['main_category'], index)
+          }
+          this.prod_cat_list = this.prod_cat_list.concat(r['categories']);
+          console.log('Asyn operation has stop')
+          infiniteScroll.complete();
+        }, 1000);
+      }
+    });
+  }
+  presentLoading() {
+    // this.loading = this.loadingCtrl.create({
+    //   content: "Please wait...",
+    //   dismissOnPageChange: true
+    // });
+    // this.loading.present();
+  }
+  presentLoading2() {
+    this.loading = this.loadingCtrl.create({
+      content: "",
+      dismissOnPageChange: true
+    });
+    this.loading.present();
+  }
+  ionViewDidLeave() {
+    let nav = this.app.getActiveNav();
+    if (nav && nav.getActive()) {
+      let activeView = nav.getActive().name;
+      let previuosView = '';
+      if (nav.getPrevious() && nav.getPrevious().name) {
+        previuosView = nav.getPrevious().name;
+      }
+      console.log(previuosView);
+      console.log(activeView);
+      console.log('its leaving');
+      if ((activeView == 'HomePage' || activeView == 'GiftListPage' || activeView == 'TransactionPage' || activeView == 'ProfilePage' || activeView == 'MainHomePage') && (previuosView != 'HomePage' && previuosView != 'GiftListPage' && previuosView != 'TransactionPage' && previuosView != 'ProfilePage' && previuosView != 'MainHomePage')) {
 
-          console.log(previuosView);
-          this.navCtrl.popToRoot();
-        }
+        console.log(previuosView);
+        this.navCtrl.popToRoot();
       }
     }
-    //master search start
-    goToProductsWithSearch(globalSearchData)
-    {
-      setTimeout(() => {
-
-        this.navCtrl.push(ProductDetailPage, {'id':'', categoryName:'', globalSearchData: globalSearchData, src: 'mainCategory'})
-      }, 500);
-    }
-
   }
+  //master search start
+  goToProductsWithSearch(globalSearchData) {
+    setTimeout(() => {
+
+      this.navCtrl.push(ProductDetailPage, { 'id': '', categoryName: '', globalSearchData: globalSearchData, src: 'mainCategory' })
+    }, 500);
+  }
+
+}

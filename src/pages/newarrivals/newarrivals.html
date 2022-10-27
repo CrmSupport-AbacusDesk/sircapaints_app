@@ -6,7 +6,7 @@
     <ion-toolbar>
         <div class="search add-search">
             <div class="filter">
-                <ion-searchbar type='text' name='search'  [(ngModel)]="filter.search" (ngModelChange)="getProductList(cat_id,filter.search)"></ion-searchbar>
+                <ion-searchbar type='text' name='search'  [(ngModel)]="filter.search" (ngModelChange)="getProductListWithLiveServer(cat_id,filter.search)"></ion-searchbar>
             </div>
             <!-- <div class="found width-remove">
                 <h3>{{prod_list.length}}/{{total_count}}</h3>
@@ -22,7 +22,7 @@
         
     </div>
     
-    <div *ngIf="prod_list.length"class="main-div">
+    <div *ngIf="prod_list.length" class="main-div">
         <div class="sub-listing tydo-list p0">
             <div class="tydo-item">
                 <h3>New Arrivals<br><span>"{{prod_list.length}}/{{total_count}}" Products Found</span> </h3>

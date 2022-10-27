@@ -63,7 +63,7 @@ export class ProductSubdetailPage {
         ionViewDidLoad() {
             console.log('ionViewDidLoad ProductSubdetailPage');
             this.prod_id = this.navParams.get('id');
-            this.getProductDetail(this.prod_id);
+            this.getProductDetailWithLiveServer(this.prod_id);
 
         }
         openLink(Link)

@@ -181,6 +181,8 @@ import { QuotationDistributorPageModule } from '../pages/quotation-distributor/q
 import { AddQuotationPageModule } from '../pages/add-quotation/add-quotation.module';
 import { QuotationDetailPageModule } from '../pages/quotation-detail/quotation-detail.module';
 import { EmailModalPageModule } from '../pages/email-modal/email-modal.module';
+import { ContractorListPageModule } from '../pages/contractor-list/contractor-list.module';
+import { ArchitectorListPageModule } from '../pages/architector-list/architector-list.module';
 
 
 
@@ -227,6 +229,8 @@ import { EmailModalPageModule } from '../pages/email-modal/email-modal.module';
         LoginScreenPageModule,
         ExecutivDetailPageModule,
         TaskClosePageModule,
+        ContractorListPageModule,
+        ArchitectorListPageModule,
         QuotationDistributorPageModule,
         AddQuotationPageModule,
         QuotationDetailPageModule,

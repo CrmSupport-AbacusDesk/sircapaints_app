@@ -1,0 +1,90 @@
+<ion-header>
+
+  <ion-navbar>
+      <ion-title>Architect List</ion-title>
+    
+  </ion-navbar>
+  <ion-toolbar>
+      <ion-searchbar (keyup.enter)="getArchitectList()" [(ngModel)]="filter.master" name="master"></ion-searchbar>
+  </ion-toolbar>
+
+</ion-header>
+
+
+<ion-content>
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+      <ion-refresher-content  pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingSpinner="circles" refreshingText="Refreshing...">
+      </ion-refresher-content>
+  </ion-refresher>
+  <div class="nothing-here" *ngIf="!architectList.length">
+      <div class="outer">
+          <div class="innear">
+              <img src="assets/imgs/nothing.svg" alt="">
+              <p>Data not Available</p>
+          </div>
+      </div>
+  </div>
+
+
+
+
+
+  <div class="pd-left-right16">
+        <div class="list-box mt16" *ngFor="let data of architectList">
+
+          <div class="mid mt0">
+            <div class="content-info" >
+                <div class="left-info" >
+                    <div class="circle">{{data.first_name.substring(0,1).toUpperCase()}}</div>
+                </div>
+
+                <div class="right-info">
+                    <p>{{data.first_name.toUpperCase()}} {{data.last_name.toUpperCase()}}</p>
+                    <p>({{data.mobile_no}})</p>
+                </div>
+            </div>
+            <div class="tag-info">
+                <a href="tel:{{data.mobile_no}}"><i class="material-icons">phone</i></a>
+            </div>
+        </div>
+        <div class="lower"  *ngIf=" data.address  || data.state  || data.district  || data.city || data.pincode">
+            <p>Address</p>
+            <p>{{data.address}} {{data.state | titlecase}} {{data.district | titlecase}} {{data.city | titlecase}} {{data.pincode}}</p>
+        </div>
+
+        <div class="three_boxes">
+            <div class="lower">
+                <p>Date Created </p>
+                <p>{{data.date_created | date : 'd MMM, y'}}</p>
+            </div>
+            <!-- <div class="lower">
+                <p>Created By</p>
+                <p>{{data.created_by_name | titlecase}}</p>
+            </div> -->
+
+        </div>
+      </div>
+  </div>
+
+
+
+
+
+
+
+  <!-- infinite scroll -->
+
+  <!-- <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)"  *ngIf="flag!=1">
+      <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
+      </ion-infinite-scroll-content>
+  </ion-infinite-scroll> -->
+  <!-- infinite scroll end -->
+
+</ion-content>
+
+
+<div class="cus-fab">
+  <button (click)="goToRegistrationPage('Architect')">
+          <i class="material-icons">add</i>
+      </button>
+</div>

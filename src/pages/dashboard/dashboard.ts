@@ -19,6 +19,8 @@ import { FollowUpListPage } from '../follow-up/follow-up-list/follow-up-list';
 import { ReadyToDipatchOrderListPage } from '../ready-to-dipatch-order-list/ready-to-dipatch-order-list';
 import { NotificationPage } from '../notification/notification';
 import { RegistrationPage } from '../login-section/registration/registration';
+import { ContractorListPage } from '../contractor-list/contractor-list';
+import { ArchitectorListPage } from '../architector-list/architector-list';
 
 
 @IonicPage()
@@ -468,6 +470,12 @@ export class DashboardPage {
       goToRegistrationPage(loginType){
         this.navCtrl.push(RegistrationPage,{loginType ,'Employee':'Employee'});
       } 
+      goToContractorPage(){
+        this.navCtrl.push(ContractorListPage);
+      }
+      goToArchitecturePage(){
+        this.navCtrl.push(ArchitectorListPage);
+      }
 
     //   refreshCatalogue(){
     //     this.offlineService.shouldStartSetUpProcess=true;
