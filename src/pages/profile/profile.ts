@@ -44,7 +44,7 @@ export class ProfilePage {
     public modalCtrl: ModalController,
     public sanitizer: DomSanitizer) {
       
-      this.uploadURL = this.dbService.uploadURL;
+      this.uploadURL = this.dbService.upload_url3;
 
 
       if(this.dbService.connection=='offline')

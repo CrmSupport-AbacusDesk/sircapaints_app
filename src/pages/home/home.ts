@@ -72,7 +72,7 @@ export class HomePage {
         public file: File) {
             this.uploadURL = this.dbService.uploadURL;
             
-            this.loginBanner();
+            // this.loginBanner();
             this.notification();
             events.subscribe('getCountProducts',(data)=>
             {

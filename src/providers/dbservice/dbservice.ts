@@ -55,7 +55,7 @@ export class DbserviceProvider {
         headers = headers.set('Token', 'Bearer ' + this.userStorageData.token);
       }
 
-      return this.http.post(serverURL + fn, JSON.stringify(requestData), {headers: headers});
+      return this.http.post(serverURL + fn, JSON.stringify(requestData), {headers: headers}) ;
     }
 
 

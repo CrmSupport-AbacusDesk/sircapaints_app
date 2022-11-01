@@ -1,6 +1,7 @@
 <ion-header class="main-header remove">
     <ion-navbar>
-        <ion-title>Registration</ion-title>
+        <ion-title *ngIf="data.type">{{data.type}} Registration</ion-title>
+        <ion-title *ngIf="!data.type">Registration</ion-title>
     </ion-navbar>
 </ion-header>
 
@@ -36,11 +37,11 @@
                             <ion-input type="text" name="dist" #dist="ngModel" [(ngModel)]="data.dist"></ion-input>
                         </ion-item> -->
                         
-                        <ion-item class="cs-input" >
+                        <!-- <ion-item class="cs-input" >
                             <ion-label floating>Retail Partner Name</ion-label>
                             <ion-input type="text" name="dealer_contact_person" #dealer_contact_person="ngModel" [(ngModel)]="data.dealer_contact_person" (keypress)="namecheck($event)" ></ion-input>
-                        </ion-item>
-                        
+                        </ion-item> -->
+<!--                         
                         <div [ngClass]="{'error':f.submitted && dealer_mobile?.invalid}">
                             <ion-item class="cs-input mb0">
                                 <ion-label floating>Retail Partner Mobile No.</ion-label>
@@ -50,7 +51,7 @@
                             <div class="eror" *ngIf="f.submitted && dealer_mobile?.invalid">
                                 <p>Enter 10 Digits</p>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                 </ion-list>
             </div>

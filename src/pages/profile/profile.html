@@ -9,14 +9,14 @@
 	</ion-navbar>
 </ion-header>
 
-<ion-content *ngIf="dbService.userStorageData.type == 'Plumber'" class="profile-bg" >
+<ion-content *ngIf="dbService.userStorageData.type=='Contractor'" class="profile-bg" >
 	<div class="profile">
 		<div class="profile-detail">
 			<div class="profile-pic">
 				<!-- <img src="assets/imgs/man.svg" *ngIf="karigar_detail.profile ==''"> -->
-				<img [src]="uploadURL+karigar_detail.profile"  (click) = "karigar_detail.profile?viewProfiePic():''">
+				<!-- <img [src]="uploadURL+karigar_detail.profile"  (click)="karigar_detail.profile?viewProfiePic():''"> -->
 				<!-- <img src="assets/imgs/profile.png"> -->
-				<a><i class="material-icons" (click)="openeditprofile()">camera_alt</i></a>
+				<!-- <a><i class="material-icons" (click)="openeditprofile()">camera_alt</i></a> -->
 			</div>
 
 			<div class="name">
@@ -29,9 +29,9 @@
 					{{karigar_detail.status}} ({{karigar_detail.type}})</a>
 					<a *ngIf="dbService.userStorageData.type != 'Plumber'">{{karigar_detail.type}}</a>
 				</div>
-				<div class="edit-profile pencil-btn" (click)="editProfilePage()">
+				<!-- <div class="edit-profile pencil-btn" (click)="editProfilePage()">
 					<button > <i class="material-icons">edit</i></button>
-				</div>
+				</div> -->
 
 				<div class="rating-area mt16">
 					<div class="border-box">
@@ -56,10 +56,10 @@
 						<h3>Permanent Address</h3>
 						<p>{{karigar_detail.permanent_address |titlecase}} {{karigar_detail.permanent_state |titlecase}} {{karigar_detail.parmanent_district |titlecase}}  {{karigar_detail.permanent_city |titlecase}} {{karigar_detail.permanent_pincode }}</p>
 					</div>
-					<div class="ratings"  *ngIf="dbService.userStorageData.type == 'Plumber'">
+					<!-- <div class="ratings"  *ngIf="dbService.userStorageData.type == 'Contractor'">
 						<h3>Retail Partner Information</h3>
 						<p> {{karigar_detail.dealer_contact_person | titlecase}} ({{karigar_detail.dealer_mobile}})</p>
-					</div>
+					</div> -->
 					<!-- <div class="ratings"  *ngIf="dbService.userStorageData.type == 'Plumber'">
 						<h3>Service Wallet Balance</h3>
 						<p> {{karigar_detail.service_wallet_balance_points}} </p>
@@ -98,14 +98,14 @@
 	</ion-content>
 
 
-<ion-content *ngIf="dbService.userStorageData.type == 'Customer'">
+<ion-content *ngIf="dbService.userStorageData.type=='Architect'">
 		<div class="profile">
 			<div class="profile-detail">
 				<div class="profile-pic">
 					<!-- <img src="assets/imgs/man.svg" *ngIf="karigar_detail.profile ==''"> -->
-					<img [src]="karigar_detail.profile" onerror="this.src='https://devcrm.abacusdesk.com/sircapaints/uploads/no-thumbnail.jpg'"(click) = "viewProfiePic()" >
+					<!-- <img [src]="karigar_detail.profile" onerror="this.src='https://devcrm.abacusdesk.com/sircapaints/uploads/no-thumbnail.jpg'"(click) = "viewProfiePic()" > -->
 					<!-- <img src="assets/imgs/profile.png"> -->
-					<a><i class="material-icons" (click)="openeditprofile()">camera_alt</i></a>
+					<!-- <a><i class="material-icons" (click)="openeditprofile()">camera_alt</i></a> -->
 				</div>
 
 				<div class="name">
@@ -118,9 +118,9 @@
 						{{karigar_detail.status}}</a>-->
 					</div>
 
-					<div class="edit-profile pencil-btn" (click)="editProfilePage()">
+					<!-- <div class="edit-profile pencil-btn" (click)="editProfilePage()">
 						<button><i class="material-icons">edit</i></button>
-					</div>
+					</div> -->
 					<div class="rating-area mt16 new-cl">
 
 						<div class="ratings">
