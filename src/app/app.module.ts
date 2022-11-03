@@ -183,6 +183,9 @@ import { QuotationDetailPageModule } from '../pages/quotation-detail/quotation-d
 import { EmailModalPageModule } from '../pages/email-modal/email-modal.module';
 import { ContractorListPageModule } from '../pages/contractor-list/contractor-list.module';
 import { ArchitectorListPageModule } from '../pages/architector-list/architector-list.module';
+import { SiteListPageModule } from '../pages/site-list/site-list.module';
+import { SiteAddPageModule } from '../pages/site-add/site-add.module';
+import { SiteDetailPageModule } from '../pages/site-detail/site-detail.module';
 
 
 
@@ -231,6 +234,9 @@ import { ArchitectorListPageModule } from '../pages/architector-list/architector
         TaskClosePageModule,
         ContractorListPageModule,
         ArchitectorListPageModule,
+        SiteListPageModule,
+        SiteAddPageModule,
+        SiteDetailPageModule,
         QuotationDistributorPageModule,
         AddQuotationPageModule,
         QuotationDetailPageModule,

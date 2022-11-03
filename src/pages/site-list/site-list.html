@@ -1,0 +1,116 @@
+
+<ion-header  no-border>
+  <ion-navbar>
+    <ion-title>Site List</ion-title>
+  </ion-navbar>
+  <ion-toolbar color="secondary" >
+    <!-- <div class="pl16">
+      <ion-searchbar type='text' placeholder="Search" name='search' #search="ngModel" [(ngModel)]="filter.search" 
+      (ngModelChange)="siteList(filter.search, details, sites)"></ion-searchbar>
+    </div> -->
+  </ion-toolbar>
+  <!-- <ion-toolbar color="white" class="cs-toolbar"  *ngIf="teamExist > 0">
+    <div>
+      <ion-segment [(ngModel)]="details">
+        <ion-segment-button value="My" (click)="siteList('', details, sites)">
+          <span class="black capitalize">{{ 'My Sites' | translate }}</span>
+        </ion-segment-button>
+        <ion-segment-button value="Team" (click)="siteList('',details, sites)">
+          <span class="black capitalize">{{ 'Team Site' | translate }}</span>
+        </ion-segment-button>
+      </ion-segment>
+    </div>
+  </ion-toolbar> -->
+  <!-- <ion-toolbar color="white" class="cs-toolbar">
+    <div [ngClass]="{'ion-tab-btn': teamExist > 0, 'round-tab':teamExist > 0, 'pt10':teamExist > 0, 'pb10':teamExist > 0}">
+      <ion-segment [(ngModel)]="sites">
+        <ion-segment-button value="Active" (click)="siteList('', details, sites)">
+          <span class="black capitalize">{{ 'Active' | translate }} ({{active_count}})</span>
+        </ion-segment-button>
+        
+        <ion-segment-button value="Deactive" (click)="siteList('', details, sites)">
+          <span class="black capitalize">{{ 'Deactive' | translate }} ({{inactive_count}})</span>
+        </ion-segment-button>
+      </ion-segment>
+    </div>
+  </ion-toolbar> -->
+</ion-header>
+
+<ion-content >
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingSpinner="circles" refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
+  
+  <div class="padding16 mb70">
+    <div class="cs-list after-none pb0" *ngFor="let row of data; let i = index;" (click)="goOnSiteDetail(row.id)">
+      <div class="top-block">
+        <p>{{row.date_created |  date:'d MMMM y'}}</p>
+        <ion-icon name="arrow-forward"   ios="ios-arrow-forward"></ion-icon>
+      </div>
+      
+      <div class="block-item">
+        <div class="column-blocks">
+          <div class="blocks">
+            <p>Created By : <strong>{{row.created_name | titlecase}}</strong></p>
+          </div>
+        </div>
+        <div class="column-blocks">
+          <div class="blocks">
+            <p>Owner Detail : <strong>{{row.site_owner_name |titlecase}} - {{row.site_owner_contact}}</strong></p>
+          </div>
+        </div>
+        <div class="column-blocks">
+          <div class="blocks">
+            <p>State : <strong>{{row.state}}</strong></p>
+          </div>
+          <div class="blocks">
+            <p>District : <strong>{{row.district}}</strong> </p>
+          </div>
+        </div>
+        <div class="column-blocks">
+          <div class="blocks">
+            <p>City : <strong>{{row.city}}</strong></p>
+          </div>
+          <div class="blocks">
+            <p>Sale Zone: <strong>{{row.sales_zone}}</strong> </p>
+          </div>
+        </div>
+        <div class="column-blocks bg-grey">
+          <div class="blocks">
+            <p><strong>Address: {{row.address | titlecase}}</strong></p>
+          </div>
+        </div>
+        <div class="column-blocks">
+          <div class="blocks" [ngClass]="{'visit': row.visit_count != 0 , 'no-visit': row.visit_count == 0}">
+            <span *ngIf="row.visit_count != 0">Visited</span>
+            <span *ngIf="row.visit_count == 0">Not Visited</span>
+          </div>
+          <div class="blocks" [ngClass]="{'pur': row.purchase_count != 0 , 'no-pur': row.purchase_count == 0}">
+            <span>Purchase Bag: {{row.purchase_qty}}</span>
+          </div>
+        </div>
+      </div>
+      <!-- <p *ngIf="row.visit_count != 0">Visited</p> -->
+      <!-- [ngClass]="{'higlight': row.purchase_count > 0}" -->
+      
+    </div>
+    
+    <div class="image-detail"  *ngIf="!data.length">
+      <img src="assets/imgs/no_found.svg">
+    </div>
+  </div>
+  
+  <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)"  *ngIf="flag!=1">
+    <ion-infinite-scroll-content
+    loadingSpinner="bubbles"
+    loadingText="Loading more data...">
+  </ion-infinite-scroll-content>
+
+
+</ion-infinite-scroll>
+
+<ion-fab right bottom >
+  <button ion-fab  (click)="goOnSiteAdd()"> <ion-icon name="add" ></ion-icon></button>
+</ion-fab>
+</ion-content>

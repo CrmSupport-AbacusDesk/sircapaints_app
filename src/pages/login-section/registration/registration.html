@@ -91,7 +91,7 @@
                 </ion-list>
                 
             </div>		  
-            <div class="ragistration-fields" >
+            <!-- <div class="ragistration-fields" >
                 <div class="cs-form">
                     <ion-list>
                         <ion-item class="cs-select" >
@@ -127,7 +127,105 @@
                         </ion-item>
                     </ion-list>
                 </div>
+            </div> -->
+       
+       
+            <div class="ragistration-fields">
+                <div class="cs-form">
+                    <ion-list>
+                        <ion-item class="cs-select" >
+                            <ion-label>Adhar card</ion-label>
+                           <!-- <ion-input type="text" name="adhar_card" [(ngModel)]="data.adhar_card" #adhar_card="ngModel"></ion-input> -->
+                           
+                        </ion-item>
+                        
+                        <div class="upload-document" (click)="onUploadChange1()" >
+                            <p *ngIf="data.adhar_card==''"><i class="material-icons">add_circle</i><br>Upload Document</p>
+                            <img *ngIf="data.adhar_card!=''"[src]="data.adhar_card" alt="">
+                        </div>
+                        
+                        <ion-item class="cs-input" [ngClass]="{'error':f.submitted && adhar_card?.invalid}"  >
+                            <ion-label floating>Aadhaar Number</ion-label>
+                            <ion-input type="tel" name="adhar_card" #adhar_card="ngModel" [(ngModel)]="data.adhar_card"  maxlength="12" minlength="12"></ion-input>
+                        </ion-item>		
+                        	
+                    
+                    </ion-list>
+                </div>
             </div>
+
+
+
+            <div class="ragistration-fields" >
+                <div class="cs-form">
+                    <ion-list>
+                        <ion-item class="cs-select" >
+                            <ion-label>Pan Card</ion-label>
+                            <!-- <ion-input type="text" name="pan_card" [(ngModel)]="data.pan_card" #pan_card="ngModel"></ion-input> -->
+
+                        </ion-item>
+                        
+                        <div class="upload-document" (click)="onUploadChange2()" >
+                            <p *ngIf="data.pan_card==''"><i class="material-icons">add_circle</i><br>Upload Document</p>
+                            <img *ngIf="data.pan_card!=''"[src]="data.pan_card" alt="">
+                        </div>
+                        
+                        <ion-item class="cs-input"  [ngClass]="{'error':f.submitted && pan_card?.invalid}">
+                            <ion-label floating>Pan Card Number</ion-label>
+                            <ion-input type="text" name="pan_card" #pan_card="ngModel" [(ngModel)]="data.pan_card"></ion-input>
+                        </ion-item>		
+                        
+                        
+                    </ion-list>
+                </div>
+            </div>
+
+
+
+            <div class="ragistration-fields" >
+                <div class="cs-form">
+                    <ion-list>
+                        <ion-item class="cs-select" >
+                            <ion-label>Cancel Check</ion-label>
+                            <!-- <ion-input type="text" name="cancel_check" [(ngModel)]="data.cancel_check" #cancel_check="ngModel"></ion-input> -->
+
+                        </ion-item>
+                        
+                        <div class="upload-document" (click)="onUploadChange3()" >
+                            <p *ngIf="data.cancel_check==''"><i class="material-icons">add_circle</i><br>Upload Document</p>
+                            <img *ngIf="data.cancel_check != ''"[src]="data.cancel_check" alt="">
+                        </div>
+                        
+                        	
+                        <ion-item class="cs-input"   [ngClass]="{'error':f.submitted && cancel_check?.invalid}">
+                            <ion-label floating>Cancel Check Number</ion-label>
+                            <ion-input type="text" name="cancel_check" #cancel_check="ngModel" [(ngModel)]="data.cancel_check"></ion-input>
+                        </ion-item>
+                        
+                        <ion-item class="cs-input" [ngClass]="{'error':f.submitted && referral_by_code?.invalid}" >
+                            <ion-label floating>Referral Code</ion-label>
+                            <ion-input type="text" name="referral_by_code" #referral_by_code="ngModel" [(ngModel)]="data.referral_by_code"></ion-input>
+                        </ion-item>
+                    </ion-list>
+                </div>
+            </div>
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
         </div>
         <div class="pl16 pr16 pb16">
             <button ion-button class="cs-btn" [disabled]="saveFlag == true">
