@@ -1,0 +1,330 @@
+<!--
+  Generated template for the SiteAddPage page.
+  
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <!-- <ion-title *ngIf="siteform.id">{{'Edit Site' | translate}}</ion-title> -->
+    <!-- <ion-title *ngIf="!siteform.id">{{'Add Site' | translate}}</ion-title> -->
+    <ion-title>Add Site</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <div class="main-field padding16">
+    <div class="cs-form mb10">
+      <form name="siteform" (ngSubmit)="f.form.valid && submit()" #f="ngForm">
+        <div class="sprate-block">
+          <ion-list>
+            <ion-item class="cs-input h70" [ngClass]="{'error':f.submitted && address?.invalid}">
+              <ion-label floating>Address*</ion-label>
+              <ion-textarea name="address" [(ngModel)]="siteform.address" #address="ngModel" required></ion-textarea>
+            </ion-item>
+            <div *ngIf="f.submitted && address.invalid" class="invalid-feedback">
+              <div *ngIf="address.errors.required">Field is Required</div>
+            </div>
+
+            <ion-item class="cs-select" [ngClass]="{'error':f.submitted && state?.invalid}">
+              <ion-label>State*</ion-label>
+              <ionic-selectable item-content [(ngModel)]="siteform.state" #state="ngModel" [items]="states" name="state"
+                itemValueField="state_name" itemTextField="state_name" [hasVirtualScroll]="true"
+                (onChange)="siteform.district='';siteform.city='';  getDistrictList(siteform.state.state_name)"
+                [canSearch]="true" required>
+              </ionic-selectable>
+            </ion-item>
+            <div *ngIf="f.submitted && state.invalid" class="invalid-feedback">
+              <div *ngIf="state.errors.required">Field is Required</div>
+            </div>
+
+            <!-- <ion-item class="cs-select" [ngClass]="{'error':f.submitted && district?.invalid}">
+            <ion-label>{{'District' | translate}}*</ion-label>
+            <ion-select [(ngModel)]="siteform.district" name="district" #district="ngModel"  (ngModelChange)="getCityList(siteform.district)" required>
+              <ion-option [value]="row.district_name" *ngFor="let row of districts">{{row.district_name}}</ion-option>
+            </ion-select>
+          </ion-item> -->
+
+            <ion-item class="cs-select" [ngClass]="{'error':f.submitted && district?.invalid}">
+              <ion-label>District*</ion-label>
+              <ionic-selectable item-content [(ngModel)]="siteform.district" #district="ngModel" [items]="districts"
+                name="district" itemValueField="district_name" itemTextField="district_name" [hasVirtualScroll]="true"
+                (onChange)="siteform.city=''; getCityList(siteform.district.district_name)" [canSearch]="true" required>
+              </ionic-selectable>
+            </ion-item>
+
+
+            <div *ngIf="f.submitted && district.invalid" class="invalid-feedback">
+              <div *ngIf="district.errors.required">Field is Required</div>
+            </div>
+
+
+            <!-- <ion-item class="cs-select" [ngClass]="{'error':f.submitted && city?.invalid}">
+          <ion-label>{{'City' | translate}}*</ion-label>
+          <ion-select  [(ngModel)]="siteform.city" name="city" #city="ngModel"  (ngModelChange)="getZoneList(siteform.city)" required>
+            <ion-option [value]="row.city_name" *ngFor="let row of citys">{{row.city_name}}</ion-option>
+          </ion-select>
+        </ion-item> -->
+
+            <ion-item class="cs-select" [ngClass]="{'error':f.submitted && city?.invalid}">
+              <ion-label>City*</ion-label>
+              <ionic-selectable item-content [(ngModel)]="siteform.city" #city="ngModel" [items]="citys" name="city"
+                itemValueField="city" itemTextField="city" [hasVirtualScroll]="true"
+                (onChange)="getZoneList(siteform.city.city_name)" [canSearch]="true" required>
+              </ionic-selectable>
+            </ion-item>
+            <div *ngIf="f.submitted && city.invalid" class="invalid-feedback">
+              <div *ngIf="city.errors.required">Field is Required </div>
+            </div>
+
+            <ion-item class="cs-input h70" [ngClass]="{'error':f.submitted && landmark?.invalid}">
+              <ion-label floating>Site Landmark</ion-label>
+              <ion-textarea name="landmark" [(ngModel)]="siteform.landmark" #landmark="ngModel"></ion-textarea>
+            </ion-item>
+            <div *ngIf="f.submitted && landmark.invalid" class="invalid-feedback">
+              <div *ngIf="landmark.errors.required">Field is Required</div>
+            </div>
+
+
+            <ion-item class="cs-input mt0" [ngClass]="{'error':f.submitted && sales_zone?.invalid}" hidden>
+              <ion-label floating>Sales Zone*</ion-label>
+              <ion-input type="text" name="sales_zone" [(ngModel)]="siteform.sales_zone" #sales_zone="ngModel" readonly>
+              </ion-input>
+            </ion-item>
+
+            <!-- <ng-container>
+              <ion-item class="cs-select" [ngClass]="{'error':f.submitted && dealer_id?.invalid}">
+          <ion-label>{{'Dealer' | translate}}*</ion-label>
+          <ion-select [(ngModel)]="siteform.dealer_id" name="dealer_id" #dealer_id="ngModel" required>
+            <ion-option [value]="row.id" *ngFor="let row of dealers">{{row.company_name | titlecase}} - {{row.mobile_no}}</ion-option>
+          </ion-select>
+        </ion-item>
+
+              <ion-item class="cs-select" [ngClass]="{'error':f.submitted && dealer_id?.invalid}">
+                <ion-label>Dealer *</ion-label>
+                <ionic-selectable item-content [(ngModel)]="siteform.dealer_id" #dealer_id="ngModel" [items]="dealers"
+                  name="dealer_id" itemValueField="id" itemTextField="company_name" [hasVirtualScroll]="true"
+                  [canSearch]="true" required>
+                </ionic-selectable>
+              </ion-item>
+
+
+
+              <div *ngIf="f.submitted && dealer_id.invalid" class="invalid-feedback">
+                <div *ngIf="dealer_id.errors.required">Field is Required</div>
+              </div>
+            </ng-container> -->
+
+            <!-- <ng-container *ngIf="(userType == '1' || userType == '2') || userType == '4'">
+      
+      <ion-item class="cs-select" [ngClass]="{'error':f.submitted && dealer_id?.invalid}">
+        <ion-label>{{'Sales Executive' | translate}} *</ion-label>
+        <ionic-selectable
+        item-content 
+        [(ngModel)]="siteform.salesuser_id" 
+        #sales_id="ngModel"
+        [items]="salesUser"
+        name="salesuser_id"
+        itemValueField="id"
+        itemTextField="first_name"
+        [hasVirtualScroll]="true"
+        [isMultiple]="true"
+        
+        [canSearch]="true" >
+      </ionic-selectable>
+    </ion-item>
+    
+    
+    
+    <div *ngIf="f.submitted && sales_id.invalid" class="invalid-feedback">
+      <div *ngIf="sales_id.errors.required">{{'Field is Required' | translate}}</div>
+    </div>
+  </ng-container> -->
+
+            <!-- <ng-container>
+              <ion-item class="cs-select" [ngClass]="{'error':f.submitted && pc_id?.invalid}">
+                <ion-label>{{'PC' | translate}}*</ion-label>
+                <ion-select [(ngModel)]="siteform.pc_id" name="pc_id" #pc_id="ngModel" required>
+                  <ion-option [value]="row.id" *ngFor="let row of pcs">{{row.first_name | titlecase}} -
+                    {{row.mobile_no}}</ion-option>
+                </ion-select>
+              </ion-item>
+
+
+              <ion-item class="cs-select" [ngClass]="{'error':f.submitted && site_user_type?.invalid}">
+                <ion-label>User For*</ion-label>
+                <ion-select name="site_user_type" [(ngModel)]="siteform.site_user_type" #site_user_type="ngModel"
+                  required>
+                  <ion-option value="PC">Max Bahubali (Contractor)</ion-option>
+                  <ion-option value="Engineer">Engineer</ion-option>
+                </ion-select>
+              </ion-item>
+              <div *ngIf="f.submitted && site_user_type.invalid" class="invalid-feedback">
+                <div *ngIf="site_user_type.errors.required">Field is Required</div>
+              </div>
+              <ng-container *ngIf="siteform.site_user_type == 'PC'">
+                <ion-item class="cs-select" [ngClass]="{'error':f.submitted && pc_id?.invalid}">
+                  <ion-label>Max Bahubali (Contractor)*</ion-label>
+                  <ionic-selectable item-content [(ngModel)]="siteform.pc_id" #pc_id="ngModel" [items]="pcs"
+                    name="pc_id" itemValueField="id" itemTextField="first_name" [hasVirtualScroll]="true"
+                    [canSearch]="true" required>
+                  </ionic-selectable>
+                </ion-item>
+                <div *ngIf="f.submitted && pc_id.invalid" class="invalid-feedback">
+                  <div *ngIf="pc_id.errors.required">Field is Required</div>
+                </div>
+              </ng-container>
+
+
+              <ng-container *ngIf="siteform.site_user_type == 'Engineer'">
+                <ion-item class="cs-select" [ngClass]="{'error':f.submitted && engineer_id?.invalid}">
+                  <ion-label>Engineer*</ion-label>
+                  <ionic-selectable item-content [(ngModel)]="siteform.engineer_id" #engineer_id="ngModel"
+                    [items]="engineer" name="engineer_id" itemValueField="id" itemTextField="first_name"
+                    [hasVirtualScroll]="true" [canSearch]="true" required>
+                  </ionic-selectable>
+                </ion-item>
+                <div *ngIf="f.submitted && engineer_id.invalid" class="invalid-feedback">
+                  <div *ngIf="engineer_id.errors.required">Field is Required</div>
+                </div>
+              </ng-container>
+
+            </ng-container> -->
+
+            <ng-container>
+              <ion-item class="cs-input" [ngClass]="{'error':f.submitted && project_size?.invalid}">
+                <ion-label floating>Project Size (Cons. Area) Sq. Ft</ion-label>
+                <ion-input type='tel' name="project_size" [(ngModel)]="siteform.project_size" #project_size="ngModel">
+                </ion-input>
+              </ion-item>
+              <div *ngIf="f.submitted && project_size.invalid" class="invalid-feedback">
+                <div *ngIf="project_size.errors.required">Field is Required</div>
+              </div>
+
+              <ion-item class="cs-select" [ngClass]="{'error':f.submitted && construction_type?.invalid}">
+                <ion-label>Construction Type</ion-label>
+                <ion-select name="construction_type" [(ngModel)]="siteform.construction_type"
+                  #construction_type="ngModel">
+                  <ion-option value="G+1">G+1</ion-option>
+                  <ion-option value="G+2">G+2</ion-option>
+                  <ion-option value="G+3">G+3</ion-option>
+                  <ion-option value="Ground Floor">Ground Floor</ion-option>
+                </ion-select>
+              </ion-item>
+              <div *ngIf="f.submitted && construction_type.invalid" class="invalid-feedback">
+                <div *ngIf="construction_type.errors.required">Field is Required</div>
+              </div>
+
+              <ion-item class="cs-select" [ngClass]="{'error':f.submitted && stage?.invalid}">
+                <ion-label>Construction Stage</ion-label>
+                <ion-select [(ngModel)]="siteform.stage" name="stage" #stage="ngModel">
+                  <ion-option value="In Progress">In Progress</ion-option>
+                  <ion-option value="Not started">Not started</ion-option>
+                </ion-select>
+              </ion-item>
+
+              <ion-item class="cs-select" [ngClass]="{'error':f.submitted && site_type?.invalid}">
+                <ion-label>Site Type</ion-label>
+                <ion-select [(ngModel)]="siteform.site_type" name="site_type" #site_type="ngModel">
+                  <ion-option value="Open">Open</ion-option>
+                  <ion-option value="Non- Max Site">Non- Max Site</ion-option>
+                </ion-select>
+              </ion-item>
+
+              <ion-item class="cs-select" [ngClass]="{'error':f.submitted && contractor?.invalid}">
+                <ion-label>Contractor Name</ion-label>
+                <ion-select [(ngModel)]="siteform.contractor" name="contractor" #contractor="ngModel">
+                  <ion-option value="Open">Open</ion-option>
+                  
+                </ion-select>
+              </ion-item>
+            </ng-container>
+
+
+            <!-- <ion-item class="cs-input" [ngClass]="{'error':f.submitted && brand?.invalid}">
+  <ion-label floating>{{'Brand Being Used' | translate}}</ion-label>
+  <ion-input name="brand" [(ngModel)] = "siteform.brand" #brand="ngModel"></ion-input>
+</ion-item> -->
+
+
+
+            <!-- <ion-item class="cs-select" [ngClass]="{'error' : f.submitted && brand?.invalid}">
+              <ion-label>Brand Being Used*</ion-label>
+              <ionic-selectable item-content [(ngModel)]="siteform.brand" #brand="ngModel" [items]="brandData"
+                name="brand" itemValueField="brand_name" itemTextField="brand_name" [hasVirtualScroll]="true"
+                [canSearch]="true" required>
+              </ionic-selectable>
+            </ion-item>
+            <div *ngIf="f.submitted && brand.invalid" class="invalid-feedback">
+              <div *ngIf="brand.errors.required">Field is Required</div>
+            </div> -->
+
+
+            <ion-item class="cs-input" [ngClass]="{'error':f.submitted && site_potential?.invalid}">
+              <ion-label floating>Site Potential(Bags)</ion-label>
+              <ion-input type="tel" name="site_potential" [(ngModel)]="siteform.site_potential"
+                #site_potential="ngModel"></ion-input>
+            </ion-item>
+
+
+
+            <ion-item class="cs-input" [ngClass]="{'error':f.submitted && site_owner_name?.invalid}">
+              <ion-label floating>Site Owner Name*</ion-label>
+              <ion-input name="site_owner_name" [(ngModel)]="siteform.site_owner_name" #site_owner_name="ngModel"
+                required></ion-input>
+            </ion-item>
+            <div *ngIf="f.submitted && site_owner_name.invalid" class="invalid-feedback">
+              <div *ngIf="site_owner_name.errors.required">Field is Required</div>
+            </div>
+
+            <ion-item class="cs-input" [ngClass]="{'error':f.submitted && site_owner_contact?.invalid}">
+              <ion-label floating>Site Owner Contact No.*</ion-label>
+              <ion-input type='tel' name="site_owner_contact" [(ngModel)]="siteform.site_owner_contact"
+                #site_owner_contact="ngModel" min="0" maxlength="10" minlength="10" required></ion-input>
+            </ion-item>
+            <div *ngIf="f.submitted && site_owner_contact.invalid" class="invalid-feedback">
+              <div *ngIf="site_owner_contact.errors.required">Field is Required</div>
+            </div>
+
+
+            <ion-item class="cs-input" [ngClass]="{'error':f.submitted && remark?.invalid}">
+              <ion-label floating>Remark</ion-label>
+              <ion-input type="text" name="remark" [(ngModel)]="siteform.remark" #remark="ngModel"></ion-input>
+            </ion-item>
+
+
+          </ion-list>
+
+
+          <!-- <div class="uploade-image">
+            <ul>
+              <li *ngFor="let row of selImages; let i=index"
+                [ngClass]="{'active': siteform.profile_selected == row.id}">
+                <img src="{{row.id ? uploadUrl+row.image : row.image}}">
+                <span class="cancel-icon">
+                  <i class="material-icons crose-icon" (click)="showConfirm(i,row.id)">clear</i>
+                </span>
+              </li>
+              <li class="add-bg-1" (click)="takeDocPhoto()">
+                <i class="material-icons">add</i>
+                <p>{{'Take a Picture' | translate}}</p>
+              </li>
+            </ul>
+          </div> -->
+
+
+
+        </div>
+        <div class="pt16 pb16">
+          <!-- <button type="submit" *ngIf="siteform.id" ion-button full [disabled]="saveFlag == true">Update</button> -->
+          <!-- <button type="submit" *ngIf="!siteform.id" ion-button full [disabled]="saveFlag == true">Save</button> -->
+          <button type="submit" ion-button full>Save</button>
+
+        </div>
+      </form>
+
+
+
+    </div>
+  </div>
+</ion-content>

@@ -64,6 +64,9 @@ export class RegistrationPage {
     console.log(this.Employee);
     this.data.profile='';
     this.data.document_image='';
+    this.data.adhar_card='';
+    this.data.pan_card='';
+    this.data.cancel_check='';
     console.log(this.data.profile);
 
   }
@@ -354,6 +357,249 @@ export class RegistrationPage {
           }, (err) => {
           });
         }
+
+
+        onUploadChange1(evt: any) {
+          // this.flag=false;
+          // const file = evt.target.files[0];
+
+          // if (file) {
+          //   const reader = new FileReader();
+
+          //   reader.onload = this.handleReaderLoaded.bind(this);
+          //   reader.readAsBinaryString(file);
+          // }
+          let actionsheet = this.actionSheetController.create({
+            title:" Upload File",
+            cssClass: 'cs-actionsheet',
+
+            buttons:[{
+              cssClass: 'sheet-m',
+              text: 'Camera',
+              icon:'camera',
+              handler: () => {
+                console.log("Camera Clicked");
+                this.takeDocPhoto1();
+              }
+            },
+            {
+              cssClass: 'sheet-m1',
+              text: 'Gallery',
+              icon:'image',
+              handler: () => {
+                console.log("Gallery Clicked");
+                this.getDocImage1();
+              }
+            },
+            {
+              cssClass: 'cs-cancel',
+              text: 'Cancel',
+              role: 'cancel',
+              handler: () => {
+                console.log('Cancel clicked');
+              }
+            }
+          ]
+        });
+        actionsheet.present();
+      }
+
+      takeDocPhoto1()
+      {
+        console.log("i am in camera function");
+        const options: CameraOptions = {
+          quality: 70,
+          destinationType: this.camera.DestinationType.DATA_URL,
+          targetWidth : 500,
+          targetHeight : 400
+        }
+
+        console.log(options);
+        this.camera.getPicture(options).then((imageData) => {
+          this.flag=false;
+          this.data.adhar_card = 'data:image/jpeg;base64,' + imageData;
+          console.log(this.data.adhar_card);
+        }, (err) => {
+        });
+      }
+      getDocImage1()
+      {
+        const options: CameraOptions = {
+          quality: 70,
+          destinationType: this.camera.DestinationType.DATA_URL,
+          sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
+          saveToPhotoAlbum:false
+        }
+        console.log(options);
+        this.camera.getPicture(options).then((imageData) => {
+          this.flag=false;
+          this.data.adhar_card = 'data:image/jpeg;base64,' + imageData;
+          console.log(this.data.adhar_card);
+        }, (err) => {
+        });
+      }
+
+        onUploadChange2(evt: any) {
+          // this.flag=false;
+          // const file = evt.target.files[0];
+
+          // if (file) {
+          //   const reader = new FileReader();
+
+          //   reader.onload = this.handleReaderLoaded.bind(this);
+          //   reader.readAsBinaryString(file);
+          // }
+          let actionsheet = this.actionSheetController.create({
+            title:" Upload File",
+            cssClass: 'cs-actionsheet',
+
+            buttons:[{
+              cssClass: 'sheet-m',
+              text: 'Camera',
+              icon:'camera',
+              handler: () => {
+                console.log("Camera Clicked");
+                this.takeDocPhoto2();
+              }
+            },
+            {
+              cssClass: 'sheet-m1',
+              text: 'Gallery',
+              icon:'image',
+              handler: () => {
+                console.log("Gallery Clicked");
+                this.getDocImage2();
+              }
+            },
+            {
+              cssClass: 'cs-cancel',
+              text: 'Cancel',
+              role: 'cancel',
+              handler: () => {
+                console.log('Cancel clicked');
+              }
+            }
+          ]
+        });
+        actionsheet.present();
+      }
+
+      takeDocPhoto2()
+      {
+        console.log("i am in camera function");
+        const options: CameraOptions = {
+          quality: 70,
+          destinationType: this.camera.DestinationType.DATA_URL,
+          targetWidth : 500,
+          targetHeight : 400
+        }
+
+        console.log(options);
+        this.camera.getPicture(options).then((imageData) => {
+          this.flag=false;
+          this.data.pan_card = 'data:image/jpeg;base64,' + imageData;
+          console.log(this.data.pan_card);
+        }, (err) => {
+        });
+      }
+      getDocImage2()
+      {
+        const options: CameraOptions = {
+          quality: 70,
+          destinationType: this.camera.DestinationType.DATA_URL,
+          sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
+          saveToPhotoAlbum:false
+        }
+        console.log(options);
+        this.camera.getPicture(options).then((imageData) => {
+          this.flag=false;
+          this.data.pan_card = 'data:image/jpeg;base64,' + imageData;
+          console.log(this.data.pan_card);
+        }, (err) => {
+        });
+      }
+
+
+      onUploadChange3(evt: any) {
+        // this.flag=false;
+        // const file = evt.target.files[0];
+
+        // if (file) {
+        //   const reader = new FileReader();
+
+        //   reader.onload = this.handleReaderLoaded.bind(this);
+        //   reader.readAsBinaryString(file);
+        // }
+        let actionsheet = this.actionSheetController.create({
+          title:" Upload File",
+          cssClass: 'cs-actionsheet',
+
+          buttons:[{
+            cssClass: 'sheet-m',
+            text: 'Camera',
+            icon:'camera',
+            handler: () => {
+              console.log("Camera Clicked");
+              this.takeDocPhoto3();
+            }
+          },
+          {
+            cssClass: 'sheet-m1',
+            text: 'Gallery',
+            icon:'image',
+            handler: () => {
+              console.log("Gallery Clicked");
+              this.getDocImage3();
+            }
+          },
+          {
+            cssClass: 'cs-cancel',
+            text: 'Cancel',
+            role: 'cancel',
+            handler: () => {
+              console.log('Cancel clicked');
+            }
+          }
+        ]
+      });
+      actionsheet.present();
+    }
+
+    takeDocPhoto3()
+    {
+      console.log("i am in camera function");
+      const options: CameraOptions = {
+        quality: 70,
+        destinationType: this.camera.DestinationType.DATA_URL,
+        targetWidth : 500,
+        targetHeight : 400
+      }
+
+      console.log(options);
+      this.camera.getPicture(options).then((imageData) => {
+        this.flag=false;
+        this.data.cancel_check = 'data:image/jpeg;base64,' + imageData;
+        console.log(this.data.cancel_check);
+      }, (err) => {
+      });
+    }
+    getDocImage3()
+    {
+      const options: CameraOptions = {
+        quality: 70,
+        destinationType: this.camera.DestinationType.DATA_URL,
+        sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
+        saveToPhotoAlbum:false
+      }
+      console.log(options);
+      this.camera.getPicture(options).then((imageData) => {
+        this.flag=false;
+        this.data.cancel_check = 'data:image/jpeg;base64,' + imageData;
+        console.log(this.data.cancel_check);
+      }, (err) => {
+      });
+    }
+
         // handleReaderLoaded(e) {
         //   this.data.document_image = 'data:image/png;base64,' + btoa(e.target.result);
         //   console.log( this.data.document_image );

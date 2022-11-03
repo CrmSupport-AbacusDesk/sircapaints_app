@@ -125,6 +125,15 @@
                         <h4>Architect</h4>
                     </div>
                 </div>
+                <div class="main-box" (click)="goToSiteListPage()">
+                    <div class="product-box">
+                        <img src="assets/imgs/cs-network/customer.svg">
+                    </div>
+                    <div class="heading">
+                        <div class="count"><span>{{total_distributor.total_distributor}}</span></div>
+                        <h4>Site</h4>
+                    </div>
+                </div>
             </div>
 
             <div class="product-option pt5" *ngIf="user_data.user_type=='Inside Sales Team'" >

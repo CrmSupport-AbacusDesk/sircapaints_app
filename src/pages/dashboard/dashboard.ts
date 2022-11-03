@@ -21,6 +21,7 @@ import { NotificationPage } from '../notification/notification';
 import { RegistrationPage } from '../login-section/registration/registration';
 import { ContractorListPage } from '../contractor-list/contractor-list';
 import { ArchitectorListPage } from '../architector-list/architector-list';
+import { SiteListPage } from '../site-list/site-list';
 
 
 @IonicPage()
@@ -477,6 +478,9 @@ export class DashboardPage {
         this.navCtrl.push(ArchitectorListPage);
       }
 
+      goToSiteListPage(){
+        this.navCtrl.push(SiteListPage);
+      }
     //   refreshCatalogue(){
     //     this.offlineService.shouldStartSetUpProcess=true;
     //     this.offlineService.localDBCallingCount=0;
