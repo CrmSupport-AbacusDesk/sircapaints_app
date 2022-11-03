@@ -234,10 +234,12 @@
               <ion-item class="cs-select" [ngClass]="{'error':f.submitted && contractor?.invalid}">
                 <ion-label>Contractor Name</ion-label>
                 <ion-select [(ngModel)]="siteform.contractor" name="contractor" #contractor="ngModel">
-                  <ion-option value="Open">Open</ion-option>
-                  
+                  <ion-option *ngFor="let item of contractorList; let i=index"  value="{{item.id}}">{{item.first_name}} ({{item.mobile_no}})</ion-option>
+
                 </ion-select>
               </ion-item>
+
+             
             </ng-container>
 
 
@@ -260,11 +262,11 @@
             </div> -->
 
 
-            <ion-item class="cs-input" [ngClass]="{'error':f.submitted && site_potential?.invalid}">
+            <!-- <ion-item class="cs-input" [ngClass]="{'error':f.submitted && site_potential?.invalid}">
               <ion-label floating>Site Potential(Bags)</ion-label>
               <ion-input type="tel" name="site_potential" [(ngModel)]="siteform.site_potential"
                 #site_potential="ngModel"></ion-input>
-            </ion-item>
+            </ion-item> -->
 
 
 
@@ -295,22 +297,26 @@
 
           </ion-list>
 
+          <div class="ragistration-fields">
+            <div class="cs-form">
+                <ion-list>
+                    <ion-item class="cs-select" >
+                        <ion-label>Document Image</ion-label>
+                       
+                    </ion-item>
+                    
+                    <div class="upload-document" (click)="onUploadChange()" >
+                        <p *ngIf="data.document_image==''"><i class="material-icons">add_circle</i><br>Upload Document</p>
+                        <img *ngIf="data.document_image!=''"[src]="data.document_image" alt="">
+                    </div>
+                    
+                   -->
+                
+                </ion-list>
+            </div>
+        </div>
 
-          <!-- <div class="uploade-image">
-            <ul>
-              <li *ngFor="let row of selImages; let i=index"
-                [ngClass]="{'active': siteform.profile_selected == row.id}">
-                <img src="{{row.id ? uploadUrl+row.image : row.image}}">
-                <span class="cancel-icon">
-                  <i class="material-icons crose-icon" (click)="showConfirm(i,row.id)">clear</i>
-                </span>
-              </li>
-              <li class="add-bg-1" (click)="takeDocPhoto()">
-                <i class="material-icons">add</i>
-                <p>{{'Take a Picture' | translate}}</p>
-              </li>
-            </ul>
-          </div> -->
+          
 
 
 
@@ -318,7 +324,7 @@
         <div class="pt16 pb16">
           <!-- <button type="submit" *ngIf="siteform.id" ion-button full [disabled]="saveFlag == true">Update</button> -->
           <!-- <button type="submit" *ngIf="!siteform.id" ion-button full [disabled]="saveFlag == true">Save</button> -->
-          <button type="submit" ion-button full>Save</button>
+          <button type="submit" color="primary" ion-button full>Save</button>
 
         </div>
       </form>
