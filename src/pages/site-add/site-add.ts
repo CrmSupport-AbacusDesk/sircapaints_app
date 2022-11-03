@@ -34,13 +34,21 @@ export class SiteAddPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad SiteAddPage');
-    this.data.document_image='';
+    this.siteform.document_image='';
     this.getStates();
     this.getContractorList();
   }
 
 
   submit(){
+    this.dbService.onShowLoadingHandler();
+    this.dbService.onPostRequestDataFromApi({'data':this.siteform},'dasda/savesda',this.dbService.rootUrl).subscribe((res)=>{
+      console.log(res);
+      this.dbService.onDismissLoadingHandler();
+
+    },err=>{
+      this.dbService.onDismissLoadingHandler();
+    })
 
   }
 
@@ -158,8 +166,8 @@ takeDocPhoto()
   console.log(options);
   this.camera.getPicture(options).then((imageData) => {
     this.flag=false;
-    this.data.document_image = 'data:image/jpeg;base64,' + imageData;
-    console.log(this.data.document_image);
+    this.siteform.document_image = 'data:image/jpeg;base64,' + imageData;
+    console.log(this.siteform.document_image);
   }, (err) => {
   });
 }
@@ -174,8 +182,8 @@ getDocImage()
   console.log(options);
   this.camera.getPicture(options).then((imageData) => {
     this.flag=false;
-    this.data.document_image = 'data:image/jpeg;base64,' + imageData;
-    console.log(this.data.document_image);
+    this.siteform.document_image = 'data:image/jpeg;base64,' + imageData;
+    console.log(this.siteform.document_image);
   }, (err) => {
   });
 }
