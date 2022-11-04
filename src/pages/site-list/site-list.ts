@@ -19,6 +19,7 @@ export class SiteListPage {
 
   data:any=[];
   flag:number=0;
+  filter:any={};
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
@@ -41,5 +42,9 @@ export class SiteListPage {
 
   goOnSiteAdd(){
     this.navCtrl.push(SiteAddPage);
+  }
+
+  siteList(search,details,sites){
+
   }
 }
