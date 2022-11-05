@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { ActionSheetController, IonicPage, NavController, NavParams } from 'ionic-angular';
 import { DbserviceProvider } from '../../providers/dbservice/dbservice';
+import { SiteListPage } from '../site-list/site-list';
 
 /**
  * Generated class for the SiteAddPage page.
@@ -28,12 +29,18 @@ export class SiteAddPage {
   contractorList:any=[];
   data:any={};
   flag:boolean=true;
-
+  loginType:any='';
+  loginId:any='';
+  loginName:any='';
   constructor(public navCtrl: NavController, public navParams: NavParams, public dbService:DbserviceProvider , public actionSheetController:ActionSheetController , private camera: Camera,) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad SiteAddPage');
+    console.log(this.dbService.userStorageData);
+    this.loginType=this.dbService.userStorageData.type;
+    this.loginId=this.dbService.userStorageData.id;
+    this.loginName=this.dbService.userStorageData.first_name + this.dbService.userStorageData.last_name;
     this.siteform.document_image='';
     this.getStates();
     this.getContractorList();
@@ -42,10 +49,15 @@ export class SiteAddPage {
 
   submit(){
     this.dbService.onShowLoadingHandler();
-    this.dbService.onPostRequestDataFromApi({'data':this.siteform},'dasda/savesda',this.dbService.rootUrl).subscribe((res)=>{
+    this.siteform.loginType=this.loginType;
+    this.siteform.loginId=this.loginId;
+    this.siteform.loginName=this.loginName;
+    this.dbService.onPostRequestDataFromApi({'data':this.siteform},'app_master/siteLocationAdd',this.dbService.rootUrl).subscribe((res)=>{
       console.log(res);
       this.dbService.onDismissLoadingHandler();
-
+      if(res['status']=='SUCCESS'){
+        this.navCtrl.push(SiteListPage);
+      }
     },err=>{
       this.dbService.onDismissLoadingHandler();
     })

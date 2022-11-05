@@ -29,6 +29,7 @@ import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer';
 import { File } from '@ionic-native/file';
 import { FavoriteProductPage } from '../favorite-product/favorite-product';
 import { VideoPage } from '../video/video';
+import { SiteListPage } from '../site-list/site-list';
 
 
 // import { CallNumber } from '@ionic-native/call-number';
@@ -427,6 +428,10 @@ export class HomePage {
             }
             
             this.navCtrl.push(CategoryPage,{'mode':'home'});
+        }
+
+        goOnSiteList(){
+            this.navCtrl.push(SiteListPage)
         }
         goOnComplaintAdd(type)
         {
