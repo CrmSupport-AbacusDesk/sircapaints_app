@@ -32,7 +32,12 @@ export class SiteAddPage {
   loginType:any='';
   loginId:any='';
   loginName:any='';
+  id:any=0;
+
   constructor(public navCtrl: NavController, public navParams: NavParams, public dbService:DbserviceProvider , public actionSheetController:ActionSheetController , private camera: Camera,) {
+    console.log(this.navParams.get('id'));
+    this.id=this.navParams.get('id');
+   
   }
 
   ionViewDidLoad() {
@@ -42,7 +47,13 @@ export class SiteAddPage {
     this.loginId=this.dbService.userStorageData.id;
     this.loginName=this.dbService.userStorageData.first_name + this.dbService.userStorageData.last_name;
     this.siteform.document_image='';
-    this.getStates();
+    
+    if(this.id){
+      this.getSiteDetail();
+      }else{
+        this.id=0;
+      }
+      this.getStates();
     this.getContractorList();
   }
 
@@ -52,6 +63,7 @@ export class SiteAddPage {
     this.siteform.loginType=this.loginType;
     this.siteform.loginId=this.loginId;
     this.siteform.loginName=this.loginName;
+    this.siteform.site_location_id=this.id;
     this.dbService.onPostRequestDataFromApi({'data':this.siteform},'app_master/siteLocationAdd',this.dbService.rootUrl).subscribe((res)=>{
       console.log(res);
       this.dbService.onDismissLoadingHandler();
@@ -64,6 +76,23 @@ export class SiteAddPage {
 
   }
 
+
+  getSiteDetail(){
+    this.dbService.show_loading();
+
+    this.dbService.onPostRequestDataFromApi({'site_location_id':this.id},'app_master/siteLocationDetail',this.dbService.rootUrl).subscribe((res)=>{
+      console.log(res);
+
+      this.dbService.dismiss_loading();
+      this.siteform=res['site_locations'];
+     
+      console.log( this.siteform.state);
+    },err=>{
+      this.dbService.dismiss_loading();
+
+    })
+
+  }
   getStates(){
     this.dbService.show_loading();
     this.dbService.onGetRequestDataFromApi('app_master/getStates',this.dbService.rootUrl).subscribe((res)=>{

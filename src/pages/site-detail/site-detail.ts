@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { DbserviceProvider } from '../../providers/dbservice/dbservice';
+import { SiteAddPage } from '../site-add/site-add';
 
 /**
  * Generated class for the SiteDetailPage page.
@@ -52,4 +53,7 @@ export class SiteDetailPage {
 
   }
 
+  editSiteDetailPage(){
+      this.navCtrl.push(SiteAddPage,{ 'from':'siteDetail', 'id':this.id})
+  }
 }
