@@ -231,15 +231,16 @@
                 </ion-select>
               </ion-item>
 
-              <ion-item class="cs-select" [ngClass]="{'error':f.submitted && contractor?.invalid}">
+              <ion-item *ngIf="loginType!='Contractor'" class="cs-select"
+                [ngClass]="{'error':f.submitted && contractor?.invalid}">
                 <ion-label>Contractor Name</ion-label>
                 <ion-select [(ngModel)]="siteform.contractor" name="contractor" #contractor="ngModel">
-                  <ion-option *ngFor="let item of contractorList; let i=index"  value="{{item.id}}">{{item.first_name}} ({{item.mobile_no}})</ion-option>
-
+                  <ion-option *ngFor="let item of contractorList; let i=index" value="{{item.id}}">{{item.first_name}}
+                    ({{item.mobile_no}})</ion-option>
                 </ion-select>
               </ion-item>
 
-             
+
             </ng-container>
 
 
@@ -299,24 +300,24 @@
 
           <div class="ragistration-fields">
             <div class="cs-form">
-                <ion-list>
-                    <ion-item class="cs-select" >
-                        <ion-label>Document Image</ion-label>
-                       
-                    </ion-item>
-                    
-                    <div class="upload-document" (click)="onUploadChange()" >
-                        <p *ngIf="siteform.document_image==''"><i class="material-icons">add_circle</i><br>Upload Document</p>
-                        <img *ngIf="siteform.document_image!=''"[src]="siteform.document_image" alt="">
-                    </div>
-                    
-                   -->
-                
-                </ion-list>
-            </div>
-        </div>
+              <ion-list>
+                <ion-item class="cs-select">
+                  <ion-label>Document Image</ion-label>
 
-          
+                </ion-item>
+
+                <div class="upload-document" (click)="onUploadChange()">
+                  <p *ngIf="siteform.document_image==''"><i class="material-icons">add_circle</i><br>Upload Document</p>
+                  <img *ngIf="siteform.document_image!=''" [src]="siteform.document_image" alt="">
+                </div>
+
+                
+
+              </ion-list>
+            </div>
+          </div>
+
+
 
 
 
