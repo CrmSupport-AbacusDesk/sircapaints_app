@@ -107,7 +107,7 @@ export class RegistrationPage {
         {
           console.log(this.selectedFile);
           console.log('data');
-          this.data.type = this.navParams.get('loginType');
+          this.data.registrationType = this.navParams.get('loginType');
           this.data.status='Pending';
           this.data.karigar_edit_id='';
           this.saveFlag = true;
@@ -128,14 +128,14 @@ export class RegistrationPage {
                 this.dbService.onPostRequestDataFromApi({'mobile_no': this.data.mobile_no, 'registerType' : this.registerType,'mode' :'App'},'auth/login',this.dbService.rootUrl).subscribe( r =>
                   {
                     console.log(r);
-                   
-                    
+
+
                     if(r['status'] == 'NOT FOUND'){
 
                       return;
 
-                    } 
-                    
+                    }
+
                     else if(r['status'] == 'ACCOUNT SUSPENDED'){
 
                       this.showAlert("Your account has been suspended");

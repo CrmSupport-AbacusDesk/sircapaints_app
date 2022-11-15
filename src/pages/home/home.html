@@ -92,7 +92,7 @@
         </div> -->
 
         <div class="btns">
-            
+
 
             <a href="tel:9582198301">
                 <div class="lf-btn">
@@ -175,7 +175,7 @@
             <img src="assets/imgs/share.svg">
         </button>
         <!-- *ngIf="karigar_detail.status=='Verified'" -->
-        <button *ngIf="dbService.userStorageData.type == 'Plumber' && karigar_detail.status=='Verified'" ion-button class="hs-menu cs-hdr-icons" color="light" (click)="scan()">
+        <button *ngIf="dbService.userStorageData.type == 'Contractor'" ion-button class="hs-menu cs-hdr-icons" color="light" (click)="scan()">
             <img src="assets/imgs/qr-code.svg">
         </button>
     </div>
