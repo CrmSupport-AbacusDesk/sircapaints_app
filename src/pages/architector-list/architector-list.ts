@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, ModalController, NavController, NavParams } from 'ionic-angular';
 import { DbserviceProvider } from '../../providers/dbservice/dbservice';
+import { ArchitectDetailPage } from '../architect-detail/architect-detail';
 import { RegistrationPage } from '../login-section/registration/registration';
+import { ViewProfilePage } from '../view-profile/view-profile';
 
 /**
  * Generated class for the ArchitectorListPage page.
@@ -21,7 +23,7 @@ export class ArchitectorListPage {
   limit:number=10;
   filter:any={};
   architectList:any=[];
-  constructor(public navCtrl: NavController, public navParams: NavParams,public dbService:DbserviceProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,public dbService:DbserviceProvider,public modalctrl:ModalController) {
     this.filter.start=this.start;
     this.filter.limit=this.limit;
 
@@ -62,5 +64,10 @@ export class ArchitectorListPage {
   goToRegistrationPage(loginType){
     this.navCtrl.push(RegistrationPage,{loginType ,'Employee':'Employee'});
   } 
+
+  architectDetail(id){
+
+    this.navCtrl.push(ArchitectDetailPage,{'id':id});
+  }
 
 }

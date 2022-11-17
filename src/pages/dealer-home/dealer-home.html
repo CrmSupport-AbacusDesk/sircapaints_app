@@ -52,7 +52,7 @@
                 <img src="assets/imgs/hand.svg">
             </div>
             <div class="heading">
-                <h4 *ngIf="dbService.userStorageData.all_data?.type==1">My Retail Partners</h4>
+                <h4 *ngIf="dbService.userStorageData.all_data?.type==1">My Dealers</h4>
                 <h4 *ngIf="dbService.userStorageData.all_data?.type==3">My Distributors</h4>
                 <!-- <h4 *ngIf="dbService.userStorageData.all_data.type==3">My Distributors</h4> -->
                 <!--<h4>{{lable}}</h4> -->
@@ -87,7 +87,7 @@
             </div>
             <div class="g-right">
                 <div class="g-content" >
-                    <p>{{dbService.userStorageData.type === '3' ? 'Order To Distributor' : 'Order To Gravity'}}</p>
+                    <p>{{dbService.userStorageData.type === '3' ? 'Order To Distributor' : 'Order To Sirca'}}</p>
                     <p> ₹ {{dashboardData.primary.total_amount  }}</p>
                 </div>
                 <div class="g-count">
@@ -104,7 +104,7 @@
             </div>
             <div class="g-right">
                 <div class="g-content">
-                    <p>{{dbService.userStorageData.type === '3' ? 'Order To Distributor' : 'Order To Gravity'}}</p>
+                    <p>{{dbService.userStorageData.type === '3' ? 'Order To Distributor' : 'Order To Sirca'}}</p>
                     <p> ₹ {{dashboardData.primary.total_amount }}</p> 
                 </div>
                 <div class="g-count">
@@ -120,7 +120,7 @@
             </div>
             <div class="g-right">
                 <div class="g-content">
-                    <p>Order From Retail Partner</p>
+                    <p>Order From Dealers</p>
                     <p> ₹ {{dashboardData.secondary.total_amount}}</p>
                 </div>
                 <div class="g-count">
@@ -234,7 +234,7 @@
                         <i class="material-icons">how_to_reg</i>
                     </div>
                     <div class="rt-btn">
-                        <p>Add New Retail Partner</p>
+                        <p>Add New Dealers</p>
                     </div>
                 </button>
                 <button (click)="goOnContactPage()">

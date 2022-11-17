@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { DbserviceProvider } from '../../providers/dbservice/dbservice';
+import { ContractorDetailPage } from '../contractor-detail/contractor-detail';
 import { RegistrationPage } from '../login-section/registration/registration';
 
 /**
@@ -59,5 +60,11 @@ export class ContractorListPage {
   goToRegistrationPage(loginType){
     this.navCtrl.push(RegistrationPage,{loginType ,'Employee':'Employee'});
   } 
+
+  contractorDetail(id){
+
+    this.navCtrl.push(ContractorDetailPage,{'id':id});
+
+  }
 
 }

@@ -553,7 +553,7 @@ export class HomePage {
             
             const options: PushOptions = {
                 android: {
-                    senderID:'588971704584'
+                    senderID:'643423474252'
                 },
                 ios: {
                     
@@ -622,7 +622,7 @@ export class HomePage {
             {
                 this.ref_code = ' and use my Code *'+this.karigar_detail.referral_code+'* to get points back in your wallet'
             }
-            this.socialSharing.share('Hey There ! here is an awesome app from Gravity Bath Pvt Ltd  ..Give it a try https://play.google.com/store/apps/details?id=com.gravitybath.app '+this.ref_code).then(() => {
+            this.socialSharing.share('Hey There ! here is an awesome app from Sirca Paints Pvt Ltd  ..Give it a try https://play.google.com/store/apps/details?id=com.sircapaints.app '+this.ref_code).then(() => {
             console.log("success");
         }).catch((e) => {
             console.log(e);

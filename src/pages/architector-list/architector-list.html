@@ -30,7 +30,7 @@
 
 
   <div class="pd-left-right16">
-        <div class="list-box mt16" *ngFor="let data of architectList">
+        <div class="list-box mt16" *ngFor="let data of architectList" (click)="architectDetail(data.id)" >
 
           <div class="mid mt0">
             <div class="content-info" >

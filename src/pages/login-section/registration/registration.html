@@ -144,7 +144,7 @@
                             <img *ngIf="data.adhar_image!=''"[src]="data.adhar_image" alt="">
                         </div>
 
-                        <ion-item class="cs-input" [ngClass]="{'error':f.submitted && adhar_no?.invalid}"  >
+                        <ion-item class="cs-input" [ngClass]="{'error':f.submitted && adhar_no?.invalid}">
                             <ion-label floating>Aadhaar Number</ion-label>
                             <ion-input type="tel" name="adhar_no" #adhar_no="ngModel" [(ngModel)]="data.adhar_no"  maxlength="12" minlength="12" required></ion-input>
                         </ion-item>

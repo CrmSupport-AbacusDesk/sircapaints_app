@@ -1,34 +1,554 @@
 {
   "project_info": {
-    "project_number": "588971704584",
-    "project_id": "gravityapp-c08b7",
-    "storage_bucket": "gravityapp-c08b7.appspot.com"
+    "project_number": "643423474252",
+    "firebase_url": "https://abacusdesk-api.firebaseio.com",
+    "project_id": "abacusdesk-api",
+    "storage_bucket": "abacusdesk-api.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:588971704584:android:3eab006032b59e6f50acbd",
+        "mobilesdk_app_id": "1:643423474252:android:347b6c415f59f856a1dae9",
         "android_client_info": {
-          "package_name": "com.gravitybath.app"
+          "package_name": "com.Vaalve.abacusdesk"
         }
       },
       "oauth_client": [
         {
-          "client_id": "588971704584-b7999qnlp7732728h4v6soocdode49mf.apps.googleusercontent.com",
+          "client_id": "643423474252-ao5e2vc8srttpo3ceinhtpvs35t15ug3.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCUF8iSyVzrIzvVb7TPdEzqNMei4Qta-C4"
+          "current_key": "AIzaSyD6a82EIPW3fm7Qx650B-tp0Lh0Z0tOnUc"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "588971704584-b7999qnlp7732728h4v6soocdode49mf.apps.googleusercontent.com",
+              "client_id": "643423474252-ao5e2vc8srttpo3ceinhtpvs35t15ug3.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "643423474252-5eomicbisae2ia63riar42fd26gqm0du.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.variations.app"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:643423474252:android:3996e3b0c9a412bda1dae9",
+        "android_client_info": {
+          "package_name": "com.abacus.galio"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "643423474252-ao5e2vc8srttpo3ceinhtpvs35t15ug3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD6a82EIPW3fm7Qx650B-tp0Lh0Z0tOnUc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "643423474252-ao5e2vc8srttpo3ceinhtpvs35t15ug3.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "643423474252-5eomicbisae2ia63riar42fd26gqm0du.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.variations.app"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:643423474252:android:04fe797c56fd805da1dae9",
+        "android_client_info": {
+          "package_name": "com.abacusdesk.askfrasle"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "643423474252-mrequ7e99mbvt6755mr2hum05qg1bubb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.abacusdesk.askfrasle",
+            "certificate_hash": "e03804d1db4dec5c195cbde800dfcbe921fb90cc"
+          }
+        },
+        {
+          "client_id": "643423474252-ao5e2vc8srttpo3ceinhtpvs35t15ug3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD6a82EIPW3fm7Qx650B-tp0Lh0Z0tOnUc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "643423474252-ao5e2vc8srttpo3ceinhtpvs35t15ug3.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "643423474252-5eomicbisae2ia63riar42fd26gqm0du.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.variations.app"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:643423474252:android:59b3d37b84ad4ea9a1dae9",
+        "android_client_info": {
+          "package_name": "com.abacusdesk.equilibrium"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "643423474252-ao5e2vc8srttpo3ceinhtpvs35t15ug3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD6a82EIPW3fm7Qx650B-tp0Lh0Z0tOnUc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "643423474252-ao5e2vc8srttpo3ceinhtpvs35t15ug3.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "643423474252-5eomicbisae2ia63riar42fd26gqm0du.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.variations.app"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:643423474252:android:aa45740de8d1e8cea1dae9",
+        "android_client_info": {
+          "package_name": "com.bathcare.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "643423474252-ao5e2vc8srttpo3ceinhtpvs35t15ug3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD6a82EIPW3fm7Qx650B-tp0Lh0Z0tOnUc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "643423474252-ao5e2vc8srttpo3ceinhtpvs35t15ug3.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "643423474252-5eomicbisae2ia63riar42fd26gqm0du.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.variations.app"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:643423474252:android:953916f24502b25ca1dae9",
+        "android_client_info": {
+          "package_name": "com.bharatbathroom.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "643423474252-ao5e2vc8srttpo3ceinhtpvs35t15ug3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD6a82EIPW3fm7Qx650B-tp0Lh0Z0tOnUc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "643423474252-ao5e2vc8srttpo3ceinhtpvs35t15ug3.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "643423474252-5eomicbisae2ia63riar42fd26gqm0du.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.variations.app"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:643423474252:android:f5264bd2b06c2adda1dae9",
+        "android_client_info": {
+          "package_name": "com.citybond.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "643423474252-ao5e2vc8srttpo3ceinhtpvs35t15ug3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD6a82EIPW3fm7Qx650B-tp0Lh0Z0tOnUc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "643423474252-ao5e2vc8srttpo3ceinhtpvs35t15ug3.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "643423474252-5eomicbisae2ia63riar42fd26gqm0du.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.variations.app"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:643423474252:android:3d4ac845117c03bea1dae9",
+        "android_client_info": {
+          "package_name": "com.crystalswitchgears.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "643423474252-ao5e2vc8srttpo3ceinhtpvs35t15ug3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD6a82EIPW3fm7Qx650B-tp0Lh0Z0tOnUc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "643423474252-ao5e2vc8srttpo3ceinhtpvs35t15ug3.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "643423474252-5eomicbisae2ia63riar42fd26gqm0du.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.variations.app"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:643423474252:android:aabc1b95e7059f01a1dae9",
+        "android_client_info": {
+          "package_name": "com.fluidhardware.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "643423474252-ao5e2vc8srttpo3ceinhtpvs35t15ug3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD6a82EIPW3fm7Qx650B-tp0Lh0Z0tOnUc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "643423474252-ao5e2vc8srttpo3ceinhtpvs35t15ug3.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "643423474252-5eomicbisae2ia63riar42fd26gqm0du.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.variations.app"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:643423474252:android:c4ea75aef4933feda1dae9",
+        "android_client_info": {
+          "package_name": "com.kei_india_abacusdesk.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "643423474252-ao5e2vc8srttpo3ceinhtpvs35t15ug3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD6a82EIPW3fm7Qx650B-tp0Lh0Z0tOnUc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "643423474252-ao5e2vc8srttpo3ceinhtpvs35t15ug3.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "643423474252-5eomicbisae2ia63riar42fd26gqm0du.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.variations.app"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:643423474252:android:e6e40df371ba1cf0a1dae9",
+        "android_client_info": {
+          "package_name": "com.magnusplywood.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "643423474252-ao5e2vc8srttpo3ceinhtpvs35t15ug3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD6a82EIPW3fm7Qx650B-tp0Lh0Z0tOnUc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "643423474252-ao5e2vc8srttpo3ceinhtpvs35t15ug3.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "643423474252-5eomicbisae2ia63riar42fd26gqm0du.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.variations.app"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:643423474252:android:e9e4d98aaf470d5ba1dae9",
+        "android_client_info": {
+          "package_name": "com.respite.abacusdesk"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "643423474252-ao5e2vc8srttpo3ceinhtpvs35t15ug3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD6a82EIPW3fm7Qx650B-tp0Lh0Z0tOnUc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "643423474252-ao5e2vc8srttpo3ceinhtpvs35t15ug3.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "643423474252-5eomicbisae2ia63riar42fd26gqm0du.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.variations.app"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:643423474252:android:bf805f867176f90ea1dae9",
+        "android_client_info": {
+          "package_name": "com.sircapaints.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "643423474252-ao5e2vc8srttpo3ceinhtpvs35t15ug3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD6a82EIPW3fm7Qx650B-tp0Lh0Z0tOnUc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "643423474252-ao5e2vc8srttpo3ceinhtpvs35t15ug3.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "643423474252-5eomicbisae2ia63riar42fd26gqm0du.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.variations.app"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:643423474252:android:e23dc0c1c90c3b76a1dae9",
+        "android_client_info": {
+          "package_name": "com.variations.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "643423474252-ao5e2vc8srttpo3ceinhtpvs35t15ug3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD6a82EIPW3fm7Qx650B-tp0Lh0Z0tOnUc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "643423474252-ao5e2vc8srttpo3ceinhtpvs35t15ug3.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "643423474252-5eomicbisae2ia63riar42fd26gqm0du.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.variations.app"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:643423474252:android:65dbfc1e22626c45a1dae9",
+        "android_client_info": {
+          "package_name": "com.vurabau.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "643423474252-ao5e2vc8srttpo3ceinhtpvs35t15ug3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD6a82EIPW3fm7Qx650B-tp0Lh0Z0tOnUc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "643423474252-ao5e2vc8srttpo3ceinhtpvs35t15ug3.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "643423474252-5eomicbisae2ia63riar42fd26gqm0du.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.variations.app"
+              }
             }
           ]
         }

@@ -42,13 +42,13 @@
 						</ion-item>
 						
 						<ion-item class="cs-input" >
-							<ion-label floating>Retail Partner Name</ion-label>
+							<ion-label floating>Dealers Name</ion-label>
 							<ion-input type="text" name="dealer_contact_person" #dealer_contact_person="ngModel" [(ngModel)]="data.dealer_contact_person" (keypress)="namecheck($event)" ></ion-input>
 						</ion-item>
 						
 						<div [ngClass]="{'error':f.submitted && dealer_mobile?.invalid}">
 							<ion-item class="cs-input mb0">
-								<ion-label floating>Retail Partner Mobile No.</ion-label>
+								<ion-label floating>Dealers Mobile No.</ion-label>
 								<ion-input type="tel" name="dealer_mobile" #dealer_mobile="ngModel" [(ngModel)]="data.dealer_mobile" (keypress)="MobileNumber($event)" min="0" maxlength="10" minlength="10" >
 									<!-- <div class="otp-error" *ngIf="dealer_mobile.length!='10' && dealer_mobile?.touched">
 										<p>Enter 10 Digits</p>

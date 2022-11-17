@@ -64,9 +64,9 @@ export class RegistrationPage {
     console.log(this.Employee);
     this.data.profile='';
     this.data.document_image='';
-    this.data.adhar_card='';
-    this.data.pan_card='';
-    this.data.cancel_check='';
+    this.data.adhar_image='';
+    this.data.pan_card_image='';
+    this.data.cancel_check_image='';
     console.log(this.data.profile);
 
   }
@@ -114,7 +114,7 @@ export class RegistrationPage {
           this.presentLoading();
           console.log(this.data);
 
-          this.dbService.onPostRequestDataFromApi( {'karigar': this.data },'app_karigar/addKarigar', this.dbService.rootUrl).subscribe( r =>
+          this.dbService.onPostRequestDataFromApi( {'karigar': this.data , 'adhar_image':this.data.adhar_image,'pan_card_image':this.data.pan_card_image ,'cancel_check_image':this.data.cancel_check_image },'app_karigar/addKarigar', this.dbService.rootUrl).subscribe( r =>
             {
               console.log(r);
               this.loading.dismiss();
@@ -417,8 +417,8 @@ export class RegistrationPage {
         console.log(options);
         this.camera.getPicture(options).then((imageData) => {
           this.flag=false;
-          this.data.adhar_card = 'data:image/jpeg;base64,' + imageData;
-          console.log(this.data.adhar_card);
+          this.data.adhar_image = 'data:image/jpeg;base64,' + imageData;
+          console.log(this.data.adhar_image);
         }, (err) => {
         });
       }
@@ -433,8 +433,8 @@ export class RegistrationPage {
         console.log(options);
         this.camera.getPicture(options).then((imageData) => {
           this.flag=false;
-          this.data.adhar_card = 'data:image/jpeg;base64,' + imageData;
-          console.log(this.data.adhar_card);
+          this.data.adhar_image = 'data:image/jpeg;base64,' + imageData;
+          console.log(this.data.adhar_image);
         }, (err) => {
         });
       }
@@ -497,8 +497,8 @@ export class RegistrationPage {
         console.log(options);
         this.camera.getPicture(options).then((imageData) => {
           this.flag=false;
-          this.data.pan_card = 'data:image/jpeg;base64,' + imageData;
-          console.log(this.data.pan_card);
+          this.data.pan_card_image = 'data:image/jpeg;base64,' + imageData;
+          console.log(this.data.pan_card_image);
         }, (err) => {
         });
       }
@@ -513,8 +513,8 @@ export class RegistrationPage {
         console.log(options);
         this.camera.getPicture(options).then((imageData) => {
           this.flag=false;
-          this.data.pan_card = 'data:image/jpeg;base64,' + imageData;
-          console.log(this.data.pan_card);
+          this.data.pan_card_image = 'data:image/jpeg;base64,' + imageData;
+          console.log(this.data.pan_card_image);
         }, (err) => {
         });
       }
@@ -578,8 +578,8 @@ export class RegistrationPage {
       console.log(options);
       this.camera.getPicture(options).then((imageData) => {
         this.flag=false;
-        this.data.cancel_check = 'data:image/jpeg;base64,' + imageData;
-        console.log(this.data.cancel_check);
+        this.data.cancel_check_image = 'data:image/jpeg;base64,' + imageData;
+        console.log(this.data.cancel_check_image);
       }, (err) => {
       });
     }
@@ -594,8 +594,8 @@ export class RegistrationPage {
       console.log(options);
       this.camera.getPicture(options).then((imageData) => {
         this.flag=false;
-        this.data.cancel_check = 'data:image/jpeg;base64,' + imageData;
-        console.log(this.data.cancel_check);
+        this.data.cancel_check_image = 'data:image/jpeg;base64,' + imageData;
+        console.log(this.data.cancel_check_image);
       }, (err) => {
       });
     }

@@ -4,10 +4,10 @@
         <ion-title *ngIf="type=='Lead'">Lead Detail</ion-title>
         <ion-title *ngIf="type!='Lead'">Detail</ion-title>
         <ion-buttons end>
-            <button ion-button icon-only color="light" (click)="goOnEditDetail(distributor_detail.id)" *ngIf= "userStorageData.user_type == 'Inside Sales Team' && type=='Lead'">
+            <button ion-button icon-only color="light" (click)="goOnEditDetail(distributor_detail.id)" *ngIf="userStorageData.user_type == 'Inside Sales Team' && type=='Lead'">
                 <ion-icon name="md-create"></ion-icon>
             </button>
-            <button ion-button icon-only color="light" (click)="goOnEditDetail(distributor_detail.id)" *ngIf= "userStorageData.user_type != 'Inside Sales Team'">
+            <button ion-button icon-only color="light" (click)="goOnEditDetail(distributor_detail.id)" *ngIf="userStorageData.user_type != 'Inside Sales Team'">
               <ion-icon name="md-create"></ion-icon>
             </button>
         </ion-buttons>
@@ -103,7 +103,7 @@
             </div>
         </div>
         <button ion-button class="cs-btn" (click)="convertdealer()">
-            Convert To Retail Partner
+            Convert To Dealers
          </button>
     </div>
 

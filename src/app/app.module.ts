@@ -186,6 +186,8 @@ import { ArchitectorListPageModule } from '../pages/architector-list/architector
 import { SiteListPageModule } from '../pages/site-list/site-list.module';
 import { SiteAddPageModule } from '../pages/site-add/site-add.module';
 import { SiteDetailPageModule } from '../pages/site-detail/site-detail.module';
+import { ContractorDetailPageModule } from '../pages/contractor-detail/contractor-detail.module';
+import { ArchitectDetailPageModule } from '../pages/architect-detail/architect-detail.module';
 
 
 
@@ -209,7 +211,9 @@ import { SiteDetailPageModule } from '../pages/site-detail/site-detail.module';
         PlumberMeetDetailPageModule,
         PlumberMeetAddPageModule,
         PlumberMeetListPageModule,
+        ArchitectDetailPageModule,
         SelectFavProductQtyPageModule,
+        ContractorDetailPageModule,
         FiltersPageModule,
         AccountStatementPageModule,
         BillingDetailPageModule,
@@ -237,6 +241,7 @@ import { SiteDetailPageModule } from '../pages/site-detail/site-detail.module';
         SiteListPageModule,
         SiteAddPageModule,
         SiteDetailPageModule,
+
         QuotationDistributorPageModule,
         AddQuotationPageModule,
         QuotationDetailPageModule,
