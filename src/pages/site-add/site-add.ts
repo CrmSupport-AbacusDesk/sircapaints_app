@@ -6,7 +6,7 @@ import { SiteListPage } from '../site-list/site-list';
 import { Geolocation } from '@ionic-native/geolocation';
 import { NativeGeocoder, NativeGeocoderReverseResult, NativeGeocoderOptions } from '@ionic-native/native-geocoder';
 import { LocationAccuracy } from '@ionic-native/location-accuracy';
-
+// import { google } from 'google-maps';
 /**
  * Generated class for the SiteAddPage page.
  *
@@ -14,7 +14,7 @@ import { LocationAccuracy } from '@ionic-native/location-accuracy';
  * Ionic pages and navigation.
  */
 
-declare var google;
+declare var google:any;
 
 
 @IonicPage()

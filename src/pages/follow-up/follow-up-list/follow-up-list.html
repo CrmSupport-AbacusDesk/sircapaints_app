@@ -101,9 +101,9 @@
 
           <div class="right-info">
             <p>{{row.dr_name | titlecase}} {{  row.dr_city && row.dr_city!=''? '('+ row.dr_city +')':''}}</p>
-            <p *ngIf="row.type == '1'">Channel Partner</p>
+            <p *ngIf="row.type == '1'">Distributor</p>
             <p *ngIf="row.type == '7'">Direct Dealers</p>
-            <p *ngIf="row.type == '3'">Retail Partner</p>
+            <p *ngIf="row.type == '3'">Dealers</p>
           </div>
         </div>
         <div class="tag-info amount-view">

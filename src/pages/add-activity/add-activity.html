@@ -28,7 +28,7 @@
       <ion-item class="cs-normal-select mt16 mb0" *ngIf="activity_data.dr_network_type && navParams.data.comes_from != 'dr_detail_page'">
         <ion-label >Select Type <strong>*</strong></ion-label>
         <ion-select [(ngModel)]="activity_data.dr_type" [disabled]="navParams.data['come_from'] == 'follow_up_detail_page'" (ngModelChange)="getDrList()" required>
-          <ion-option *ngIf="activity_data.dr_network_type == 'Lead' || activity_data.dr_network_type == 'Dr'" value="1">Channel Partner </ion-option>
+          <ion-option *ngIf="activity_data.dr_network_type == 'Lead' || activity_data.dr_network_type == 'Dr'" value="1">Distributor </ion-option>
           <ion-option *ngIf="activity_data.dr_network_type == 'Dr'" value="7">Direct Dealers</ion-option>
           <ion-option *ngIf="activity_data.dr_network_type == 'Lead' || activity_data.dr_network_type == 'Dr'" value="3">Dealers</ion-option>
           <ion-option *ngIf="activity_data.dr_network_type == 'Lead'" value="10">Not Defined</ion-option>
@@ -85,11 +85,11 @@
           <ion-input type="text" name="purchase_frequency" [(ngModel)]="activity_data.purchase_frequency"  #purchase_frequency="ngModel"></ion-input>
         </ion-item>
         <ion-item>
-          <ion-label floating><span>Segments in Gravity</span></ion-label>
+          <ion-label floating><span>Segments in Sirca</span></ion-label>
           <ion-input type="text" name="segments_in_gravity" [(ngModel)]="activity_data.segments_in_gravity"  #segments_in_gravity="ngModel"></ion-input>
         </ion-item>
         <ion-item>
-          <ion-label floating><span>Why not all segments of Gravity</span></ion-label>
+          <ion-label floating><span>Why not all segments of Sirca</span></ion-label>
           <ion-input type="text" name="why_not_all_segments_of_gravity" [(ngModel)]="activity_data.why_not_all_segments_of_gravity"  #why_not_all_segments_of_gravity="ngModel"></ion-input>
         </ion-item>
         <ion-item>

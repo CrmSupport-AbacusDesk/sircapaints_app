@@ -9,7 +9,7 @@
     <ion-list>
 
       <ion-item class="cs-selectable mt16 " *ngIf="this.user_data.loginType =='SFA'">
-        <ion-label><span>Select Retail Partner/Channel Partner</span></ion-label>
+        <ion-label><span>Select Dealers/Channel Partner</span></ion-label>
         <ionic-selectable item-content #dealerSelectable [(ngModel)]="temp_dealer_data" [items]="assing_dealer_data" itemValueField="id" itemTextField="company_name"  [canSearch]="true" (onChange)="get_selected_dealer_data($event)"></ionic-selectable>
       </ion-item>
 
@@ -27,12 +27,12 @@
       </ion-item>
       <!-- By Abhishek Start here -->
       <ion-item>
-        <ion-label floating><span>Current Gravity Monthly Sale Average</span></ion-label>
+        <ion-label floating><span>Current Sirca Monthly Sale Average</span></ion-label>
         <ion-input type="tel" name="sale_average" #sale_average="ngModel" [(ngModel)]="meet_data.sale_average" required min="0" maxlength="10000" minlength="1"></ion-input>
       </ion-item>
 
       <ion-item class="cs-normal-select mt16">
-        <ion-label> In which segment working with Gravity <strong>*</strong></ion-label>
+        <ion-label> In which segment working with Sirca <strong>*</strong></ion-label>
         <ion-select [(ngModel)]="meet_data.working_segment_name" multiple="true" required>
           <ion-option *ngFor="let list of working_segment_list" [value]="list.working_segment_name">{{list.working_segment_name}}</ion-option>
         </ion-select>
@@ -40,7 +40,7 @@
 
 
       <ion-item class="cs-normal-select mt16">
-        <ion-label>Cp fittings series dealing in gravity</ion-label>
+        <ion-label>Cp fittings series dealing in sirca</ion-label>
 
 
         <ion-select [(ngModel)]="meet_data.how_many_cp_fitting" multiple="true" required>
@@ -57,14 +57,14 @@
       </ion-item> -->
 
       <ion-item class="cs-normal-select mt16">
-        <ion-label>Gravity branding in your store<strong>*</strong></ion-label>
+        <ion-label>Sirca branding in your store<strong>*</strong></ion-label>
         <ion-select [(ngModel)]="meet_data.branding_item" multiple="true" required>
             <ion-option *ngFor="let branding of gravity_branding_showroom" [value]="branding">{{branding}}</ion-option>
         </ion-select>
       </ion-item>
 
       <ion-item class="cs-normal-select mt16">
-        <ion-label>Are you interested in other gravity segments?<strong>*</strong></ion-label>
+        <ion-label>Are you interested in other sirca segments?<strong>*</strong></ion-label>
         <ion-select [(ngModel)]="meet_data.intrested_segment_name" multiple="true" required>
             <ion-option *ngFor="let intrested_segment of working_segment_list" [value]="intrested_segment.working_segment_name">{{intrested_segment.working_segment_name}}</ion-option>
         </ion-select>

@@ -27,8 +27,9 @@
                 <ion-item class="cs-normal-select mt16 mb0"  *ngIf="userStorageData.user_type != 'Inside Sales Team'">
                   <ion-label >Select Type <strong>*</strong></ion-label>
                   <ion-select name ="type" type ="ngModel" [(ngModel)]="form.type"  required>
-                    <ion-option  value="1">Channel Partner </ion-option>
-                    <ion-option  value="3">Retail Partner</ion-option>
+                    <ion-option  value="1">Distributor </ion-option>
+                    <ion-option  value="3">Dealers</ion-option>
+                    <ion-option  value="5">Oem</ion-option>
                   </ion-select>
                 </ion-item>
 

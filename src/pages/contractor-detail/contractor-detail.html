@@ -1,0 +1,206 @@
+
+<ion-header>
+  <ion-navbar>
+    <ion-title>Contractor Detail</ion-title>
+    <!-- <div class="edit-profile pencil-btn" (click)="editSiteDetailPage()">
+        <button> <i class="material-icons">edit</i></button>
+    </div>  -->
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content >
+  <div class="sticky-main">
+      <div class="pd-left-right16 af_bg">
+          <div class="list-box">
+              <div class="upper">
+                  <div class="left-date">
+                      <div class="date-section">
+                          <p>{{getData.date_created | date:'d MMM y'}}</p>
+                          <p>Date Created</p>
+                      </div>
+                  </div>
+
+              </div>
+              <div class="mid">
+                  <div class="content-info">
+                      <div class="left-info">
+                          <div class="circle" >{{getData.first_name | slice:0:1}}</div>
+
+                      </div>
+                      <div class="right-info">
+                          <p>DOB: {{getData.dob}}</p>
+                          <p> {{!getData.first_name ? 'N/A' : getData.first_name | titlecase}} ({{getData.last_name | titlecase}})-({{getData.mobile_no}}) </p>
+                          <p *ngIf="getData.email"> {{getData.email ? getData.email : 'N/A'}}</p>
+                      </div>
+                  </div>
+                  <div class="tag-info">
+                      <a href="tel:{{getData.mobile_no ? getData.mobile_no : 'N/A'}}"><i class="material-icons">phone</i></a>
+                  </div>
+              </div>
+              <div class="lower">
+                  <p>Address</p>
+                  <p>{{!getData.state ? 'N/A' : getData.state | titlecase}} {{!getData.city ? '' : ', '+getData.city | titlecase}} {{!getData.district ? '' : ', '+getData.district | titlecase}} {{getData.pincode ? ' - '+getData.pincode : ''}}</p>
+              </div>
+          </div>
+      </div>
+
+      <!-- <div class="csn-heading neww" *ngIf="total_checkin?.length && !search.date">
+          <p>Latest Checkins</p>
+
+          <label class="chedate">
+              <input  type="date" [max]="date" name="date" [(ngModel)]="search.date" (ngModelChange)="lead_detail()" type="date" >
+              <i class="material-icons">date_range</i>
+          </label>
+
+          <div class="text-line" *ngIf="search.date">
+              <div class="lf-text">
+                  <p>Date</p>
+                  <p>{{search.date | date:'d MMM y'}}</p>
+              </div>
+              <div class="rf-text"  (click)="search.date=null;lead_detail()">
+                  <i class="material-icons">cancel</i>
+              </div>
+          </div>
+
+      </div> -->
+  </div>
+
+  <div class="pl16 pr16" >
+      <div class="list-box mt16">
+          <div class="upper">
+              <div class="left-date">
+                  <div class="date-section">
+                      <p>{{getData.dealer_contact_person }} - ({{getData.dealer_mobile }})</p>
+                      <p>Dealer Detail</p>
+                  </div>
+                  <!-- <div class="date-section">
+                      <p>{{getData.visit_start | date:'hh:mm a'}}</p>
+                      <p>Start Time</p>
+                  </div>
+                  <div class="date-section" *ngIf="getData.visit_end != '0000-00-00 00:00:00'">
+                      <p>{{getData.visit_end | date:'hh:mm a'}}</p>
+                      <p>End Time</p>
+                  </div> -->
+
+              </div>
+          </div>
+
+          <div class="three_boxes" *ngIf="getData.landmark">
+              <div class="lower one-line">
+                  <p>LandMark: <span>{{getData.landmark | titlecase}}</span></p>
+              </div>
+          </div>
+          <div class="three_boxes" *ngIf="getData.project_size">
+              <div class="lower one-line">
+                  <p>Projection Size : <span>{{getData.project_size}}</span></p>
+              </div>
+          </div>
+      </div>
+      
+  </div>
+
+  <div class="pl16 pr16">
+    <div class="list-box mt16">
+      <div class="three_boxes" *ngIf="getData.adhar_no">
+        <div class="lower one-line">
+            <p>Adhar No: <span>{{getData.adhar_no}}</span></p>
+        </div>
+    </div>
+    </div>
+    <div class="gallery">
+      <div class="select-img" *ngIf="getData.adhar_image">
+        <h4>Adhar Card Gallery</h4>
+        
+        <div class="video-area">
+          <ul>
+            <ng-container>
+              <li *ngIf="getData.sfdsfdsf=='video'">
+                <iframe [src]="image.file_name" width="100%" height="180" rameborder="0" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+              </li>
+            </ng-container>
+          </ul>
+        </div>
+        
+        <ul>
+          <ng-container>
+            <li *ngIf="getData.adhar_image"  (click)="imageModal(dbService.karigar_detail+getData.adhar_image)">
+              <img [src]="dbService.karigar_detail+getData.adhar_image">
+            </li>
+          </ng-container>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class="pl16 pr16">
+    <div class="list-box mt16">
+      <div class="three_boxes" *ngIf="getData.pan_no">
+        <div class="lower one-line">
+            <p>Pan Card No: <span>{{getData.pan_no}}</span></p>
+        </div>
+    </div>
+    </div>
+    <div class="gallery">
+      <div class="select-img" *ngIf="getData.pan_card_image">
+        <h4>Pan Card Gallery</h4>
+        
+        <div class="video-area">
+          <ul>
+            <ng-container>
+              <li *ngIf="getData.sfdsfdsf=='video'">
+                <iframe [src]="image.file_name" width="100%" height="180" rameborder="0" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+              </li>
+            </ng-container>
+          </ul>
+        </div>
+        
+        <ul>
+          <ng-container>
+            <li *ngIf="getData.pan_card_image"  (click)="imageModal(dbService.karigar_detail+getData.pan_card_image)">
+              <img [src]="dbService.karigar_detail+getData.pan_card_image">
+            </li>
+          </ng-container>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class="pl16 pr16">
+    <div class="list-box mt16">
+      <div class="three_boxes" *ngIf="getData.cancel_check">
+        <div class="lower one-line">
+            <p>Cancel Check No: <span>{{getData.cancel_check}}</span></p>
+        </div>
+    </div>
+    </div>
+    <div class="gallery">
+      <div class="select-img" *ngIf="getData.cancel_check_image">
+        <h4>Cancel Check Gallery</h4>
+        
+        <div class="video-area">
+          <ul>
+            <ng-container>
+              <li *ngIf="getData.sfdsfdsf=='video'">
+                <iframe [src]="image.file_name" width="100%" height="180" rameborder="0" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+              </li>
+            </ng-container>
+          </ul>
+        </div>
+        
+        <ul>
+          <ng-container>
+            <li *ngIf="getData.cancel_check_image"  (click)="imageModal(dbService.karigar_detail+getData.cancel_check_image)">
+              <img [src]="dbService.karigar_detail+getData.cancel_check_image">
+            </li>
+          </ng-container>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+</ion-content>

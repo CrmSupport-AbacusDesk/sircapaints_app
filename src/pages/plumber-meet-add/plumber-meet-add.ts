@@ -63,7 +63,7 @@ this.get_fitting()
       if(response['assigned_dealers_list'].length == 0){
         let alert=this.alertCtrl.create({
           title:'',
-          subTitle: 'You Have No Assign Dealer/Channel Partner',
+          subTitle: 'You Have No Assign Dealer/Distributor',
           cssClass:'action-close',
 
           buttons: [{

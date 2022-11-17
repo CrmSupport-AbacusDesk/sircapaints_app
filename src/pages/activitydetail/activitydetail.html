@@ -22,9 +22,9 @@
 
           <div class="right-info" >
             <p > {{activity_detail.company_name}}</p>
-            <p *ngIf="activity_detail.type == '1'">Channel Partner</p>
+            <p *ngIf="activity_detail.type == '1'">Distributor</p>
             <p *ngIf="activity_detail.type == '7'">Direct Dealers</p>
-            <p *ngIf="activity_detail.type == '3'">Retail Partner</p>
+            <p *ngIf="activity_detail.type == '3'">Dealers</p>
           </div>
         </div>
         <!-- <div class="tag-info">
@@ -106,13 +106,13 @@
             <p>{{activity_detail.most_selling_brands?activity_detail.most_selling_brands:'N/A'}}</p>
           </div>
           <div class="lower">
-            <p>Segments in Gravity</p>
+            <p>Segments in Sirca</p>
             <p >{{activity_detail.segments_in_gravity?activity_detail.segments_in_gravity:'N/A'}}</p>
           </div>
         </div>
         <div class="three_boxes">
           <div class="lower">
-            <p>Why not all segments of Gravity</p>
+            <p>Why not all segments of Sirca</p>
             <p>{{activity_detail.why_not_all_segments_of_gravity?activity_detail.why_not_all_segments_of_gravity:'N/A'}}</p>
           </div>
           <div class="lower">

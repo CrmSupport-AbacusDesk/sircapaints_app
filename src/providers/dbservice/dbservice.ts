@@ -19,6 +19,7 @@ export class DbserviceProvider {
   public upload_url3: string = 'https://devcrm.abacusdesk.com/sircapaints/dd_api/app/uploads/';
   public stock_pdf_url: string = 'https://devcrm.abacusdesk.com/sircapaints/crm/api/uploads/';
   public uploadURL: string = 'https://devcrm.abacusdesk.com/sircapaints/dd_api/app/uploads/images/';
+  public karigar_detail:string='https://devcrm.abacusdesk.com/sircapaints/dd_api//app/uploads/images/'
 
 
   userStorageData: any;

@@ -324,11 +324,11 @@ export class MyApp {
             title : 'Direct Dealer', name: 'Direct Dealer', component: MainDistributorListPage,index: 13, icon: 'person_pin', show: true
           },
           {
-            title : 'Retail Partner', name: 'Dealer', component: MainDistributorListPage,index: 12, icon: 'person', show: true
+            title : 'Dealer', name: 'Dealer', component: MainDistributorListPage,index: 12, icon: 'person', show: true
           },
-          // {
-          //   title: 'Lead', name: 'Lead', component: DistributorListPage,index: 5, icon: 'group_add', show: true
-          // },
+          {
+            title: 'Lead', name: 'Lead', component: DistributorListPage,index: 5, icon: 'group_add', show: true
+          },
           
           {
             title: 'Follow Up', name: 'Follow Up', component: FollowUpListPage,index: 16, icon: 'today', show: true
@@ -384,7 +384,7 @@ export class MyApp {
             title: 'Attendance', name: 'AttendencePage', component: AttendencePage,index: 11, icon: 'date_range', show: true
           },
           {
-            title : 'Retail Partner', name: 'Dealer', component: MainDistributorListPage,index: 12, icon: 'person', show: true
+            title : 'Dealer', name: 'Dealer', component: MainDistributorListPage,index: 12, icon: 'person', show: true
           },
           {
             title: 'Lead', name: 'Lead', component: DistributorListPage,index: 5, icon: 'group_add', show: true
@@ -437,7 +437,7 @@ export class MyApp {
             title : 'Direct Dealer', name: 'Direct Dealer', component: MainDistributorListPage,index: 13, icon: 'person_pin', show: true
           },
           {
-            title : 'Retail Partner', name: 'Dealer', component: MainDistributorListPage,index: 12, icon: 'person', show: true
+            title : 'Dealer', name: 'Dealer', component: MainDistributorListPage,index: 12, icon: 'person', show: true
           },
           {
             title: 'Lead', name: 'Lead', component: DistributorListPage,index: 5, icon: 'group_add', show: true

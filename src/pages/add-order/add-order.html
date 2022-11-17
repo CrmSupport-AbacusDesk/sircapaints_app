@@ -14,16 +14,16 @@
                 <ion-item class="cs-normal-select mt16" *ngIf="adddMoreItem">
                     <ion-label>Select type <strong>*</strong></ion-label>
                     <ion-select disabled placeholder="Select Type" name="type" [(ngModel)]="data.networkType" (ngModelChange)="get_network_list(data.networkType)" required>
-                        <ion-option value="1">Channel Partner</ion-option>
+                        <ion-option value="1">Distributor</ion-option>
                         <ion-option value="7">Direct Dealer</ion-option>
-                        <ion-option value="3">Retail Partner</ion-option>
+                        <ion-option value="3">Dealers</ion-option>
                     </ion-select>
                 </ion-item>
                 <ion-item class="cs-normal-select mt16" *ngIf="!adddMoreItem">
                     <ion-label>Select type</ion-label>
                     <ion-select placeholder="Select Type" name="type" [(ngModel)]="data.networkType" (ngModelChange)="get_network_list(data.networkType)">
-                        <ion-option value="1">Channel Partner</ion-option>
-                        <ion-option value="3">Retail Partner</ion-option>
+                        <ion-option value="1">Distributor</ion-option>
+                        <ion-option value="3">Dealers</ion-option>
                         <ion-option value="7">Direct Dealer</ion-option>
                     </ion-select>
                 </ion-item>
@@ -34,8 +34,8 @@
         <ion-list *ngIf="data.networkType">
 
             <ion-item class="cs-select mt16" *ngIf="adddMoreItem">
-                <ion-label *ngIf="data.networkType == '1'">Channel Partner</ion-label>
-                <ion-label *ngIf="data.networkType == '3'">Retail Partner</ion-label>
+                <ion-label *ngIf="data.networkType == '1'">Distributor</ion-label>
+                <ion-label *ngIf="data.networkType == '3'">Dealers</ion-label>
                 <ion-label *ngIf="data.networkType == '7'">Direct Dealer</ion-label>
 
                 <ionic-selectable item-content [(ngModel)]="data.type_name" [items]="distributor_network_list" itemValueField="id" name="name" value="company_name" itemTextField="company_name" disabled [canSearch]="true" #selectComponent>
@@ -45,8 +45,8 @@
 
 
             <ion-item class="cs-select mt16" *ngIf="!adddMoreItem">
-                <ion-label *ngIf="data.networkType == '1'">Channel Partner</ion-label>
-                <ion-label *ngIf="data.networkType == '3'">Retail Partner</ion-label>
+                <ion-label *ngIf="data.networkType == '1'">Distributor</ion-label>
+                <ion-label *ngIf="data.networkType == '3'">Dealers</ion-label>
                 <ion-label *ngIf="data.networkType == '7'">Direct Dealer</ion-label>
 
                 <ionic-selectable item-content  [(ngModel)]="data.type_name" [items]="distributor_network_list" itemValueField="id" name="name" value="company_name" itemTextField="company_name" (onChange)="data.networkType == '3' ? is_order_exist($event) : openCategory()" [canSearch]="true" #selectComponent required>
@@ -54,17 +54,17 @@
             </ion-item>
 
             <div class="mb15" (click)="goto_dealer_detail()" *ngIf="data.networkType == '3' && data.type_name && show_update_discount_alert == true && is_dealer_order_exist == false && !adddMoreItem">
-                <button class="cs-button border-btn">Update Retail Partner Discount</button>
+                <button class="cs-button border-btn">Update Dealers Discount</button>
             </div>
 
             <div *ngIf="is_dealer_order_exist == true || discount_updated == true">
                 <ion-item class="cs-selectable mt16" *ngIf="data.networkType == 3 && adddMoreItem">
-                    <ion-label><span>Select Channel Partner</span></ion-label>
+                    <ion-label><span>Select Distributor</span></ion-label>
                     <ionic-selectable item-content [(ngModel)]="data.distributor_id" [items]="distributor_list" itemValueField="id" itemTextField="company_name" name="company_name" disabled value="id" [canSearch]="true" #distributorSelectable>
                     </ionic-selectable>
                 </ion-item>
                 <ion-item class="cs-selectable"  [ngClass]="className" *ngIf="data.networkType == 3 && !adddMoreItem">
-                    <ion-label><span>Select Channel Partner</span></ion-label>
+                    <ion-label><span>Select Distributor</span></ion-label>
                     <ionic-selectable item-content [(ngModel)]="data.distributor_id" [items]="distributor_list" itemValueField="id" itemTextField="company_name" (onChange)="openCategory2()" name="company_name" value="id" [canSearch]="true" #distributorSelectable>
                     </ionic-selectable>
                 </ion-item>
