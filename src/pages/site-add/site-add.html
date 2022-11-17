@@ -311,13 +311,37 @@
                   <img *ngIf="siteform.document_image!=''" [src]="siteform.document_image" alt="">
                 </div>
 
-                
+
 
               </ion-list>
             </div>
           </div>
 
+          <ion-list class="location-map ">
+            <ion-item>
+              <div #map id="map"></div>
 
+              <div (click)="loadMap()" class="map-location"><i class="material-icons">my_location</i></div>
+            </ion-item>
+
+            <ion-item>
+
+              <div class="point-loc" >
+                <div class="point-add" *ngIf="old_location!=''">
+                  <p>Last Location</p>
+                  <textarea name="old_location" [(ngModel)]="old_location" readonly></textarea>
+                </div>
+
+              
+
+                <div class="enquiry-btn loction-btn">
+                  <button (click)="loadMap()" ion-button color="danger" class="green-color">
+                    <p>Add location</p>
+                  </button>
+                </div>
+              </div>
+            </ion-item>
+          </ion-list>
 
 
 
