@@ -1,0 +1,37 @@
+
+
+<ion-content class="transprant-bg">
+  <div class="work-modal">
+    <div class="work-modal-bg">
+      <div>
+        <!-- <div class="head" style="display: flex;justify-content: space-between;background: #ac134a;color: #fff;padding: 5px;"> -->
+          <div class="head">
+          <h2>Select Site First</h2>
+          <!-- <a class="close" style="color:#fff;" (click)="dismiss()"><i class="material-icons">close</i></a> -->
+          <a class="close"  (click)="dismiss()"><i class="material-icons">close</i></a>
+        </div>
+        <form #f="ngForm" (ngSubmit)="f.valid && scan()">
+          <div class="edit mb32">
+            <ion-list>
+              <ion-item class="cs-select" [ngClass]="{'error':f.submitted && Site?.invalid}">
+                <ion-label>Site*</ion-label>
+                <ionic-selectable item-content [(ngModel)]="siteform.Site" #Site="ngModel" [items]="site_List"
+                  name="Site" itemValueField="id" itemTextField="site_owner_name" [hasVirtualScroll]="true"
+                  [canSearch]="true" required>
+                </ionic-selectable>
+              </ion-item>
+
+           
+              <button ion-button type="submit" class="mt32 cs-btn re-btn" [disabled]="show_email_error">Scan Now</button>
+            </ion-list>
+          </div>
+    
+        </form>
+      </div>
+    </div>
+  </div> 
+ 
+        
+  <!--  pattern="[a-zA-Z0-9_.+%-]+@[0-9a-zA-Z.-]+\.[a-z]{2,3}$" -->
+  <!-- pattern="(^[a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,3}$)" -->
+</ion-content>

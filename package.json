@@ -93,6 +93,7 @@
   },
   "devDependencies": {
     "@ionic/app-scripts": "3.2.4",
+    "@types/google-maps": "^3.2.3",
     "cordova-android": "^9.1.0",
     "cordova-plugin-android-permissions": "^1.1.2",
     "cordova-plugin-document-viewer": "^0.9.13",

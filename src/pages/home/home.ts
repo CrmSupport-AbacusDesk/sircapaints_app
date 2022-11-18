@@ -30,6 +30,7 @@ import { File } from '@ionic-native/file';
 import { FavoriteProductPage } from '../favorite-product/favorite-product';
 import { VideoPage } from '../video/video';
 import { SiteListPage } from '../site-list/site-list';
+import { SiteSelectPage } from '../site-select/site-select';
 
 
 // import { CallNumber } from '@ionic-native/call-number';
@@ -161,19 +162,23 @@ export class HomePage {
         
         getData()
         {
-            this.presentLoading("Please wait...");
+            // this.presentLoading("Please wait...");
             // this.loading.present
             console.log("Check");
+            this.dbService.show_loading();
             this.dbService.onPostRequestDataFromApi({'karigar_id':this.dbService.userStorageData.id},'app_karigar/karigarHome', this.dbService.rootUrl)
             .subscribe((r:any)=>
             {
                 console.log(r);
-                this.loading.dismiss();
+                // this.loading.dismiss();
                 this.karigar_detail=r['karigar'];
                 this.last_point=r['last_point'];
                 this.today_point=r['today_point'];
+                this.dbService.dismiss_loading();
             },() => {
-                this.loading.dismiss();
+                // this.loading.dismiss();
+                this.dbService.dismiss_loading();
+
             });
         }
         installation_count:any='';
@@ -296,6 +301,20 @@ export class HomePage {
             }
             
             
+        }
+
+        scan2(){
+           let ScanTypeModal= this.modalCtrl.create(SiteSelectPage);
+           ScanTypeModal.onDidDismiss(data =>{
+            
+                this.getData();
+              console.log(data);
+            
+  
+          });
+
+           ScanTypeModal.present();
+
         }
         viewProfiePic()
         {

@@ -4,6 +4,8 @@ import { ActionSheetController, IonicPage, NavController, NavParams, ToastContro
 import { DbserviceProvider } from '../../providers/dbservice/dbservice';
 import { SiteListPage } from '../site-list/site-list';
 import { Geolocation } from '@ionic-native/geolocation';
+import { google } from 'google-maps';
+
 import { NativeGeocoder, NativeGeocoderReverseResult, NativeGeocoderOptions } from '@ionic-native/native-geocoder';
 import { LocationAccuracy } from '@ionic-native/location-accuracy';
 // import { google } from 'google-maps';
@@ -85,7 +87,7 @@ export class SiteAddPage {
     this.loginType = this.dbService.userStorageData.type;
     this.loginId = this.dbService.userStorageData.id;
     this.loginName = this.dbService.userStorageData.first_name + this.dbService.userStorageData.last_name;
-    this.siteform.document_image = '';
+    this.siteform.document_image='';
 
     if (this.id) {
       this.getSiteDetail();

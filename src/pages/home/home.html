@@ -171,11 +171,14 @@
             <i class="material-icons">power_settings_new</i>
         </button> -->
 
-        <button ion-button class="hs-menu cs-hdr-icons mr16" color="light" (click)="ShareApp()">
+        <!-- <button ion-button class="hs-menu cs-hdr-icons mr16" color="light" (click)="ShareApp()">
             <img src="assets/imgs/share.svg">
-        </button>
+        </button> -->
         <!-- *ngIf="karigar_detail.status=='Verified'" -->
-        <button *ngIf="dbService.userStorageData.type == 'Contractor'" ion-button class="hs-menu cs-hdr-icons" color="light" (click)="scan()">
+        <!-- <button *ngIf="dbService.userStorageData.type == 'Contractor'" ion-button class="hs-menu cs-hdr-icons" color="light" (click)="scan()">
+            <img src="assets/imgs/qr-code.svg">
+        </button> -->
+        <button *ngIf="dbService.userStorageData.type == 'Contractor' && karigar_detail.status=='Verified'" ion-button class="hs-menu cs-hdr-icons" color="light" (click)="scan2()">
             <img src="assets/imgs/qr-code.svg">
         </button>
     </div>
