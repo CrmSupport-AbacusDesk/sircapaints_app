@@ -114,7 +114,7 @@ export class RegistrationPage {
           this.presentLoading();
           console.log(this.data);
 
-          this.dbService.onPostRequestDataFromApi( {'karigar': this.data , 'adhar_image':this.data.adhar_image,'pan_card_image':this.data.pan_card_image ,'cancel_check_image':this.data.cancel_check_image },'app_karigar/addKarigar', this.dbService.rootUrl).subscribe( r =>
+          this.dbService.onPostRequestDataFromApi( {'karigar': this.data },'app_karigar/addKarigarApp', this.dbService.rootUrl).subscribe( r =>
             {
               console.log(r);
               this.loading.dismiss();

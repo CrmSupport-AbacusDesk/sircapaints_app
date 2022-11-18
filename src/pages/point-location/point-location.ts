@@ -1,6 +1,7 @@
 import { Component, ViewChild, ElementRef  } from '@angular/core';
 import { IonicPage, NavController, NavParams,AlertController, ToastController } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
+import { google } from 'google-maps';
 import { DbserviceProvider } from '../../providers/dbservice/dbservice';
 import { NativeGeocoder, NativeGeocoderReverseResult, NativeGeocoderOptions } from '@ionic-native/native-geocoder';
 import { ProfilePage } from '../profile/profile';
