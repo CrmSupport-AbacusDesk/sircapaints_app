@@ -56,7 +56,6 @@ export class ProductDetailPage {
       console.log('src ' + this.src);
 
       console.log(this.cat_id);
-      // this.getProductList(this.cat_id,'');
       this.getProductListWithLiveServer(this.cat_id,'');
 
     }
@@ -69,6 +68,7 @@ export class ProductDetailPage {
 
       console.log('Begin async operation', refresher);
       this.flag = '';
+
       // this.getProductList(this.cat_id,'');
       this.getProductListWithLiveServer(this.cat_id,'')
       refresher.complete();
