@@ -40,13 +40,13 @@ export class CategoryPage {
 
   ionViewWillEnter()
   {
-      this.getProductCategoryList();
+      this.GetCategoryListPageWithLiveServer();
   }
 
   doRefresh(refresher)
   {
     console.log('Begin async operation', refresher);
-    this.getProductCategoryList();
+    this.GetCategoryListPageWithLiveServer();
     this.flag='';
     refresher.complete();
   }
@@ -109,6 +109,24 @@ export class CategoryPage {
         console.log('list length is two');
 
         this.navCtrl.push(ProductsPage,{'name':name})
+      }
+    },(error: any) => {
+      this.loading.dismiss();
+    })
+  }
+
+  GetCategoryListPageWithLiveServer(){
+    this.presentLoading2();
+    this.filter.limit = 0;
+    this.filter.name = name;
+    this.dbService.onPostRequestDataFromApi({'filter' : this.filter},'app_master/parentCategoryList', this.dbService.rootUrl)
+    .subscribe((r)=>
+    {
+      console.log(r);
+      this.prod_cat_list=r['categories']
+      for (let index = this.prod_cat_list.length; index < r['categories'].length; index++) {
+        console.log(r['categories'][index])
+        this.getCategoryImages(r['categories'][index]['main_category'],index)
       }
     },(error: any) => {
       this.loading.dismiss();

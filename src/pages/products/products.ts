@@ -40,14 +40,14 @@ export class ProductsPage {
         }
         ionViewWillEnter()
         {
-            this.getProductCategoryList();
+            this.getProductCategoryListWithLiveServer();
             this.presentLoading();
         }
 
         doRefresh(refresher)
         {
             console.log('Begin async operation', refresher);
-            this.getProductCategoryList();
+            this.getProductCategoryListWithLiveServer();
             refresher.complete();
         }
 
