@@ -318,7 +318,7 @@ export class MyApp {
           //   title : 'Quotation', name: 'QuotationDistributorPage', component:QuotationDistributorPage, index: 10, icon: 'insert_drive_file', show: true
           // },
           {
-            title : 'Channel Partner', name: 'Distributor', component: MainDistributorListPage,index: 15, icon: 'group', show: true
+            title : 'Distributor', name: 'Distributor', component: MainDistributorListPage,index: 15, icon: 'group', show: true
           },
           {
             title : 'Direct Dealer', name: 'Direct Dealer', component: MainDistributorListPage,index: 13, icon: 'person_pin', show: true
@@ -396,7 +396,7 @@ export class MyApp {
             title : 'Quotation', name: 'QuotationDistributorPage', component:QuotationDistributorPage, index: 10, icon: 'insert_drive_file', show: true
           },
           {
-            title : 'My Channel Partner', name: 'My Channel Partner', component: LeadsDetailPage, index: 24, icon: 'group', show: true
+            title : 'My Distributor', name: 'My Channel Partner', component: LeadsDetailPage, index: 24, icon: 'group', show: true
           },
           {
             title : 'Leave', name: 'LeaveListPage', component:LeaveListPage ,index: 10, icon: 'beach_access', show: true
@@ -431,7 +431,7 @@ export class MyApp {
             title: 'Attendance', name: 'AttendencePage', component: AttendencePage,index: 11, icon: 'date_range', show: true
           },
           {
-            title : 'Channel Partner', name: 'Distributor', component: MainDistributorListPage,index: 15, icon: 'group', show: true
+            title : 'Distributor', name: 'Distributor', component: MainDistributorListPage,index: 15, icon: 'group', show: true
           },
           {
             title : 'Direct Dealer', name: 'Direct Dealer', component: MainDistributorListPage,index: 13, icon: 'person_pin', show: true

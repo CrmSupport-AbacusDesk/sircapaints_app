@@ -20,7 +20,7 @@
 
                     <ion-item class="cs-input" [ngClass]="{'error':f.submitted && mobile_no?.invalid}" >
                         <ion-label floating>Mobile No. <span>*</span></ion-label>
-                        <ion-input type="text" name="mobile_no" minlength="10" maxlength="10" #mobile_no="ngModel" [(ngModel)]="data.mobile_no" required  (keypress)="MobileNumber($event)" ></ion-input>
+                        <ion-input type="text" name="mobile_no" minlength="10" maxlength="10" #mobile_no="ngModel" [(ngModel)]="data.mobile_no"  (keypress)="MobileNumber1($event)" required ></ion-input>
                     </ion-item>
 
                     <div>

@@ -38,9 +38,10 @@
         <ion-label >Select Type <strong>*</strong></ion-label>
         <ion-select [(ngModel)]="followup_data.dr_type" (ngModelChange)="getDrList();followup_data.dr_id = ''; dr_list=[];followup_data.followup_type='';followup_data.description=''"     required>
           <ion-option *ngIf="followup_data.dr_network_type == 'Lead' || followup_data.dr_network_type == 'Dr'" value="1">Distributor </ion-option>
-          <ion-option *ngIf="followup_data.dr_network_type == 'Dr'" value="7">Direct Dealers</ion-option>
+          <ion-option *ngIf="followup_data.dr_network_type == 'Lead' || followup_data.dr_network_type == 'Dr'" value="7">Direct Dealers</ion-option>
           <ion-option *ngIf="followup_data.dr_network_type == 'Lead' || followup_data.dr_network_type == 'Dr'" value="3">Dealers</ion-option>
-          <ion-option *ngIf="followup_data.dr_network_type == 'Lead'" value="10">Social Media Lead</ion-option>
+          <ion-option *ngIf="followup_data.dr_network_type == 'Lead' || followup_data.dr_network_type == 'Dr'" value="5">Oem</ion-option>
+          <!-- <ion-option *ngIf="followup_data.dr_network_type == 'Lead'" value="10">Social Media Lead</ion-option> -->
         </ion-select>
       </ion-item>
 

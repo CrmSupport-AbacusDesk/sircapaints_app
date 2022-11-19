@@ -9,7 +9,7 @@
     <ion-list>
 
       <ion-item class="cs-selectable mt16 " *ngIf="this.user_data.loginType =='SFA'">
-        <ion-label><span>Select Dealers/Channel Partner</span></ion-label>
+        <ion-label><span>Select Dealers/Distributor</span></ion-label>
         <ionic-selectable item-content #dealerSelectable [(ngModel)]="temp_dealer_data" [items]="assing_dealer_data" itemValueField="id" itemTextField="company_name"  [canSearch]="true" (onChange)="get_selected_dealer_data($event)"></ionic-selectable>
       </ion-item>
 

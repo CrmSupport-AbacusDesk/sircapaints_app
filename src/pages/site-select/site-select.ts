@@ -149,6 +149,11 @@ export class SiteSelectPage {
                         this.showAlert("This Coupon Code is not applicable in your Area");
                         return;
                     }
+                    else if(r['status'] == 'ERROR'){
+                      this.loading.dismiss();
+                      this.showAlert("This Contractor is not Linked With any Dealer!");
+                      return;
+                  }
                     this.loading.dismiss();
                     this.showSuccess( r['coupon_value'] +" points has been added into your wallet")
                     // this.getData();

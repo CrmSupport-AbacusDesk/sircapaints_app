@@ -620,5 +620,17 @@ export class RegistrationPage {
             event.preventDefault();
           }
         }
+        MobileNumber1(event: any) {
+          console.log('Decimal Restrit');
+
+          const charCode = (event.which) ? event.which : event.keyCode;
+          console.log(charCode);
+
+          if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+              return false;
+          }
+          return true;
+
+      }
 
 }
