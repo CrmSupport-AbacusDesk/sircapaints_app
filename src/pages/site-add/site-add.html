@@ -196,7 +196,7 @@
             <ng-container>
               <ion-item class="cs-input" [ngClass]="{'error':f.submitted && project_size?.invalid}">
                 <ion-label floating>Project Size (Cons. Area) Sq. Ft</ion-label>
-                <ion-input type='tel' name="project_size" [(ngModel)]="siteform.project_size" #project_size="ngModel">
+                <ion-input type='text' name="project_size" [(ngModel)]="siteform.project_size" (keypress)="MobileNumber1($event)" #project_size="ngModel">
                 </ion-input>
               </ion-item>
               <div *ngIf="f.submitted && project_size.invalid" class="invalid-feedback">
@@ -225,13 +225,13 @@
                 </ion-select>
               </ion-item>
 
-              <ion-item class="cs-select" [ngClass]="{'error':f.submitted && site_type?.invalid}">
+              <!-- <ion-item class="cs-select" [ngClass]="{'error':f.submitted && site_type?.invalid}">
                 <ion-label>Site Type</ion-label>
                 <ion-select [(ngModel)]="siteform.site_type" name="site_type" #site_type="ngModel">
                   <ion-option value="Open">Open</ion-option>
                   <ion-option value="Non- Max Site">Non- Max Site</ion-option>
                 </ion-select>
-              </ion-item>
+              </ion-item> -->
 
               <ion-item *ngIf="loginType!='Contractor'" class="cs-select"
                 [ngClass]="{'error':f.submitted && contractor?.invalid}">

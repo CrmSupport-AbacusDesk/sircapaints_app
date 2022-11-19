@@ -162,22 +162,22 @@ export class HomePage {
         
         getData()
         {
-            // this.presentLoading("Please wait...");
+            this.presentLoading("Please wait...");
             // this.loading.present
             console.log("Check");
-            this.dbService.show_loading();
+            // this.dbService.show_loading();
             this.dbService.onPostRequestDataFromApi({'karigar_id':this.dbService.userStorageData.id},'app_karigar/karigarHome', this.dbService.rootUrl)
             .subscribe((r:any)=>
             {
                 console.log(r);
-                // this.loading.dismiss();
+                this.loading.dismiss();
                 this.karigar_detail=r['karigar'];
                 this.last_point=r['last_point'];
                 this.today_point=r['today_point'];
-                this.dbService.dismiss_loading();
+                // this.dbService.dismiss_loading();
             },() => {
-                // this.loading.dismiss();
-                this.dbService.dismiss_loading();
+                this.loading.dismiss();
+                // this.dbService.dismiss_loading();
 
             });
         }

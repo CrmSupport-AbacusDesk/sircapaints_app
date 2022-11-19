@@ -23,14 +23,14 @@
                     <ion-label>Select Type <strong>*</strong></ion-label>
                     <ion-select [(ngModel)]="travel_data.travel_type" required>
                         <ion-option value="Area Visit">Area Visit</ion-option>
-                        <ion-option value="Channel Partner Visit">Channel Partner Visit</ion-option>
+                        <ion-option value="Channel Partner Visit">Distributor Visit</ion-option>
                     </ion-select>
                 </ion-item>
                 <ion-item class="cs-normal-select mt16" *ngIf="userType!='OFFICE'">
                     <ion-label>Select Type <strong>*</strong></ion-label>
                     <ion-select [(ngModel)]="travel_data.travel_type" required>
                         <ion-option value="Area Visit">Area Visit</ion-option>
-                        <ion-option value="Channel Partner Visit">Channel Partner Visit</ion-option>
+                        <ion-option value="Channel Partner Visit">Distributor Visit</ion-option>
                     </ion-select>
                 </ion-item>
                 
@@ -60,7 +60,7 @@
                 </ion-item>
                 
                 <ion-item class="cs-normal-select" *ngIf="travel_data.travel_type=='Channel Partner Visit' && travel_id == '0'">
-                    <ion-label>Select Channel Partner <strong>*</strong></ion-label>
+                    <ion-label>Select Distributor<strong>*</strong></ion-label>
                     <ion-select [(ngModel)]="travel_data.dr_id" multiple="true" required>
                         <ion-option *ngFor="let list of channel_partners" [value]="list.id">{{list.company_name}}</ion-option>
                     </ion-select>
@@ -107,7 +107,7 @@
         
         <ng-container *ngIf="travel_list.length">
             <div class="cs-heading1 pl0 mb5" *ngIf="cpVisitExist">
-                <p>Channel Partner</p>
+                <p>Distributor</p>
             </div>
             
             <div *ngFor="let row of travel_list;let i=index">
@@ -129,7 +129,7 @@
                 
                 <div class="cs-list-item" *ngIf="row.travel_type == 'Channel Partner Visit'">
                     <div class="type-body" *ngFor="let dr_data of row.selected_data ;let i=index">
-                        <p>Channel Partner {{i+1}}</p> 
+                        <p>Distributor {{i+1}}</p> 
                         <ul>
                             <li>
                                 <span>{{dr_data.company_name}}</span>

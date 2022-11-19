@@ -92,12 +92,12 @@
                     <ion-list>
                         <ion-item class="cs-normal-select mt16" [ngClass]="{'cs-error': (f.submitted && showOwnerType?.invalid)}">
                             <ion-label>Select type</ion-label>
-                            <ion-select name="showOwnerType" #showOwnerType="ngModel" [(ngModel)]="checkin.showOwnerType" required>
+                            <ion-select name="showOwnerType" #showOwnerType="ngModel" [(ngModel)]="checkin.showOwnerType">
                                 <ion-option value="Whole Seller">Whole Seller</ion-option>
                                 <ion-option value="Retailer">Retailer</ion-option>
                             </ion-select>
                         </ion-item>
-                        <p class="error-line"  *ngIf="f.submitted && showOwnerType?.invalid" >Owner Type is Required!</p>
+                        <!-- <p class="error-line"  *ngIf="f.submitted && showOwnerType?.invalid" >Owner Type is Required!</p> -->
                     </ion-list>
                 </div>
                 
@@ -106,9 +106,9 @@
                     <ion-list>
                         <ion-item class=" " [ngClass]="{'cs-error': (f.submitted && shopEmpCount?.invalid)}">
                             <ion-label floating><span>Employees in the shop.<strong>*</strong></span></ion-label>
-                            <ion-input type="tel" (keypress)="MobileNumber($event)"  name="shopEmpCount" placeholder="How many employees in this shop" #shopEmpCount="ngModel" [(ngModel)]="checkin.shopEmpCount" required></ion-input>
+                            <ion-input type="tel" (keypress)="MobileNumber($event)"  name="shopEmpCount" placeholder="How many employees in this shop" #shopEmpCount="ngModel" [(ngModel)]="checkin.shopEmpCount" ></ion-input>
                         </ion-item>
-                        <p *ngIf="f.submitted && shopEmpCount?.invalid && !checkin.shopEmpCount" class="error-line">Employees Count Is Required</p>
+                        <!-- <p *ngIf="f.submitted && shopEmpCount?.invalid && !checkin.shopEmpCount" class="error-line">Employees Count Is Required</p> -->
                     </ion-list>
                 </div>
                 
@@ -117,9 +117,9 @@
                     <ion-list>
                         <ion-item class="cs-textarea1 " [ngClass]="{'cs-error': (f.submitted && feedback?.invalid)}">
                             <ion-label floating><span>Feedback<strong>*</strong></span></ion-label>
-                            <ion-textarea name="feedback" #feedback="ngModel" [(ngModel)]="checkin.feedback"  placeholder="Feedback" required></ion-textarea>
+                            <ion-textarea name="feedback" #feedback="ngModel" [(ngModel)]="checkin.feedback"  placeholder="Feedback"></ion-textarea>
                         </ion-item>
-                        <p class="error-line relative"  *ngIf="f.submitted && feedback?.invalid" >Feedback is Required!</p>
+                        <!-- <p class="error-line relative"  *ngIf="f.submitted && feedback?.invalid" >Feedback is Required!</p> -->
                     </ion-list>
                 </div>
             </div>
@@ -129,10 +129,10 @@
                 <ion-list>
                     <ion-item class="cs-textarea1 " [ngClass]="{'cs-error': (f.submitted && description?.invalid)}">
                         <ion-label floating><span>Description <strong>*</strong></span></ion-label>
-                        <ion-textarea name="description" #description="ngModel" [(ngModel)]="checkin.description"  placeholder="Enter Description" required></ion-textarea>
+                        <ion-textarea name="description" #description="ngModel" [(ngModel)]="checkin.description"  placeholder="Enter Description"></ion-textarea>
                     </ion-item>
                     <!-- -->
-                    <p class="error-line relative"  *ngIf="f.submitted && description?.invalid" >Description is Required!</p>
+                    <!-- <p class="error-line relative"  *ngIf="f.submitted && description?.invalid" >Description is Required!</p> -->
                 </ion-list>
             </div>
             

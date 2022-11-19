@@ -13,6 +13,7 @@ export class AboutusModalPage {
               public navParams: NavParams,
               public viewCtrl: ViewController,
               public platform: Platform) {
+                this.gotoHomePage();
   }
 
   ionViewDidLoad() {

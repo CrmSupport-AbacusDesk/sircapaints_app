@@ -101,7 +101,15 @@
                         <h4>Dealers</h4>
                     </div>
                 </div>
-                
+                <div class="main-box" (click)="goToMainDistributorListPage(5)">
+                    <div class="product-box">
+                        <img src="assets/imgs/cs-network/architect.svg">
+                    </div>
+                    <div class="heading">
+                        <div class="count"><span>{{today_oem_count}}</span></div>
+                        <h4>Oem</h4>
+                    </div>
+                </div>
 
 
             </div>
@@ -112,7 +120,7 @@
                         <img src="assets/imgs/cs-network/customer.svg">
                     </div>
                     <div class="heading">
-                        <div class="count"><span>{{total_distributor.total_distributor}}</span></div>
+                        <div class="count"><span>{{today_contractor_count}}</span></div>
                         <h4>Contractor</h4>
                     </div>
                 </div>
@@ -121,7 +129,7 @@
                         <img src="assets/imgs/cs-network/customer.svg">
                     </div>
                     <div class="heading">
-                        <div class="count"><span>{{total_distributor.total_distributor}}</span></div>
+                        <div class="count"><span>{{today_architect_count}}</span></div>
                         <h4>Architect</h4>
                     </div>
                 </div>
@@ -130,22 +138,14 @@
                         <img src="assets/imgs/cs-network/customer.svg">
                     </div>
                     <div class="heading">
-                        <div class="count"><span>{{total_distributor.total_distributor}}</span></div>
+                        <div class="count"><span>{{today_site_count}}</span></div>
                         <h4>Site</h4>
                     </div>
                 </div>
             </div>
 
             <div class="product-option pt5">
-                <div class="main-box" (click)="goToMainDistributorListPage(5)">
-                    <div class="product-box">
-                        <img src="assets/imgs/cs-network/architect.svg">
-                    </div>
-                    <div class="heading">
-                        <div class="count"><span>{{total_dealer.total_dealer}}</span></div>
-                        <h4>Oem</h4>
-                    </div>
-                </div>
+               
             </div>
 
             <div class="product-option pt5" *ngIf="user_data.user_type=='Inside Sales Team'" >

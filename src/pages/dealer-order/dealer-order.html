@@ -155,7 +155,7 @@
                     <button><p >{{row.order_no}}</p></button>
                 </div>
             </div>
-            <div class="mid" [ngClass]="{'mt0' : row.order_status=='Draft' }">
+            <div class="mid" [ngClass]="{'mt0' : row.order_status=='Draft'}">
                 <div class="content-info">
                     <div class="left-info">
                         <div class="circle" *ngIf="order_type == 'Primary' && dbService.userStorageData.id==row.created_by && row.created_by_type=='channel partner'">S</div>
