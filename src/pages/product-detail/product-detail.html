@@ -1,14 +1,13 @@
 
 <ion-header class="main-header remove" >
     <ion-navbar >
-        <!-- <ion-title *ngIf="!filter.globalSearchData">{{prod_cat.main_category |titlecase}} </ion-title> -->
-        <!-- <ion-title *ngIf="filter.globalSearchData">{{filter.categoryName | titlecase}} - Product List</ion-title> -->
-        <ion-title >{{filter.categoryName | titlecase}} - Product List</ion-title>
+        <ion-title *ngIf="!filter.globalSearchData" >{{prod_cat.main_category |titlecase}} </ion-title>
+        <ion-title *ngIf="filter.globalSearchData" >{{filter.categoryName | titlecase}} - Product List</ion-title>
     </ion-navbar>
     <ion-toolbar>
         <div class="search add-search">
             <div class="filter">
-                <ion-searchbar type='text' name='search'  [(ngModel)]="filter.search" (ngModelChange)="filter.search=='' ? getProductListWithLiveServer(cat_id,filter.search) : ''" (keyup.enter)="getProductListWithLiveServer(cat_id,filter.search)"></ion-searchbar>
+                <ion-searchbar type='text' name='search'  [(ngModel)]="filter.search" (ngModelChange)="filter.search=='' ? getProductList(cat_id,filter.search) : ''" (keyup.enter)="getProductList(cat_id,filter.search)"></ion-searchbar>
             </div>
 
         </div>
@@ -40,16 +39,15 @@
         <div class="sub-listing tydo-list p0">
 
             <div class="tydo-item mt16" *ngIf="cat_id">
-                <!-- <h3>{{prod_cat.category_name}}<br><span>"{{prod_list.length}}/{{total_count}}" Products Found</span> </h3> -->
-                <h3>testt<br><span>"{{prod_list.length}}/{{total_count}}" Products Found</span> </h3>
-                <!-- <img src="{{offlineService.onProductSelectedImage}}"> -->
+                <h3>{{prod_cat.category_name}}<br><span>"{{prod_list.length}}/{{total_count}}" Products Found</span> </h3>
+                <img src="{{offlineService.onProductSelectedImage}}">
             </div>
 
             <ion-list (click)="goOnProductSubDetailPage(list.id)" *ngFor="let list of prod_list;let i=index">
                 <button ion-item>
                     <div class="image-manage">
 
-                        <img *ngIf="list.image" src="{{list.image}}">
+                        <img *ngIf="list.image" src="{{list.imageCompletePath}}">
                     </div>
                     <div class="detail mt9">
                         <h4>{{list.product_name}}</h4>

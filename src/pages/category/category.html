@@ -37,18 +37,17 @@
 
     <div *ngIf="prod_cat_list.length" class="main-div" >
         <ion-list *ngFor="let list of prod_cat_list; let i=index" >
-            <!-- <button  *ngIf="!list.image" ion-item (click)="goOnCategoryListPage(list.main_category, list.image)"> -->
-            <button  *ngIf="!list.image" ion-item (click)="goOnCategoryListPage2(list.main_category,list.id)">
+            <!-- <a>{{list.image}}</a> -->
+            <button  *ngIf="!list.image" ion-item (click)="goOnCategoryListPageWithLiveServer(list.main_category, list.imageCompletePath)">
                 <div class="image-manage">
                     <img  src="assets/imgs/no-thumbnail.jpg">
                 </div>
                 <p>{{list.main_category}}</p>
             </button>
 
-            <!-- <button  *ngIf="list.image" ion-item (click)="goOnCategoryListPage(list.main_category, list.imageCompletePath)"> -->
-                <button  *ngIf="list.image" ion-item (click)="goOnCategoryListPage2(list.main_category,list.id)">
+            <button  *ngIf="list.image" ion-item (click)="goOnCategoryListPageWithLiveServer(list.main_category, list.imageCompletePath)">
                 <div class="image-manage">
-                    <img  src="{{list.image}}">
+                    <img  src="{{list.imageCompletePath}}">
                 </div>
                 <p>{{list.main_category}}</p>
             </button>
