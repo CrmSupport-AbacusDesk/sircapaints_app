@@ -29,6 +29,8 @@ import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer';
 import { File } from '@ionic-native/file';
 import { FavoriteProductPage } from '../favorite-product/favorite-product';
 import { VideoPage } from '../video/video';
+import { SiteListPage } from '../site-list/site-list';
+import { SiteSelectPage } from '../site-select/site-select';
 
 
 // import { CallNumber } from '@ionic-native/call-number';
@@ -72,7 +74,7 @@ export class HomePage {
         public file: File) {
             this.uploadURL = this.dbService.uploadURL;
             
-            this.loginBanner();
+            // this.loginBanner();
             this.notification();
             events.subscribe('getCountProducts',(data)=>
             {
@@ -127,7 +129,7 @@ export class HomePage {
                 
                 console.log('Hello its calling');
                 this.notification();
-                this.onProcessSQLDataHandler();
+                // this.onProcessSQLDataHandler();
                 
             }
         }
@@ -163,6 +165,7 @@ export class HomePage {
             this.presentLoading("Please wait...");
             // this.loading.present
             console.log("Check");
+            // this.dbService.show_loading();
             this.dbService.onPostRequestDataFromApi({'karigar_id':this.dbService.userStorageData.id},'app_karigar/karigarHome', this.dbService.rootUrl)
             .subscribe((r:any)=>
             {
@@ -171,8 +174,11 @@ export class HomePage {
                 this.karigar_detail=r['karigar'];
                 this.last_point=r['last_point'];
                 this.today_point=r['today_point'];
+                // this.dbService.dismiss_loading();
             },() => {
                 this.loading.dismiss();
+                // this.dbService.dismiss_loading();
+
             });
         }
         installation_count:any='';
@@ -295,6 +301,20 @@ export class HomePage {
             }
             
             
+        }
+
+        scan2(){
+           let ScanTypeModal= this.modalCtrl.create(SiteSelectPage);
+           ScanTypeModal.onDidDismiss(data =>{
+            
+                this.getData();
+              console.log(data);
+            
+  
+          });
+
+           ScanTypeModal.present();
+
         }
         viewProfiePic()
         {
@@ -428,6 +448,10 @@ export class HomePage {
             
             this.navCtrl.push(CategoryPage,{'mode':'home'});
         }
+
+        goOnSiteList(){
+            this.navCtrl.push(SiteListPage)
+        }
         goOnComplaintAdd(type)
         {
             console.log(type);
@@ -548,7 +572,7 @@ export class HomePage {
             
             const options: PushOptions = {
                 android: {
-                    senderID:'588971704584'
+                    senderID:'643423474252'
                 },
                 ios: {
                     
@@ -617,7 +641,7 @@ export class HomePage {
             {
                 this.ref_code = ' and use my Code *'+this.karigar_detail.referral_code+'* to get points back in your wallet'
             }
-            this.socialSharing.share('Hey There ! here is an awesome app from Gravity Bath Pvt Ltd  ..Give it a try https://play.google.com/store/apps/details?id=com.gravitybath.app '+this.ref_code).then(() => {
+            this.socialSharing.share('Hey There ! here is an awesome app from Sirca Paints Pvt Ltd  ..Give it a try https://play.google.com/store/apps/details?id=com.sircapaints.app '+this.ref_code).then(() => {
             console.log("success");
         }).catch((e) => {
             console.log(e);

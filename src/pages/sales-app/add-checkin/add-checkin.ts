@@ -468,6 +468,54 @@ export class AddCheckinPage {
         toast.present();
       });
   }
+
+  startSiteVisit() {
+   
+    this.locationAccuracy.request(this.locationAccuracy.REQUEST_PRIORITY_HIGH_ACCURACY).then(
+      () => {
+        let options = { maximumAge: 10000, timeout: 15000, enableHighAccuracy: true };
+        this.geolocation.getCurrentPosition(options).then((resp) => {
+
+          this.data.lat = resp.coords.latitude
+          this.data.lng = resp.coords.longitude
+
+          console.log(this.data);
+          this.dbService.onShowLoadingHandler();
+          this.dbService.onPostRequestDataFromApi({ 'data': this.data }, 'Checkin/start_site_visit', this.dbService.rootUrlSfa).subscribe((result) => {
+            console.log(result);
+            if (result == 'success') {
+
+              this.dbService.onDismissLoadingHandler();
+              this.navCtrl.pop();
+              this.presentToast();
+            }
+          }, err => {
+            this.dbService.onDismissLoadingHandler();
+            this.dbService.errToasr();
+          });
+
+        }).catch((error) => {
+          console.log('Error getting location', error);
+          console.log('Error requesting location permissions', error);
+          this.dbService.onDismissLoadingHandler();
+          let toast = this.toastCtrl.create({
+            message: 'Allow Location Permissions',
+            duration: 3000,
+            position: 'bottom'
+          });
+
+
+
+          toast.present();
+        });
+      },
+      error => {
+        console.log('Error requesting location permissions', error);
+        this.dbService.onDismissLoadingHandler();
+        this.dbService.errToasr();
+      });
+  }
+
   userCurrentLocation: any
   checkUserLocation() {
     this.locationAccuracy.request(this.locationAccuracy.REQUEST_PRIORITY_HIGH_ACCURACY).then(

@@ -195,7 +195,7 @@ export class LeadsDetailPage {
             console.log("convertdealer");
             let alert=this.alertCtrl.create({
                 title:'Are You Sure?',
-                subTitle: 'You want To Convert This Lead To Retail Partner',
+                subTitle: 'You want To Convert This Lead To Dealers',
                 cssClass:'action-close',
 
                 buttons: [{

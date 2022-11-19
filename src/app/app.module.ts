@@ -181,6 +181,14 @@ import { QuotationDistributorPageModule } from '../pages/quotation-distributor/q
 import { AddQuotationPageModule } from '../pages/add-quotation/add-quotation.module';
 import { QuotationDetailPageModule } from '../pages/quotation-detail/quotation-detail.module';
 import { EmailModalPageModule } from '../pages/email-modal/email-modal.module';
+import { ContractorListPageModule } from '../pages/contractor-list/contractor-list.module';
+import { ArchitectorListPageModule } from '../pages/architector-list/architector-list.module';
+import { SiteListPageModule } from '../pages/site-list/site-list.module';
+import { SiteAddPageModule } from '../pages/site-add/site-add.module';
+import { SiteDetailPageModule } from '../pages/site-detail/site-detail.module';
+import { ContractorDetailPageModule } from '../pages/contractor-detail/contractor-detail.module';
+import { ArchitectDetailPageModule } from '../pages/architect-detail/architect-detail.module';
+import { SiteSelectPageModule } from '../pages/site-select/site-select.module';
 
 
 
@@ -204,7 +212,10 @@ import { EmailModalPageModule } from '../pages/email-modal/email-modal.module';
         PlumberMeetDetailPageModule,
         PlumberMeetAddPageModule,
         PlumberMeetListPageModule,
+        ArchitectDetailPageModule,
+        SiteSelectPageModule,
         SelectFavProductQtyPageModule,
+        ContractorDetailPageModule,
         FiltersPageModule,
         AccountStatementPageModule,
         BillingDetailPageModule,
@@ -227,6 +238,12 @@ import { EmailModalPageModule } from '../pages/email-modal/email-modal.module';
         LoginScreenPageModule,
         ExecutivDetailPageModule,
         TaskClosePageModule,
+        ContractorListPageModule,
+        ArchitectorListPageModule,
+        SiteListPageModule,
+        SiteAddPageModule,
+        SiteDetailPageModule,
+
         QuotationDistributorPageModule,
         AddQuotationPageModule,
         QuotationDetailPageModule,

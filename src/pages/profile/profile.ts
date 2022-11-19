@@ -44,7 +44,7 @@ export class ProfilePage {
     public modalCtrl: ModalController,
     public sanitizer: DomSanitizer) {
       
-      this.uploadURL = this.dbService.uploadURL;
+      this.uploadURL = this.dbService.upload_url3;
 
 
       if(this.dbService.connection=='offline')
@@ -266,7 +266,7 @@ export class ProfilePage {
         {
           this.ref_code = ' and use my Code *'+this.karigar_detail.referral_code+'* to get points back in your wallet'
         }
-        this.socialSharing.share('Hey There ! here is an awesome app from Gravity Bath Pvt Ltd  ..Give it a try https://play.google.com/store/apps/details?id=com.gravitybath.app '+this.ref_code).then(() => {
+        this.socialSharing.share('Hey There ! here is an awesome app from Sirca Paints Pvt Ltd  ..Give it a try https://play.google.com/store/apps/details?id=com.gravitybath.app '+this.ref_code).then(() => {
         console.log("success");
       }).catch((e) => {
         console.log(e);

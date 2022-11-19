@@ -1,0 +1,116 @@
+<ion-header no-border>
+  <ion-navbar>
+    <ion-title>Site List</ion-title>
+  </ion-navbar>
+  <ion-toolbar color="secondary">
+    <div class="pl16">
+      <ion-searchbar type='text' placeholder="Search" name='search' #search="ngModel" [(ngModel)]="filter.search"
+        (ngModelChange)="siteList()"></ion-searchbar>
+    </div>
+  </ion-toolbar>
+  <!-- <ion-toolbar color="white" class="cs-toolbar"  *ngIf="teamExist > 0">
+    <div>
+      <ion-segment [(ngModel)]="details">
+        <ion-segment-button value="My" (click)="siteList('', details, sites)">
+          <span class="black capitalize">{{ 'My Sites' | translate }}</span>
+        </ion-segment-button>
+        <ion-segment-button value="Team" (click)="siteList('',details, sites)">
+          <span class="black capitalize">{{ 'Team Site' | translate }}</span>
+        </ion-segment-button>
+      </ion-segment>
+    </div>
+  </ion-toolbar> -->
+  <!-- <ion-toolbar color="white" class="cs-toolbar">
+    <div [ngClass]="{'ion-tab-btn': teamExist > 0, 'round-tab':teamExist > 0, 'pt10':teamExist > 0, 'pb10':teamExist > 0}">
+      <ion-segment [(ngModel)]="sites">
+        <ion-segment-button value="Active" (click)="siteList('', details, sites)">
+          <span class="black capitalize">{{ 'Active' | translate }} ({{active_count}})</span>
+        </ion-segment-button>
+        
+        <ion-segment-button value="Deactive" (click)="siteList('', details, sites)">
+          <span class="black capitalize">{{ 'Deactive' | translate }} ({{inactive_count}})</span>
+        </ion-segment-button>
+      </ion-segment>
+    </div>
+  </ion-toolbar> -->
+</ion-header>
+
+<ion-content>
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingSpinner="circles"
+      refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
+
+  <div class="pd-left-right16"  >
+    <div class="list-box mt16" *ngFor="let data of site_List" (click)="goOnSiteDetail(data.id)">
+
+      <div class="mid mt0">
+        <div class="content-info">
+          <div class="left-info">
+            <div class="circle">{{data.site_owner_name.substring(0,1).toUpperCase()}}</div>
+          </div>
+
+          <div class="right-info">
+            <p>{{data.site_owner_name.toUpperCase()}}</p>
+            <p>({{data.mobile_no}})</p>
+          </div>
+        </div>
+        <div class="tag-info">
+          <a href="tel:{{data.mobile_no}}"><i class="material-icons">phone</i></a>
+        </div>
+      </div>
+      <div class="lower" *ngIf="data.address">
+        <p>Address</p>
+        <p>{{data.address}} {{data.state | titlecase}} {{data.district | titlecase}} {{data.city | titlecase}}
+          {{data.pincode}}</p>
+      </div>
+      <div class="lower" *ngIf="data.state">
+        <p>State</p>
+        <p>{{data.state}}</p>
+      </div>
+      <div class="lower" *ngIf="data.district">
+        <p>District</p>
+        <p>{{data.district | titlecase}} </p>
+      </div>
+      <div class="lower" *ngIf="data.city">
+        <p>City</p>
+        <p> {{data.city | titlecase}}</p>
+      </div>
+      <div class="lower" *ngIf="data.pincode">
+        <p>Pincode</p>
+        <p>{{data.pincode}}</p>
+      </div>
+      <div class="lower" *ngIf="data.project_size">
+        <p>Projection Size</p>
+        <p>{{data.project_size}}</p>
+      </div>
+
+
+      <div class="three_boxes">
+        <div class="lower">
+          <p>Date Created</p>
+          <p>{{data.date_created | date : 'd MMM, y'}}</p>
+        </div>
+        <div class="lower">
+          <p>Created By</p>
+          <p>{{data.created_name | titlecase}}</p>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)" *ngIf="flag!=1">
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll> -->
+
+  <ion-fab right bottom>
+    <button ion-fab (click)="goOnSiteAdd()">
+      <ion-icon name="add"></ion-icon>
+    </button>
+  </ion-fab>
+</ion-content>

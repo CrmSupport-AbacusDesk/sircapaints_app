@@ -78,7 +78,7 @@
                     </div>
                     <div class="heading">
                         <div class="count"><span>{{total_distributor.total_distributor}}</span></div>
-                        <h4>Channel Partner</h4>
+                        <h4>Distributor</h4>
                     </div>
                 </div>
 
@@ -98,11 +98,54 @@
                     </div>
                     <div class="heading">
                         <div class="count"><span>{{total_dealer.total_dealer}}</span></div>
-                        <h4>Retail Partner</h4>
+                        <h4>Dealers</h4>
+                    </div>
+                </div>
+                <div class="main-box" (click)="goToMainDistributorListPage(5)">
+                    <div class="product-box">
+                        <img src="assets/imgs/cs-network/architect.svg">
+                    </div>
+                    <div class="heading">
+                        <div class="count"><span>{{today_oem_count}}</span></div>
+                        <h4>Oem</h4>
                     </div>
                 </div>
 
 
+            </div>
+
+            <div class="product-option pt5" *ngIf="user_data.user_type!='Inside Sales Team'">
+                <div class="main-box" (click)="goToContractorPage()">
+                    <div class="product-box">
+                        <img src="assets/imgs/cs-network/customer.svg">
+                    </div>
+                    <div class="heading">
+                        <div class="count"><span>{{today_contractor_count}}</span></div>
+                        <h4>Contractor</h4>
+                    </div>
+                </div>
+                <div class="main-box" (click)="goToArchitecturePage()">
+                    <div class="product-box">
+                        <img src="assets/imgs/cs-network/customer.svg">
+                    </div>
+                    <div class="heading">
+                        <div class="count"><span>{{today_architect_count}}</span></div>
+                        <h4>Architect</h4>
+                    </div>
+                </div>
+                <div class="main-box" (click)="goToSiteListPage()">
+                    <div class="product-box">
+                        <img src="assets/imgs/cs-network/customer.svg">
+                    </div>
+                    <div class="heading">
+                        <div class="count"><span>{{today_site_count}}</span></div>
+                        <h4>Site</h4>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-option pt5">
+               
             </div>
 
             <div class="product-option pt5" *ngIf="user_data.user_type=='Inside Sales Team'" >
@@ -113,7 +156,7 @@
                   </div>
                   <div class="heading">
                       <div class="count"><span>{{total_distributor.total_distributor}}</span></div>
-                      <h4>Channel Partner</h4>
+                      <h4>Distributor</h4>
                   </div>
               </div>
 
@@ -133,7 +176,7 @@
                   </div>
                   <div class="heading">
                       <div class="count"><span>{{total_dealer.total_dealer}}</span></div>
-                      <h4>Retail Partner</h4>
+                      <h4>Dealers</h4>
                   </div>
               </div>
 
@@ -217,11 +260,11 @@
                 <div class="go-btn new mb16"  (click)="goToMainDistributorListPage(3)">
                     <div class="g-left">
                         <p>{{total_dealer.total_dealer}}</p>
-                        <p>Total Retail Partner</p>
+                        <p>Total Dealers</p>
                     </div>
                     <div class="g-right">
                         <div class="g-content" >
-                            <p>My Retail Partner</p>
+                            <p>My Dealers</p>
                         </div>
                         <div class="g-count">
                             <i class="material-icons">keyboard_arrow_right</i>
@@ -238,7 +281,7 @@
                 </div>
                 <div class="g-right">
                     <div class="g-content" >
-                        <p >Order To Channel Partner</p>
+                        <p >Order To Distributor</p>
                         <p >&#x20B9; <span>{{total_secondary_order.secondary_order_sum |number:'1.0-0'}}/-</span></p>
                     </div>
                     <div class="g-count">

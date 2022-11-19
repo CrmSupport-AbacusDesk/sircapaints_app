@@ -44,7 +44,7 @@ export class NewarrivalsPage {
     
     ionViewDidLoad() {
       
-      this.getProductList(this.cat_id,'');
+      this.getProductListWithLiveServer(this.cat_id,'');
     }
     
     goOnProductSubDetailPage(id){
@@ -55,7 +55,9 @@ export class NewarrivalsPage {
     {
       console.log('Begin async operation', refresher);
       this.flag = '';
-      this.getProductList(this.cat_id,'');
+      // this.getProductList(this.cat_id,'');
+      this.getProductListWithLiveServer(this.cat_id,'');
+
       refresher.complete();
     }
     loadData(infiniteScroll)

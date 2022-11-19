@@ -12,18 +12,18 @@
 </ion-header>
 
 
-<ion-content class="location-map ">
+<ion-content class="location-map">
 
   <div #map id="map"></div>
 
-  <div (click)=" loadMap()" class="map-location"><i class="material-icons">my_location</i></div>
+  <div (click)="loadMap()" class="map-location"><i class="material-icons">my_location</i></div>
 </ion-content>
 
 
-<div class="point-loc" *ngIf="dbService.userStorageData?.type == 'Customer'">
+<div class="point-loc" *ngIf="dbService.userStorageData?.type=='Customer'">
   <div class="point-add" *ngIf="old_location!=''">
     <p>Last Location</p>
-    <textarea [(ngModel)]="old_location"readonly></textarea>
+    <textarea [(ngModel)]="old_location" readonly></textarea>
   </div>
 
   <!-- <div class="input-submit padding-16" >
@@ -31,7 +31,7 @@
   </div> -->
 
   <div class="enquiry-btn loction-btn" >
-    <button  (click)=" loadMap()" ion-button color="danger" class="green-color" (click)="add_loc()">
+    <button  (click)="loadMap()" ion-button color="danger" class="green-color" (click)="add_loc()">
       <p>Add location</p>
     </button>
   </div>

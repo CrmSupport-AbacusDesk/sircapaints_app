@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams,AlertController, Loading, LoadingCo
 import { OtpPage } from '../otp/otp';
 import { DbserviceProvider } from '../../../providers/dbservice/dbservice';
 import { SelectRegistrationTypePage } from '../../select-registration-type/select-registration-type';
+import { retry } from 'rxjs/operators';
 
 
 @IonicPage()
@@ -48,7 +49,9 @@ export class MobileLoginPage {
             
             console.log(this.data);
             
-            this.dbService.onPostRequestDataFromApi({'login_data': this.data,'registerType': this.loginType },'app_karigar/karigarLoginOtp_new', this.dbService.rootUrl).subscribe((r) => {
+            this.dbService.onPostRequestDataFromApi({'login_data': this.data,'registerType': this.loginType },'app_karigar/karigarLoginOtp_new', this.dbService.rootUrl).pipe(
+                retry(3)
+            ).subscribe((r) => {
                 
                 console.log(r);
                 this.dbService.onDismissLoadingHandler();
@@ -91,6 +94,9 @@ export class MobileLoginPage {
                         loginType: this.loginType
                     });
                 }
+            },err=>{
+                this.dbService.onDismissLoadingHandler();
+                
             });
         }
         

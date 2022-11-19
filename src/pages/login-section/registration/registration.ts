@@ -6,6 +6,7 @@ import { DbserviceProvider } from '../../../providers/dbservice/dbservice';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import {AboutusModalPage} from '../../aboutus-modal/aboutus-modal'
 import { Storage } from '@ionic/storage';
+import { DashboardPage } from '../../dashboard/dashboard';
 
 
 
@@ -32,7 +33,7 @@ export class RegistrationPage {
   today_date:any;
   saveFlag:boolean= false;
   registerType : any ;
-
+  Employee:any='';
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public dbService:DbserviceProvider,
@@ -57,9 +58,15 @@ export class RegistrationPage {
     this.data.mobile_no = this.navParams.get('mobile_no');
     this.data.type = this.navParams.get('loginType');
     // this.data.type = "Customer";
+    this.registerType=this.navParams.get('loginType');
+    this.Employee=this.navParams.get('Employee');
     console.log(this.data.type);
+    console.log(this.Employee);
     this.data.profile='';
     this.data.document_image='';
+    this.data.adhar_image='';
+    this.data.pan_card_image='';
+    this.data.cancel_check_image='';
     console.log(this.data.profile);
 
   }
@@ -100,14 +107,14 @@ export class RegistrationPage {
         {
           console.log(this.selectedFile);
           console.log('data');
-          this.data.type = this.navParams.get('loginType');
+          this.data.registrationType = this.navParams.get('loginType');
           this.data.status='Pending';
           this.data.karigar_edit_id='';
           this.saveFlag = true;
           this.presentLoading();
           console.log(this.data);
 
-          this.dbService.onPostRequestDataFromApi( {'karigar': this.data },'app_karigar/addKarigar', this.dbService.rootUrl).subscribe( r =>
+          this.dbService.onPostRequestDataFromApi( {'karigar': this.data },'app_karigar/addKarigarApp', this.dbService.rootUrl).subscribe( r =>
             {
               console.log(r);
               this.loading.dismiss();
@@ -121,11 +128,15 @@ export class RegistrationPage {
                 this.dbService.onPostRequestDataFromApi({'mobile_no': this.data.mobile_no, 'registerType' : this.registerType,'mode' :'App'},'auth/login',this.dbService.rootUrl).subscribe( r =>
                   {
                     console.log(r);
+
+
                     if(r['status'] == 'NOT FOUND'){
 
                       return;
 
-                    } else if(r['status'] == 'ACCOUNT SUSPENDED'){
+                    }
+
+                    else if(r['status'] == 'ACCOUNT SUSPENDED'){
 
                       this.showAlert("Your account has been suspended");
                       return;
@@ -133,6 +144,11 @@ export class RegistrationPage {
                     }
                     else if(r['status'] == 'SUCCESS')
                     {
+
+                      if(this.Employee='Employee'){
+                        this.navCtrl.push(DashboardPage);
+
+                      }else{
                         r['loginType'] = 'CMS';
                         r['user']['token'] = r['token'];
                         r['user']['loginType'] = r['loginType'];
@@ -151,7 +167,7 @@ export class RegistrationPage {
                               return;
                         }
                     }
-
+                  }
                   });
                 }
                 else if(r['status']=="EXIST")
@@ -341,6 +357,249 @@ export class RegistrationPage {
           }, (err) => {
           });
         }
+
+
+        onUploadChange1(evt: any) {
+          // this.flag=false;
+          // const file = evt.target.files[0];
+
+          // if (file) {
+          //   const reader = new FileReader();
+
+          //   reader.onload = this.handleReaderLoaded.bind(this);
+          //   reader.readAsBinaryString(file);
+          // }
+          let actionsheet = this.actionSheetController.create({
+            title:" Upload File",
+            cssClass: 'cs-actionsheet',
+
+            buttons:[{
+              cssClass: 'sheet-m',
+              text: 'Camera',
+              icon:'camera',
+              handler: () => {
+                console.log("Camera Clicked");
+                this.takeDocPhoto1();
+              }
+            },
+            {
+              cssClass: 'sheet-m1',
+              text: 'Gallery',
+              icon:'image',
+              handler: () => {
+                console.log("Gallery Clicked");
+                this.getDocImage1();
+              }
+            },
+            {
+              cssClass: 'cs-cancel',
+              text: 'Cancel',
+              role: 'cancel',
+              handler: () => {
+                console.log('Cancel clicked');
+              }
+            }
+          ]
+        });
+        actionsheet.present();
+      }
+
+      takeDocPhoto1()
+      {
+        console.log("i am in camera function");
+        const options: CameraOptions = {
+          quality: 70,
+          destinationType: this.camera.DestinationType.DATA_URL,
+          targetWidth : 500,
+          targetHeight : 400
+        }
+
+        console.log(options);
+        this.camera.getPicture(options).then((imageData) => {
+          this.flag=false;
+          this.data.adhar_image = 'data:image/jpeg;base64,' + imageData;
+          console.log(this.data.adhar_image);
+        }, (err) => {
+        });
+      }
+      getDocImage1()
+      {
+        const options: CameraOptions = {
+          quality: 70,
+          destinationType: this.camera.DestinationType.DATA_URL,
+          sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
+          saveToPhotoAlbum:false
+        }
+        console.log(options);
+        this.camera.getPicture(options).then((imageData) => {
+          this.flag=false;
+          this.data.adhar_image = 'data:image/jpeg;base64,' + imageData;
+          console.log(this.data.adhar_image);
+        }, (err) => {
+        });
+      }
+
+        onUploadChange2(evt: any) {
+          // this.flag=false;
+          // const file = evt.target.files[0];
+
+          // if (file) {
+          //   const reader = new FileReader();
+
+          //   reader.onload = this.handleReaderLoaded.bind(this);
+          //   reader.readAsBinaryString(file);
+          // }
+          let actionsheet = this.actionSheetController.create({
+            title:" Upload File",
+            cssClass: 'cs-actionsheet',
+
+            buttons:[{
+              cssClass: 'sheet-m',
+              text: 'Camera',
+              icon:'camera',
+              handler: () => {
+                console.log("Camera Clicked");
+                this.takeDocPhoto2();
+              }
+            },
+            {
+              cssClass: 'sheet-m1',
+              text: 'Gallery',
+              icon:'image',
+              handler: () => {
+                console.log("Gallery Clicked");
+                this.getDocImage2();
+              }
+            },
+            {
+              cssClass: 'cs-cancel',
+              text: 'Cancel',
+              role: 'cancel',
+              handler: () => {
+                console.log('Cancel clicked');
+              }
+            }
+          ]
+        });
+        actionsheet.present();
+      }
+
+      takeDocPhoto2()
+      {
+        console.log("i am in camera function");
+        const options: CameraOptions = {
+          quality: 70,
+          destinationType: this.camera.DestinationType.DATA_URL,
+          targetWidth : 500,
+          targetHeight : 400
+        }
+
+        console.log(options);
+        this.camera.getPicture(options).then((imageData) => {
+          this.flag=false;
+          this.data.pan_card_image = 'data:image/jpeg;base64,' + imageData;
+          console.log(this.data.pan_card_image);
+        }, (err) => {
+        });
+      }
+      getDocImage2()
+      {
+        const options: CameraOptions = {
+          quality: 70,
+          destinationType: this.camera.DestinationType.DATA_URL,
+          sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
+          saveToPhotoAlbum:false
+        }
+        console.log(options);
+        this.camera.getPicture(options).then((imageData) => {
+          this.flag=false;
+          this.data.pan_card_image = 'data:image/jpeg;base64,' + imageData;
+          console.log(this.data.pan_card_image);
+        }, (err) => {
+        });
+      }
+
+
+      onUploadChange3(evt: any) {
+        // this.flag=false;
+        // const file = evt.target.files[0];
+
+        // if (file) {
+        //   const reader = new FileReader();
+
+        //   reader.onload = this.handleReaderLoaded.bind(this);
+        //   reader.readAsBinaryString(file);
+        // }
+        let actionsheet = this.actionSheetController.create({
+          title:" Upload File",
+          cssClass: 'cs-actionsheet',
+
+          buttons:[{
+            cssClass: 'sheet-m',
+            text: 'Camera',
+            icon:'camera',
+            handler: () => {
+              console.log("Camera Clicked");
+              this.takeDocPhoto3();
+            }
+          },
+          {
+            cssClass: 'sheet-m1',
+            text: 'Gallery',
+            icon:'image',
+            handler: () => {
+              console.log("Gallery Clicked");
+              this.getDocImage3();
+            }
+          },
+          {
+            cssClass: 'cs-cancel',
+            text: 'Cancel',
+            role: 'cancel',
+            handler: () => {
+              console.log('Cancel clicked');
+            }
+          }
+        ]
+      });
+      actionsheet.present();
+    }
+
+    takeDocPhoto3()
+    {
+      console.log("i am in camera function");
+      const options: CameraOptions = {
+        quality: 70,
+        destinationType: this.camera.DestinationType.DATA_URL,
+        targetWidth : 500,
+        targetHeight : 400
+      }
+
+      console.log(options);
+      this.camera.getPicture(options).then((imageData) => {
+        this.flag=false;
+        this.data.cancel_check_image = 'data:image/jpeg;base64,' + imageData;
+        console.log(this.data.cancel_check_image);
+      }, (err) => {
+      });
+    }
+    getDocImage3()
+    {
+      const options: CameraOptions = {
+        quality: 70,
+        destinationType: this.camera.DestinationType.DATA_URL,
+        sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
+        saveToPhotoAlbum:false
+      }
+      console.log(options);
+      this.camera.getPicture(options).then((imageData) => {
+        this.flag=false;
+        this.data.cancel_check_image = 'data:image/jpeg;base64,' + imageData;
+        console.log(this.data.cancel_check_image);
+      }, (err) => {
+      });
+    }
+
         // handleReaderLoaded(e) {
         //   this.data.document_image = 'data:image/png;base64,' + btoa(e.target.result);
         //   console.log( this.data.document_image );
@@ -361,5 +620,17 @@ export class RegistrationPage {
             event.preventDefault();
           }
         }
+        MobileNumber1(event: any) {
+          console.log('Decimal Restrit');
+
+          const charCode = (event.which) ? event.which : event.keyCode;
+          console.log(charCode);
+
+          if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+              return false;
+          }
+          return true;
+
+      }
 
 }

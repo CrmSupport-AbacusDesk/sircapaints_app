@@ -2,8 +2,8 @@
     <ion-navbar>
         <ion-title>
             
-            <h1 *ngIf="order_type == 'Primary'">Order To Gravity</h1>
-            <h1 *ngIf="order_type == 'Secondary'">Order To Channel Partner</h1>
+            <h1 *ngIf="order_type == 'Primary'">Order To Sirca</h1>
+            <h1 *ngIf="order_type == 'Secondary'">Order To Distributor</h1>
         </ion-title>
     </ion-navbar>
     <ion-navbar>
@@ -97,7 +97,7 @@
                     </div>
                     <div class="right-info">
                         <p *ngIf="order_type == 'Primary' ">{{row.dr_name.toUpperCase()}}</p>
-                        <p *ngIf="order_type == 'Secondary'"> Retail Partner : {{row.dr_name.toUpperCase()}}</p>
+                        <p *ngIf="order_type == 'Secondary'"> Dealers : {{row.dr_name.toUpperCase()}}</p>
                         <p> Total Item : {{row.order_item ? row.order_item : '0'}}</p>
                         <p> Tally Status : {{row.Tally_status}}</p>
                         

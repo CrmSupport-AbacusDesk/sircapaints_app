@@ -1,10 +1,10 @@
 <ion-header>
     <ion-navbar>
         <ion-title>
-            <h1 *ngIf="order_type == 'Primary' && dbService.userStorageData.type==1"> Order To Gravity</h1>
-            <h1 *ngIf="order_type == 'Primary' && dbService.userStorageData.type==7"> Order To Gravity</h1>
+            <h1 *ngIf="order_type == 'Primary' && dbService.userStorageData.type==1"> Order To Sirca</h1>
+            <h1 *ngIf="order_type == 'Primary' && dbService.userStorageData.type==7"> Order To Sirca</h1>
             <h1 *ngIf="order_type == 'Primary' && dbService.userStorageData.type==3"> Order To Distributor</h1>
-            <h1 *ngIf="order_type == 'Secondary' && dbService.userStorageData.type==1"> Order From Retail Partner</h1>
+            <h1 *ngIf="order_type == 'Secondary' && dbService.userStorageData.type==1"> Order From Dealers</h1>
         </ion-title>
     </ion-navbar>
     <ion-navbar>
@@ -155,7 +155,7 @@
                     <button><p >{{row.order_no}}</p></button>
                 </div>
             </div>
-            <div class="mid" [ngClass]="{'mt0' : row.order_status=='Draft' }">
+            <div class="mid" [ngClass]="{'mt0' : row.order_status=='Draft'}">
                 <div class="content-info">
                     <div class="left-info">
                         <div class="circle" *ngIf="order_type == 'Primary' && dbService.userStorageData.id==row.created_by && row.created_by_type=='channel partner'">S</div>
@@ -164,7 +164,7 @@
                     <div class="right-info">
                         <p *ngIf="order_type == 'Primary' && dbService.userStorageData.id==row.created_by && row.created_by_type=='channel partner'"> Created By : Self</p>
                         <p *ngIf="order_type == 'Primary' && dbService.userStorageData.id!=row.created_by && row.created_by_type!='channel partner'"> Created By : {{row.order_creator | titlecase}}</p>
-                        <p *ngIf="order_type == 'Secondary'"> Retail Partner : {{row.dr_name.toUpperCase()}}</p>
+                        <p *ngIf="order_type == 'Secondary'"> Dealers : {{row.dr_name.toUpperCase()}}</p>
                         <p> Total Item : {{row.order_item ? row.order_item : '0'}}</p>
                         <p> Tally Status : {{row.Tally_status}}</p>
                         <p *ngIf="row.order_status == 'Hold' && row.reason_reject && row.reason_reject!='' "> Hold Reason : {{row.reason_reject ? row.reason_reject : '--'}}</p>
@@ -198,7 +198,7 @@
                 <span class="counter fa-count">{{pri_ord}}</span>
             </button>
             
-            <button class="fab-change" [ngClass]="{'active': order_type == 'Secondary'}" (click)="change_tab('Secondary');" ><p>Order From Retail Partner</p> 
+            <button class="fab-change" [ngClass]="{'active': order_type == 'Secondary'}" (click)="change_tab('Secondary');" ><p>Order From Dealers</p> 
                 <span class="counter fa-count">{{sec_ord}}</span>
             </button>
         </div>

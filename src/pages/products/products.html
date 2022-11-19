@@ -31,20 +31,20 @@
 
     <div *ngIf="prod_cat_list.length" class="main-div" >
         <ion-list *ngFor="let list of prod_cat_list; let i=index">
-            <button  *ngIf="!list.image" ion-item (click)="goOnProductDetailPage(list.id, list.imageCompletePath)">
+            <button  *ngIf="!list.image" ion-item (click)="goOnProductDetailPage2(list.id,list.product_name)">
                 <div class="image-manage">
-                    <!-- <img *ngIf="!list.image || list.image.length==0" src="assets/imgs/no-thumbnail.jpg"> -->
-                    <img *ngIf="list.image && list.image.length!=0" src="{{list.imageCompletePath}}">
+                    <img *ngIf="!list.image || list.image.length==0" src="assets/imgs/no-thumbnail.jpg">
+                    <!-- <img *ngIf="list.image && list.image.length!=0" src="{{list.image}}"> -->
                 </div>
-                <p>{{list.category_name}}</p>
+                <p>{{list.product_name}}</p>
             </button>
 
-            <button  *ngIf="list.image" ion-item (click)="goOnProductDetailPage(list.id,list.imageCompletePath)">
+            <button  *ngIf="list.image" ion-item (click)="goOnProductDetailPage2(list.id,list.product_name)">
                 <div class="image-manage">
                     <!-- <img *ngIf="!list.image || list.image.length==0" src="assets/imgs/no-thumbnail.jpg"> -->
-                    <img *ngIf="list.image && list.image.length!=0" src="{{list.imageCompletePath}}">
+                    <img *ngIf="list.image && list.image.length!=0" src="{{list.image}}">
                 </div>
-                <p>{{list.category_name}}</p>
+                <p>{{list.product_name}}</p>
             </button>
 
         </ion-list>

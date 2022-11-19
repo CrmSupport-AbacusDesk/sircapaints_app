@@ -93,6 +93,7 @@
   },
   "devDependencies": {
     "@ionic/app-scripts": "3.2.4",
+    "@types/google-maps": "^3.2.3",
     "cordova-android": "^9.1.0",
     "cordova-plugin-android-permissions": "^1.1.2",
     "cordova-plugin-document-viewer": "^0.9.13",
@@ -154,7 +155,10 @@
       "cordova-plugin-media": {
         "KEEP_AVAUDIOSESSION_ALWAYS_ACTIVE": "NO"
       },
-      "phonegap-plugin-push": {}
+      "phonegap-plugin-push": {
+        "ANDROID_SUPPORT_V13_VERSION": "27.+",
+        "FCM_VERSION": "17.0.+"
+      }
     },
     "platforms": [
       "ios",

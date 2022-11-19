@@ -19,7 +19,7 @@
 		</ion-list-header>
 
 		<ion-item>
-			<ion-label>Channel Partner</ion-label>
+			<ion-label>Distributor</ion-label>
 			<ion-radio value="1" ></ion-radio>
 		</ion-item>
 		<ion-item>
@@ -34,12 +34,16 @@
 			<ion-label>Other</ion-label>
 			<ion-radio value="Other"></ion-radio>
 		</ion-item>
+		<ion-item>
+			<ion-label>Site</ion-label>
+			<ion-radio value="Site"></ion-radio>
+		</ion-item>
 	</ion-list>
 </ng-container>
 	<div *ngIf="data.network == '1' || data.network == '7' || data.network == '3'" class="edit m0 mt16">
 		<ion-list>
 			<ion-item class="cs-select">
-				<ion-label *ngIf="data.network == '1'">Channel Partner</ion-label>
+				<ion-label *ngIf="data.network == '1'">Distributor</ion-label>
 				<ion-label *ngIf="data.network == '3'">Dealer</ion-label>
 				<ion-label *ngIf="data.network == '7'">Direct Dealer</ion-label>
 
@@ -65,6 +69,31 @@
 	<p> <span>Mobile :</span> {{type_name.mobile}}</p>
 	<p *ngIf=" type_name.address  || type_name.state  || type_name.district  || type_name.city  || type_name.area  || type_name.pincode"> <span>Address :</span>{{type_name.address}} {{type_name.state | titlecase}} {{type_name.district | titlecase}} {{type_name.city | titlecase}} {{type_name.area | titlecase}}  {{type_name.pincode}}</p>
 </div>
+
+<!-- ///////////site checkin////////////////////////////////////// -->
+<div *ngIf="data.network == 'Site'" class="edit m0 mt16">
+	<ion-list>
+		<ion-item class="cs-select">
+			<ion-label *ngIf="data.network == 'Site'">Site</ion-label>
+			
+			<ionic-selectable
+			item-content
+			[(ngModel)]="data.site_detail"
+			[items]="distributor_network_list"
+			itemValueField="id"
+			name="name"
+			value="created_name"
+			itemTextField="created_name"
+		
+			[canSearch]="true"
+			#selectComponent>
+		</ionic-selectable>
+	</ion-item>
+</ion-list>
+</div>
+
+<!-- //////////////////////////////////site checkin//////////////////////////////////// -->
+
 
 <form name="f1" #f1="ngForm" (ngSubmit)="f1.valid && startOtherVisit()">
 	<div class="edit m0" *ngIf="data.network == 'Other'" >
@@ -171,6 +200,9 @@
 	<button ion-button block class="h40 green-color mt20" style="letter-spacing: 1px;"  *ngIf="addNewDealer==true">Start Visit</button>
 	<!-- (click)="startDealerVisit()" -->
 </form>
+
+
+<button ion-button block class="h40 green-color mt20" style="letter-spacing: 1px;" [disabled]="!data.network" (click)="startSiteVisit()" *ngIf="data.network=='Site'">Start Visit</button>
 
 
 <button ion-button block class="h40 green-color mt20" style="letter-spacing: 1px;" [disabled]="!data.network" (click)="startVisit()" *ngIf="data.network != 'Other' && other_name != 'Other' && (type_name.company_name) && addNewDealer==false">Start Visit</button>

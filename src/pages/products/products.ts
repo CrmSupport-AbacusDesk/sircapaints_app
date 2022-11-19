@@ -21,7 +21,7 @@ export class ProductsPage {
     no_rec:any=false;
     name:any='';
     skelton:any={}
-
+    id:any='';
     constructor(public navCtrl: NavController,
                 public navParams: NavParams,
                 public dbService:DbserviceProvider,
@@ -36,10 +36,12 @@ export class ProductsPage {
 
         ionViewDidLoad() {
             console.log('ionViewDidLoad ProductsPage');
-            this.filter.name  = this.navParams.get('name');
+            // this.filter.name  = this.navParams.get('name');
+            this.id=this.navParams.get('id');
         }
         ionViewWillEnter()
         {
+
             this.getProductCategoryListWithLiveServer();
             this.presentLoading();
         }
@@ -48,6 +50,7 @@ export class ProductsPage {
         {
             console.log('Begin async operation', refresher);
             this.getProductCategoryListWithLiveServer();
+
             refresher.complete();
         }
 
@@ -57,6 +60,11 @@ export class ProductsPage {
             this.navCtrl.push(ProductDetailPage,{'id':id, src: 'category'})
         }
 
+        goOnProductDetailPage2(id,categoryName){
+            this.navCtrl.push(ProductDetailPage,{'id':id, src: 'category','categoryName':categoryName})
+        }
+
+     
 
         getProductCategoryList() {
             this.filter.limit = 0;
@@ -108,32 +116,36 @@ export class ProductsPage {
 
         getProductCategoryListWithLiveServer()
         {
-            this.filter.limit = 0;
-            this.dbService.onPostRequestDataFromApi({'filter' : this.filter},'app_master/categoryList', this.dbService.rootUrl)
+            // this.filter.limit = 0;
+            this.dbService.onPostRequestDataFromApi({'id':this.id,'filter':this.filter},'app_karigar/getProduct', this.dbService.rootUrl)
             .subscribe((r)=>
             {
                 // this.loading.dismiss();
-                this.prod_cat_list=r['categories'];
-                if(this.prod_cat_list.length == 0)
+                this.prod_cat_list=r['productData'];
+                console.log(this.prod_cat_list.length);
+
+                if(this.prod_cat_list.length==0)
                 {
-                    this.no_rec = true;
+                    console.log("true");
+                    this.no_rec=true;
                 }
                 else
                 {
-                    this.no_rec = false;
+                    console.log("false");
+                    this.no_rec=false;
                 }
-                for (let index = 0; index < this.prod_cat_list.length; index++) {
+                // for (let index = 0; index < this.prod_cat_list.length; index++) {
 
-                    this.getImages(this.prod_cat_list[index]['id'],index)
+                //     this.getImages(this.prod_cat_list[index]['id'],index)
 
 
-                }
-                // if(this.prod_cat_list.length == 1)
-                // {
-                //   console.log('list length is one');
-                //   console.log(this.prod_cat_list[0].id);
-                //   this.goOnProductDetailPage(this.prod_cat_list[0].id)
                 // }
+                if(this.prod_cat_list.length == 1)
+                {
+                  console.log('list length is one');
+                  console.log(this.prod_cat_list[0].id);
+                  this.goOnProductDetailPage2(this.prod_cat_list[0].id,this.prod_cat_list[0].image)
+                }
             },(error: any) => {
                 // this.loading.dismiss();
             })
@@ -151,8 +163,8 @@ export class ProductsPage {
         {
             console.log('loading');
 
-            this.filter.limit=this.prod_cat_list.length;
-            this.dbService.onPostRequestDataFromApi({'filter' : this.filter},'app_master/categoryList', this.dbService.rootUrl)
+            // this.filter.limit=this.prod_cat_list.length;
+            this.dbService.onPostRequestDataFromApi({'filter' : this.filter , 'id':this.id},'app_karigar/getProduct', this.dbService.rootUrl)
             .subscribe( r =>
                 {
                     console.log(r);
