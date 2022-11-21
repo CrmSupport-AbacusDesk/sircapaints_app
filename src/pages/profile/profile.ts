@@ -88,7 +88,8 @@ export class ProfilePage {
                 }]
               });
               alert2.present();
-              this.app.getRootNav().setRoot(SelectRegistrationTypePage);
+              // this.app.getRootNav().setRoot(SelectRegistrationTypePage);
+              this.navCtrl.push(SelectRegistrationTypePage);
               
             }
           }

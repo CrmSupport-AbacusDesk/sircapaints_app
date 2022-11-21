@@ -61,32 +61,37 @@
             <div class="cs-form mt16">
                 <ion-list>
                     <ion-item class="cs-input" [ngClass]="{'error':(f.address && address?.invalid) || (f.submitted && !address.valid)}">
-                        <ion-label floating>Street <span>*</span></ion-label>
-                        <ion-input type="text"  type="text"  name="address"  #address="ngModel" [(ngModel)]="data.address" (ngModelChange)="caps_add(data.address)" required></ion-input>
+                        <!-- <ion-label floating>Street <span>*</span></ion-label> -->
+                        <ion-label floating>Street</ion-label>
+                        <ion-input type="text"  type="text"  name="address"  #address="ngModel" [(ngModel)]="data.address" (ngModelChange)="caps_add(data.address)"></ion-input>
                     </ion-item>
 
                     <ion-item class="cs-select" [ngClass]="{'error':f.submitted && state?.invalid}">
-                        <ion-label >State <span>*</span></ion-label>
-                        <ion-select name="state" [(ngModel)]="data.state" #state="ngModel" (ngModelChange)="getDistrictList(data.state)" required>
+                        <!-- <ion-label >State <span>*</span></ion-label> -->
+                        <ion-label >State </ion-label>
+                        <ion-select name="state" [(ngModel)]="data.state" #state="ngModel" (ngModelChange)="getDistrictList(data.state)">
                             <ion-option *ngFor="let row of state_list" value="{{row.state_name}}">{{row.state_name}}</ion-option>
                         </ion-select>
                     </ion-item>
 
                     <ion-item class="cs-select" [ngClass]="{'error':f.submitted && district?.invalid}">
-                        <ion-label >District <span>*</span></ion-label>
-                        <ion-select name="district"[(ngModel)]="data.district" #district="ngModel" required>
+                        <!-- <ion-label >District <span>*</span></ion-label> -->
+                        <ion-label >District</ion-label>
+                        <ion-select name="district"[(ngModel)]="data.district" #district="ngModel">
                             <ion-option *ngFor="let row of district_list" value="{{row.district_name}}">{{row.district_name}}</ion-option>
                         </ion-select>
                     </ion-item>
 
                     <ion-item class="cs-input" [ngClass]="{'error':f.submitted && city?.invalid}">
-                        <ion-label floating >City <span>*</span></ion-label>
-                        <ion-input type="text" name="city" [(ngModel)]="data.city" #city="ngModel" required ></ion-input>
+                        <!-- <ion-label floating >City <span>*</span></ion-label> -->
+                        <ion-label floating >City</ion-label>
+                        <ion-input type="text" name="city" [(ngModel)]="data.city" #city="ngModel" ></ion-input>
                     </ion-item>
 
                     <ion-item class="cs-input mb32" [ngClass]="{'error':f.submitted && pincode?.invalid}">
-                        <ion-label floating>Pincode <span>*</span></ion-label>
-                        <ion-input type="tel" name="pincode" [(ngModel)]="data.pincode" #pincode="ngModel" maxlength="6" minlength="6" (keypress)="MobileNumber($event)" required></ion-input>
+                        <!-- <ion-label floating>Pincode <span>*</span></ion-label> -->
+                        <ion-label floating>Pincode</ion-label>
+                        <ion-input type="tel" name="pincode" [(ngModel)]="data.pincode" #pincode="ngModel" maxlength="6" minlength="6" (keypress)="MobileNumber($event)"></ion-input>
                     </ion-item>
                 </ion-list>
 
@@ -146,9 +151,9 @@
 
                         <ion-item class="cs-input" [ngClass]="{'error':f.submitted && adhar_no?.invalid}">
                             <ion-label floating>Aadhaar Number</ion-label>
-                            <ion-input type="tel" name="adhar_no" #adhar_no="ngModel" [(ngModel)]="data.adhar_no"  maxlength="12" minlength="12" required></ion-input>
+                            <ion-input type="tel" name="adhar_no" #adhar_no="ngModel" [(ngModel)]="data.adhar_no"  maxlength="12" minlength="12"></ion-input>
                         </ion-item>
-                                   <p  *ngIf="f.submitted && adhar_no?.invalid" class="error-line">Aadhaar  Is Required</p>
+                                   <!-- <p  *ngIf="f.submitted && adhar_no?.invalid" class="error-line">Aadhaar  Is Required</p> -->
 
 
 
@@ -174,9 +179,9 @@
 
                         <ion-item class="cs-input"  [ngClass]="{'error':f.submitted && pan_no?.invalid}">
                             <ion-label floating>Pan Card Number</ion-label>
-                            <ion-input type="text" name="pan_no" #pan_no="ngModel" [(ngModel)]="data.pan_no" required></ion-input>
+                            <ion-input type="text" name="pan_no" #pan_no="ngModel" [(ngModel)]="data.pan_no"></ion-input>
                         </ion-item>
-                        <p  *ngIf="f.submitted && pan_no?.invalid" class="error-line">Pan Card  Is Required</p>
+                        <!-- <p  *ngIf="f.submitted && pan_no?.invalid" class="error-line">Pan Card  Is Required</p> -->
 
 
 
@@ -203,9 +208,9 @@
 
                         <ion-item class="cs-input"   [ngClass]="{'error':f.submitted && cancel_check?.invalid}">
                             <ion-label floating>Cancel Check Number</ion-label>
-                            <ion-input type="text" name="cancel_check" #cancel_check="ngModel" [(ngModel)]="data.cancel_check" required></ion-input>
+                            <ion-input type="text" name="cancel_check" #cancel_check="ngModel" [(ngModel)]="data.cancel_check"></ion-input>
                         </ion-item>
-                        <p  *ngIf="f.submitted && cancel_check?.invalid" class="error-line">Cancel Check  Is Required</p>
+                        <!-- <p  *ngIf="f.submitted && cancel_check?.invalid" class="error-line">Cancel Check  Is Required</p> -->
 
 
                         <ion-item class="cs-input" [ngClass]="{'error':f.submitted && referral_by_code?.invalid}" >

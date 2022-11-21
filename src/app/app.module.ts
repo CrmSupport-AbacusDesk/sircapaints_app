@@ -189,6 +189,7 @@ import { SiteDetailPageModule } from '../pages/site-detail/site-detail.module';
 import { ContractorDetailPageModule } from '../pages/contractor-detail/contractor-detail.module';
 import { ArchitectDetailPageModule } from '../pages/architect-detail/architect-detail.module';
 import { SiteSelectPageModule } from '../pages/site-select/site-select.module';
+import { PointLocation2PageModule } from '../pages/point-location2/point-location2.module';
 
 
 
@@ -289,6 +290,7 @@ import { SiteSelectPageModule } from '../pages/site-select/site-select.module';
         Super30PageModule,
         CancelComplaintPageModule,
         PointLocationPageModule ,
+        PointLocation2PageModule,
         EmailModalPageModule,
         EditProfilePageModule ,
         ComplaintRemarksPageModule,

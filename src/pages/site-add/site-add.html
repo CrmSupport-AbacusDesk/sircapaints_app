@@ -242,6 +242,14 @@
                 </ion-select>
               </ion-item>
 
+              <ion-item  class="cs-select" [ngClass]="{'error':f.submitted && architect_id?.invalid}">
+              <ion-label>Architect Name</ion-label>
+              <ion-select [(ngModel)]="siteform.architect_id" name="architect_id" #architect_id="ngModel">
+                <ion-option *ngFor="let item of architectList; let i=index" value="{{item.id}}">{{item.first_name}}
+                  ({{item.mobile_no}})</ion-option>
+              </ion-select>
+            </ion-item>
+
 
             </ng-container>
 
@@ -318,6 +326,13 @@
               </ion-list>
             </div>
           </div>
+
+          <ion-list>
+            <ion-item>
+          <a  ion-button block class="h40 green-color mt15" style="letter-spacing: 1px;" (click)="goToPointLocation2()">Add New Location</a>
+
+            </ion-item>
+          </ion-list>
 
           <!-- <ion-list>
             <ion-item >

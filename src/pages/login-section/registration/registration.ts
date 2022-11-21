@@ -48,6 +48,7 @@ export class RegistrationPage {
     this.getstatelist();
     this.getDr();
     // this.data.gender="male";
+    console.log(this.dbService.userStorageData.id);
     this.data.document_type='Adharcard';
     this.today_date = new Date().toISOString().slice(0,10);
 
@@ -110,6 +111,7 @@ export class RegistrationPage {
           this.data.registrationType = this.navParams.get('loginType');
           this.data.status='Pending';
           this.data.karigar_edit_id='';
+          this.data.created_by=this.dbService.userStorageData.id;
           this.saveFlag = true;
           this.presentLoading();
           console.log(this.data);
@@ -145,7 +147,7 @@ export class RegistrationPage {
                     else if(r['status'] == 'SUCCESS')
                     {
 
-                      if(this.Employee='Employee'){
+                      if(this.Employee=='Employee'){
                         this.navCtrl.push(DashboardPage);
 
                       }else{

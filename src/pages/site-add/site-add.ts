@@ -2,13 +2,9 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { ActionSheetController, IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 import { DbserviceProvider } from '../../providers/dbservice/dbservice';
+import { PointLocation2Page } from '../point-location2/point-location2';
 import { SiteListPage } from '../site-list/site-list';
-import { Geolocation } from '@ionic-native/geolocation';
-import { google } from 'google-maps';
 
-import { NativeGeocoder, NativeGeocoderReverseResult, NativeGeocoderOptions } from '@ionic-native/native-geocoder';
-import { LocationAccuracy } from '@ionic-native/location-accuracy';
-// import { google } from 'google-maps';
 /**
  * Generated class for the SiteAddPage page.
  *
@@ -16,7 +12,6 @@ import { LocationAccuracy } from '@ionic-native/location-accuracy';
  * Ionic pages and navigation.
  */
 
-declare var google:any;
 
 
 @IonicPage()
@@ -34,34 +29,25 @@ export class SiteAddPage {
   brandData: any = [];
   pcs: any = [];
   engineer: any = [];
+  // latitude:any;
+  // longitude:any;
   contractorList: any = [];
   data: any = {};
   flag: boolean = true;
-  loginType: any = '';
+  loginType:any='';
   loginId: any = '';
   loginName: any = '';
   id: any = 0;
-  @ViewChild('map') mapElement: ElementRef;
-  map: any;
+
   address: string;
-
-  latitude: any;
-  longitude: any;
-  locat: any;
-  geoAddress: any = '';
-  old_location: any;
-  // geolocation: any;
+  latitude:any=20.5937;
+  longitude:any=78.9629;
+  
   new_lat: any;
+  filter:any={};
+  architectList:any=[];
   new_long: any;
-  cust_latLong: any;
-  plum_latLong: any;
-  directionsService = new google.maps.DirectionsService;
-  directionsDisplay = new google.maps.DirectionsRenderer;
-
-  geoencoderOptions: NativeGeocoderOptions = {
-    useLocale: true,
-    maxResults: 5
-  };
+  
 
 
   constructor(
@@ -70,12 +56,11 @@ export class SiteAddPage {
     public dbService: DbserviceProvider,
     public actionSheetController: ActionSheetController,
     private camera: Camera,
-    public locationAccuracy: LocationAccuracy,
-    public geolocation: Geolocation,
-    private nativeGeocoder: NativeGeocoder,
     public toastCtrl:ToastController,
 
   ) {
+    console.log(this.navParams);
+
     console.log(this.navParams.get('id'));
     this.id = this.navParams.get('id');
 
@@ -96,106 +81,11 @@ export class SiteAddPage {
     }
     this.getStates();
     this.getContractorList();
-    this.loadMap();
+    this.getArchitectList();
 
   }
 
-  loadMap() {
-    this.locationAccuracy.request(this.locationAccuracy.REQUEST_PRIORITY_HIGH_ACCURACY)
-    .then(() => {
-      let options = {
-        maximumAge: 10000, timeout: 15000, enableHighAccuracy: true
-      };
-      this.geolocation.getCurrentPosition().then((resp) => {
-        let latLng = new google.maps.LatLng(resp.coords.latitude, resp.coords.longitude);
-        let mapOptions = {
-          center: latLng,
-          zoom: 15,
-          mapTypeId: google.maps.MapTypeId.ROADMAP
-        }
-
-
-        this.new_lat=resp.coords.latitude;
-        this.new_long=resp.coords.longitude;
-
-        console.log(latLng);
-
-        this.getGeoencoder(resp.coords.latitude, resp.coords.longitude);
-
-        this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
-        this.addMarker(this.map);
-
-      }).catch((error) => {
-        this.dbService.presentToast('Error getting location')
-        console.log('Error getting location', error);
-      })
-    },
-    error => {
-      console.log('Error requesting location permissions', error);
-      let toast = this.toastCtrl.create({
-        message: 'Allow Location Permissions',
-        duration: 3000,
-        position: 'bottom'
-      });
-      toast.present();
-    });
-
-  }
-
-  addMarker(map:any){
-
-    let marker = new google.maps.Marker({
-      map: map,
-      animation: google.maps.Animation.DROP,
-      position: map.getCenter()
-    });
-
-    let content = this.geoAddress;
-
-    this.addInfoWindow(marker, content);
-
-  }
-
-  addInfoWindow(marker, content){
-
-    let infoWindow = new google.maps.InfoWindow({
-      content: content
-    });
-
-    google.maps.event.addListener(marker, 'click', () => {
-      infoWindow.open(this.map, marker);
-    });
-  }
-
-  getGeoencoder(latitude,longitude)
-  {
-    this.nativeGeocoder.reverseGeocode(latitude, longitude, this.geoencoderOptions)
-    .then((result: NativeGeocoderReverseResult[]) => {
-      this.geoAddress = this.generateAddress(result[0]);
-    })
-    .catch((error: any) => {
-      // alert('Error getting location'+ JSON.stringify(error));
-    });
-  }
-
-
-   //Return Comma saperated address
-   generateAddress(addressObj){
-    let obj = [];
-    let address = "";
-    for (let key in addressObj) {
-      obj.push(addressObj[key]);
-    }
-    obj.reverse();
-    for (let val in obj) {
-      if(obj[val].length)
-      address += obj[val]+', ';
-    }
-    // console.log(address);
-
-    return address.slice(0, -2);
-  }
-
+ 
 
   submit() {
     this.dbService.onShowLoadingHandler();
@@ -283,6 +173,20 @@ export class SiteAddPage {
       this.contractorList = ress['contractorData'];
       this.dbService.dismiss_loading();
     }, err => {
+      this.dbService.errToasr();
+      this.dbService.dismiss_loading();
+    })
+
+  }
+
+ 
+  getArchitectList(){
+    this.dbService.show_loading();
+    this.dbService.onPostRequestDataFromApi({'karigar':this.filter},'app_karigar/getArchitech',this.dbService.rootUrl).subscribe((ress)=>{
+      console.log(ress);
+      this.architectList=ress['architechData'];
+      this.dbService.dismiss_loading();
+    },err=>{
       this.dbService.errToasr();
       this.dbService.dismiss_loading();
     })
@@ -377,6 +281,10 @@ export class SiteAddPage {
     }
     return true;
 
+}
+
+goToPointLocation2(){
+  this.navCtrl.push(PointLocation2Page , {'lat':this.latitude,'lng':this.longitude,'siteform':this.siteform})
 }
 
 
