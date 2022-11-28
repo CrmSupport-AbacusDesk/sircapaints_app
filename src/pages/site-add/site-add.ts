@@ -63,7 +63,11 @@ export class SiteAddPage {
 
     console.log(this.navParams.get('id'));
     this.id = this.navParams.get('id');
+    if(this.navParams.get('from')=='point-location'){
+      this.siteform  = this.navParams.get('siteform');
+      this.data = this.navParams.get('data');
 
+    }
   }
 
   ionViewDidLoad() {
