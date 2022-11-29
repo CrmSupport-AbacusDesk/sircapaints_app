@@ -88,11 +88,11 @@
             </div>
 
 
-            <ion-item class="cs-input mt0" [ngClass]="{'error':f.submitted && sales_zone?.invalid}" hidden>
+            <!-- <ion-item class="cs-input mt0" [ngClass]="{'error':f.submitted && sales_zone?.invalid}" hidden>
               <ion-label floating>Sales Zone*</ion-label>
               <ion-input type="text" name="sales_zone" [(ngModel)]="siteform.sales_zone" #sales_zone="ngModel" readonly>
               </ion-input>
-            </ion-item>
+            </ion-item> -->
 
             <!-- <ng-container>
               <ion-item class="cs-select" [ngClass]="{'error':f.submitted && dealer_id?.invalid}">
@@ -196,7 +196,8 @@
             <ng-container>
               <ion-item class="cs-input" [ngClass]="{'error':f.submitted && project_size?.invalid}">
                 <ion-label floating>Project Size (Cons. Area) Sq. Ft</ion-label>
-                <ion-input type='text' name="project_size" [(ngModel)]="siteform.project_size" (keypress)="MobileNumber1($event)" #project_size="ngModel">
+                <ion-input type='text' name="project_size" [(ngModel)]="siteform.project_size"
+                  (keypress)="MobileNumber1($event)" #project_size="ngModel">
                 </ion-input>
               </ion-item>
               <div *ngIf="f.submitted && project_size.invalid" class="invalid-feedback">
@@ -236,19 +237,19 @@
               <ion-item *ngIf="loginType!='Contractor'" class="cs-select"
                 [ngClass]="{'error':f.submitted && pc_id?.invalid}">
                 <ion-label>Contractor Name</ion-label>
-                <ion-select [(ngModel)]="siteform.pc_id" name="pc_id " #pc_id ="ngModel">
+                <ion-select [(ngModel)]="siteform.pc_id" name="pc_id " #pc_id="ngModel">
                   <ion-option *ngFor="let item of contractorList; let i=index" value="{{item.id}}">{{item.first_name}}
                     ({{item.mobile_no}})</ion-option>
                 </ion-select>
               </ion-item>
 
-              <ion-item  class="cs-select" [ngClass]="{'error':f.submitted && architect_id?.invalid}">
-              <ion-label>Architect Name</ion-label>
-              <ion-select [(ngModel)]="siteform.architect_id" name="architect_id" #architect_id="ngModel">
-                <ion-option *ngFor="let item of architectList; let i=index" value="{{item.id}}">{{item.first_name}}
-                  ({{item.mobile_no}})</ion-option>
-              </ion-select>
-            </ion-item>
+              <ion-item class="cs-select" [ngClass]="{'error':f.submitted && architect_id?.invalid}">
+                <ion-label>Architect Name</ion-label>
+                <ion-select [(ngModel)]="siteform.architect_id" name="architect_id" #architect_id="ngModel">
+                  <ion-option *ngFor="let item of architectList; let i=index" value="{{item.id}}">{{item.first_name}}
+                    ({{item.mobile_no}})</ion-option>
+                </ion-select>
+              </ion-item>
 
 
             </ng-container>
@@ -327,12 +328,13 @@
             </div>
           </div>
 
-          <ion-list>
+          <!-- <ion-list>
             <ion-item>
-          <a  ion-button block class="h40 green-color mt15" style="letter-spacing: 1px;" (click)="goToPointLocation2()">Add New Location</a>
+              <a ion-button block class="h40 green-color mt15" style="letter-spacing: 1px;"
+                (click)="goToPointLocation2()">Add New Location</a>
 
             </ion-item>
-          </ion-list>
+          </ion-list> -->
 
           <!-- <ion-list>
             <ion-item >
