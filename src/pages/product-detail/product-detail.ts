@@ -68,7 +68,9 @@ export class ProductDetailPage {
 
       console.log('Begin async operation', refresher);
       this.flag = '';
+
       this.getProductListWithLiveServer(this.cat_id,'');
+
       refresher.complete();
     }
 

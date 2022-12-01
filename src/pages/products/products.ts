@@ -40,6 +40,7 @@ export class ProductsPage {
         }
         ionViewWillEnter()
         {
+
             this.getProductCategoryListWithLiveServer();
             this.presentLoading();
         }

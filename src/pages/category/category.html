@@ -44,8 +44,11 @@
                 </div>
                 <p>{{list.main_category}}</p>
             </button>
+            <button  *ngIf="list.image" ion-item (click)="goOnCategoryListPageWithLiveServer(list.main_category, list.imageCompletePath)">
+
 
             <button  *ngIf="list.image" ion-item (click)="goOnCategoryListPageWithLiveServer(list.main_category, list.imageCompletePath)">
+
                 <div class="image-manage">
                     <img  src="{{list.imageCompletePath}}">
                 </div>
