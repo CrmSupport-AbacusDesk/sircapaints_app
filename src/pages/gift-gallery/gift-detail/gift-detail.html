@@ -51,7 +51,7 @@
             <p>
                 <Strong>Specification : </Strong>{{gift_detail.gift_specification}}</p>
         </div>
-        <button ion-button class="cs-btn btn-radius mb0" (click)="presentCancelPolicyModal()" *ngIf="karigar_detail.total_balance >= gift_detail.coupon_points">Send Redeem Request</button>
+        <button ion-button class="cs-btn btn-radius mb0" (click)="presentCancelPolicyModal()" *ngIf="(karigar_detail.total_balance >= gift_detail.coupon_points) && (karigar_detail.status=='Verified')">Send Redeem Request</button>
         <div class="h32"></div>
     </div>
     <!-- <div class="fix-item">

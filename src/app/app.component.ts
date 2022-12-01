@@ -521,9 +521,9 @@ export class MyApp {
             {
               title : 'Pop & Gift', name: 'PopGiftListPage', component:PopGiftListPage, index: 15, icon: 'card_giftcard', show: true
             },
-            {
-              title: 'Plumber Meet', name: 'Plumber Meet', component: PlumberMeetListPage,index: 25, icon: 'groups', show: true
-            },
+            // {
+            //   title: 'Plumber Meet', name: 'Plumber Meet', component: PlumberMeetListPage,index: 25, icon: 'groups', show: true
+            // },
             {
               title : 'Account Statement', name: 'AccountStatementPage', component:AccountStatementPage, index: 15, icon: 'receipt', show: true
             },
@@ -567,9 +567,9 @@ export class MyApp {
             {
               title : 'Quotation', name: 'QuotationDistributorPage', component:QuotationDistributorPage, index: 10, icon: 'insert_drive_file', show: true
             },
-            {
-              title: 'Plumber Meet', name: 'Plumber Meet', component: PlumberMeetListPage,index: 25, icon: 'groups', show: true
-            },
+            // {
+            //   title: 'Plumber Meet', name: 'Plumber Meet', component: PlumberMeetListPage,index: 25, icon: 'groups', show: true
+            // },
             {
               title : 'Add New Order', name: 'DealerAddorderPage', component:DealerAddorderPage, index: 8, icon: 'widgets', show: true
             },

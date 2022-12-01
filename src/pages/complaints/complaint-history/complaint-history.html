@@ -70,11 +70,11 @@
           </div>
           
           <div class="wait" *ngIf="complaint.plumberName ==null && complaint.status=='Pending'">
-            <h4>Waiting For Plumber Assign . . .</h4>
+            <h4>Waiting For Contractor Assign . . .</h4>
           </div>
           
           <div class="contect" *ngIf="complaint.plumberName !=null">            
-            <h3>Plumber Information</h3>
+            <h3>Contractor Information</h3>
             <a>
               <i class="material-icons ">assignment_ind</i>
               <p class="pr32">{{complaint.plumberName}}</p>
